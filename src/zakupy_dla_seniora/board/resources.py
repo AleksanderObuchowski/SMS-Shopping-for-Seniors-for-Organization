@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from zakupy_dla_seniora.sms_handler.models import Messages
-from zakupy_dla_seniora.board_view.functions import get_min_max_coordinates
+from zakupy_dla_seniora.board.functions import get_min_max_coordinates
 
 board_view_parser = reqparse.RequestParser()
 board_view_parser.add_argument('latitude', required=False, type=float)

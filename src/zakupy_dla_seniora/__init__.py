@@ -14,13 +14,12 @@ login_manager.login_view = 'main.login'
 
 def register_blueprints(app):
     from zakupy_dla_seniora.main.routes import main
+    from zakupy_dla_seniora.users.routes import users
     app.register_blueprint(main)
+    app.register_blueprint(users)
 
 
 def register_api_resources(api):
-    from zakupy_dla_seniora.users.resources import UserRegistration
-    api.add_resource(UserRegistration, '/register')
-
     from zakupy_dla_seniora.sms_code_verification.resources import SendSMSCode, CheckSMSCode
     api.add_resource(SendSMSCode, '/send_code')
     api.add_resource(CheckSMSCode, '/check_code')
@@ -28,17 +27,11 @@ def register_api_resources(api):
     from zakupy_dla_seniora.sms_handler.resources import ReceiveSMS
     api.add_resource(ReceiveSMS, '/sms')
 
-    from zakupy_dla_seniora.board_view.resources import BoardView
+    from zakupy_dla_seniora.board.resources import BoardView
     api.add_resource(BoardView, '/board')
-
-    from zakupy_dla_seniora.profile_view.resources import ProfileView
-    api.add_resource(ProfileView, '/profile')
 
     from zakupy_dla_seniora.placings.resources import PlacingCreation
     api.add_resource(PlacingCreation, '/placing')
-
-    from zakupy_dla_seniora.leaderboards.resources import Leaderboards
-    api.add_resource(Leaderboards, '/leaderboards')
 
     from zakupy_dla_seniora.placings.resources import PlacingEnding
     api.add_resource(PlacingEnding, '/end_placing')
