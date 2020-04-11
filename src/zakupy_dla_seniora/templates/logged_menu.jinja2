@@ -1,0 +1,46 @@
+<nav class="uk-card-default uk-margin-small uk-card-hover" uk-navbar>
+    <div class="uk-navbar-left">
+        <a href="{{ url_for('main.board') }}" class="uk-navbar-item uk-logo">
+            <img src="{{ url_for('static', filename='delight.svg') }}" style=" height:50px; ">
+            <p class="uk-margin-left">Zakupy dla seniora</p>
+        </a>
+
+        <div class="navbar-collapse" id="navbar_collapse">
+            <ul class="uk-navbar-nav">
+
+                <li class="uk-parent">
+                    <a href="{{ url_for('main.board') }}">
+                        Ogłoszenia
+                    </a>
+                </li>
+                <li class="uk-parent">
+                    <a href="{{ url_for('main.placeholder', title='Profil') }}">
+                        Profil
+                    </a>
+                </li>
+                <li class="uk-parent">
+                    <a href="{{ url_for('main.placeholder', title='Organizacja') }}">
+                        Organizacja
+                    </a>
+                </li>
+                {% if super_user %}
+                    <li class="uk-parent">
+                        <a href="{{ url_for('volunteers.add_volunteers', title='Dodaj Wolontariusza') }}">
+                            Dodaj Wolontariusza
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+    <div class="uk-navbar-right">
+        <div class="uk-navbar-item">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <button class="uk-button"><a href="{{ url_for('auth.logout') }}">Wyloguj</a></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
