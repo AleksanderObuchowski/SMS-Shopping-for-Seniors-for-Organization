@@ -16,16 +16,11 @@ def register_blueprints(app):
     app.register_blueprint(auth)
 
 
-def register_api_resources(api):
-    pass
-
-
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object(Config)
 
     register_blueprints(app)
-    # register_api_resources(api)
 
     db.init_app(app)
     login_manager.init_app(app)
