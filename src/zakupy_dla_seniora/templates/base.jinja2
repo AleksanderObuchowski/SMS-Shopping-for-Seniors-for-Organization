@@ -21,7 +21,9 @@
     {% endblock %}
 </head>
 <body>
-    {% include 'menu.jinja2' %}
+    {% block menu %}
+    {% include 'logged_menu.jinja2' %}
+    {% endblock %}
     {% block content %}
     {% endblock %}
 </body>
