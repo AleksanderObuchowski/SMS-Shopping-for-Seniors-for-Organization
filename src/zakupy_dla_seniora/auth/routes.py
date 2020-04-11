@@ -22,8 +22,8 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.board', title='Logged in'))
         else:
             error_message = "Wrong username or password."
-            return render_template('form.jinja2', title='Login', message=error_message, fields=fields)
-    return render_template('form.jinja2', title='Login', fields=fields)
+            return render_template('login.jinja2', title='Login', message=error_message, fields=fields, logged_user = False)
+    return render_template('login.jinja2', title='Login', fields=fields, logged_user = False)
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -50,9 +50,9 @@ def register_user():
             login_user(new_user)
             return redirect(url_for('main.board', title='Registered'))
         error_message = 'Passwords do not match'
-        return render_template('form.jinja2', title='Register', message=error_message, fields=fields)
+        return render_template('login.jinja2', title='Register', message=error_message, fields=fields)
 
-    return render_template('form.jinja2', title='Register', message=error_message, fields=fields)
+    return render_template('login.jinja2', title='Register', message=error_message, fields=fields)
 
 
 @auth.route('/logout')
