@@ -15,6 +15,9 @@ def register_blueprints(app):
     from zakupy_dla_seniora.auth.routes import auth
     app.register_blueprint(auth)
 
+    from zakupy_dla_seniora.volunteers.routes import volunteers
+    app.register_blueprint(volunteers)
+
 
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path='/static')

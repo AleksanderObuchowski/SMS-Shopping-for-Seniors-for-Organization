@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     display_name = db.Column('display_name', db.String(35), unique=True, nullable=False)
     create_date = db.Column('create_date', db.DateTime)
     phone = db.Column('phone', db.String(12), unique=True)
+    created_by = db.Column('created_by', db.ForeignKey('user.id'), nullable=True)
     # code_sent = db.Column('code_sent', db.Boolean, default=False)
     # verification_code = db.Column('verification_code', db.Integer)
     # verified = db.Column('verified', db.Boolean, default=False)
@@ -26,11 +27,12 @@ class User(db.Model, UserMixin):
     super_user = db.Column('super_user', db.Boolean, default=False)
     # placings = db.relationship('Placings', backref='user', cascade='all, delete-orphan', lazy='dynamic')
 
-    def __init__(self, display_name, email, password, super_user=False):
+    def __init__(self, display_name, email, password, created_by=None, super_user=False):
         self.display_name = display_name
         self.email = email
         self.set_password(password)
         self.super_user = super_user
+        self.created_by = created_by
 
         self.create_date = datetime.now(timezone.utc)
         self.verification_code = randint(1000, 9999)
@@ -53,12 +55,6 @@ class User(db.Model, UserMixin):
 
     def set_phone(self, phone):
         self.phone = phone
-
-    # def set_code_sent(self):
-    #     self.code_sent = True
-    #
-    # def set_verified(self):
-    #     self.verified = True
 
     @classmethod
     def get_by_id(cls, id_):

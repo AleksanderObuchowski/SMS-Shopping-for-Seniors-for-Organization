@@ -2,6 +2,7 @@ from zakupy_dla_seniora import create_app, db
 
 app = create_app()
 port = 80
+debug = True
 
 
 @app.before_first_request
@@ -10,4 +11,4 @@ def manage_db():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=debug)
