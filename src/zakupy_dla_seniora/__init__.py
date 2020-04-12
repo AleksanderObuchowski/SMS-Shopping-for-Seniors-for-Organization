@@ -18,8 +18,12 @@ def register_blueprints(app):
     from zakupy_dla_seniora.volunteers.routes import volunteers
     app.register_blueprint(volunteers)
 
-    from zakupy_dla_seniora.board.routes import board
-    app.register_blueprint(board)
+    # from zakupy_dla_seniora.board.routes import board
+    # app.register_blueprint(board)
+
+    from zakupy_dla_seniora.landing.routes import landing
+    app.register_blueprint(landing)
+
 
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path='/static')

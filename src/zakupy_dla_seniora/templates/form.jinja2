@@ -1,31 +1,34 @@
-<div class="uk-container uk-container-small uk-position-relative">
+<div class="uk-container uk-container-small uk-position-relative ">
     {% if message %}
     <div class="uk-alert-danger uk-alert" uk-alert>
         <a class="uk-alert-close uk-icon uk-close" uk-close></a>
         <p>{{ message }}</p>
     </div>
     {% endif %}
-    <form method="POST" action="">
+    <form method="POST" action="" class="uk-form-stacked">
         {% for name, placeholder, type in fields %}
             <div class="uk-margin" >
-                <div class="uk-inline">
-                    <span class="uk-form-icon" uk-icon="icon: user"></span>
                     {% if message %}
-                        <label>
+                         <div class="uk-form-label">
+                        <label for="{{ name }}">{{ name }}</label>
+                        </div>
+                        <div class="uk-form-controls"   >
                             <input class="uk-input uk-form-danger uk-form-width-medium" required="required"
                                    type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}">
-                        </label>
+                        </div>
                     {% else %}
-                        <label>
+                         <div class="uk-form-label">
+                            <label for="{{ name }}">{{ name }}</label>
+                            </div>
+                        <div class="uk-form-controls"   >
                             <input class="uk-input uk-form-width-medium" type="{{ type }}" required="required"
                                    name="{{ name }}" placeholder="{{ placeholder }}">
-                        </label>
+                        </div>
                     {% endif %}
-                </div>
             </div>
         {% endfor %}
         <div class="uk-margin" >
-            <input class="uk-input uk-form-width-small" type="submit" value="Submit">
+            <input class="uk-input uk-form-width-small" type="submit" value="Login">
         </div>
     </form>
 </div>
