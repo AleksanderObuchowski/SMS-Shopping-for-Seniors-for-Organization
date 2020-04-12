@@ -27,6 +27,10 @@ class Organisations(db.Model):
     def __repr__(self):
         return "<Organisation(id='%s', name='%s')>" % (self.id, self.name)
 
+    @classmethod
+    def get_by_id(cls, id_):
+        return cls.query.filter_by(id=id_).first()
+
     def save(self):
         db.session.add(self)
         db.session.commit()

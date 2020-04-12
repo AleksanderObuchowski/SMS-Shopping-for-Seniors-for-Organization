@@ -8,9 +8,10 @@ from zakupy_dla_seniora.organisations.functions import get_organisation_name
 organisations = Blueprint('organisations', __name__)
 
 
-@organisations.route('/<name>')
-def organisation(name=get_organisation_name(current_user)):
-    return render_template('view_organisation.jinja2', name=name)
+@organisations.route('/organisation')
+def organisation():
+    org = Organisations.get_by_id(current_user.organisation_id)
+    return render_template('view_organisation.jinja2', org=org)
 
 
 @organisations.route('/add-new-organisation', methods=['GET', 'POST'])
