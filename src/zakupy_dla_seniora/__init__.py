@@ -25,6 +25,9 @@ def register_blueprints(app):
     from zakupy_dla_seniora.organisations.routes import organisations
     app.register_blueprint(organisations)
 
+    from zakupy_dla_seniora.landing.routes import landing
+    app.register_blueprint(landing)
+
 
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path='/static')
