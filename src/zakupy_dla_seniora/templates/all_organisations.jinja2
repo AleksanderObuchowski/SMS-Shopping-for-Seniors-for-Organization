@@ -1,0 +1,13 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+<title>Organisations</title>
+{% endblock title %}
+
+{% block content %}
+    <ul>
+        {% for org in organisations %}
+            <li><strong>{{ org.id }}</strong> {{ org.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

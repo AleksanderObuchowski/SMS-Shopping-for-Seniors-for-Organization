@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}
-    {% endblock %}
+    {% endblock title %}
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.7/dist/css/uikit.min.css"/>
     <link rel='icon' href="{{ url_for('static', filename='delight.ico') }}" type='image/x-icon' />
@@ -17,14 +17,12 @@
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin="">
     </script>
-    {% block header %}
-    {% endblock %}
+    {% block head %}
+    {% endblock head %}
 </head>
 <body>
-    {% block menu %}
-    {% include 'logged_menu.jinja2' %}
-    {% endblock %}
+    {% include 'navbar.jinja2' %}
     {% block content %}
-    {% endblock %}
+    {% endblock content %}
 </body>
 </html>

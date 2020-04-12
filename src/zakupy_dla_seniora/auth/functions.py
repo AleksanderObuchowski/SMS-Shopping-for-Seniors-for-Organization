@@ -11,7 +11,25 @@ def admin_role_required(func):
             return func(*args, **kwargs)
         elif current_app.config.get('LOGIN_DISABLED'):
             return func(*args, **kwargs)
-        elif not current_user.is_authenticated or not current_user.super_user:
+        elif not current_user.is_authenticated:
+            return current_app.login_manager.unauthorized()
+        elif not current_user.is_employee and not current_user.is_superuser:
+            return current_app.login_manager.unauthorized()
+        return func(*args, **kwargs)
+
+    return decorated_view
+
+
+def superuser_role_required(func):
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if request.method in EXEMPT_METHODS:
+            return func(*args, **kwargs)
+        elif current_app.config.get('LOGIN_DISABLED'):
+            return func(*args, **kwargs)
+        elif not current_user.is_authenticated:
+            return current_app.login_manager.unauthorized()
+        elif not current_user.is_superuser:
             return current_app.login_manager.unauthorized()
         return func(*args, **kwargs)
 
