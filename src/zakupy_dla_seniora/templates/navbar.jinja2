@@ -1,0 +1,71 @@
+<nav class="uk-card-default uk-margin-small uk-card-hover" uk-navbar>
+    <div class="uk-navbar-left">
+        <a href="{{ url_for('board.view') }}" class="uk-navbar-item uk-logo">
+            <img src="{{ url_for('static', filename='delight.svg') }}" style=" height:50px; ">
+            <p class="uk-margin-left">Zakupy dla seniora</p>
+        </a>
+
+        {% if current_user.is_authenticated %}
+            <div class="navbar-collapse" id="navbar_collapse">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-parent">
+                        <a href="{{ url_for('board.view') }}">
+                            Ogłoszenia
+                        </a>
+                    </li>
+                    <li class="uk-parent">
+                        <a href="{{ url_for('users.profile') }}">
+                            Profil
+                        </a>
+                    </li>
+                    <li class="uk-parent">
+                        <a href="{{ url_for('organisations.organisation') }}">
+                            Organizacja
+                        </a>
+                    </li>
+                    {% if current_user.is_superuser %}
+                        <li class="uk-parent">
+                            <a href="{{ url_for('organisations.add_organisation') }}">
+                                Dodaj organizację
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="uk-parent">
+                        <a href="{{ url_for('organisations.get_all_organisations') }}">
+                            Wszystkie organizacje
+                        </a>
+                    </li>
+                    <li class="uk-parent">
+                        <a href="{{ url_for('volunteers.add_volunteers') }}">
+                            Dodaj Wolontariusza
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <div class="uk-navbar-right">
+            <div class="uk-navbar-item">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <button class="uk-button"><a href="{{ url_for('auth.logout') }}">Wyloguj</a></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <div class="uk-navbar-right">
+            <div class="uk-navbar-item">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <button class="uk-button"><a href="{{ url_for('auth.login') }}">Zaloguj</a></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+</nav>

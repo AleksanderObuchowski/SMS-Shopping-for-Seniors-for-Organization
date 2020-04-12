@@ -1,0 +1,208 @@
+{% extends 'base.jinja2' %}
+{% block content %}
+
+    <!-- uikit css -->
+    <style>
+        .divider {
+            border-right: 1px solid #ccc;
+            padding: 0 55px;
+        }
+
+        .divider:last-child {
+            border-right: none;
+        }
+
+        p.uk-text-center.uk-text-large {
+            color: #fff;
+            opacity: 1.0;
+        }
+
+        @media (max-width: 800px ) {
+            .divider {
+                border-right: none;
+                border-top: 1px solid #e5e5e5;
+
+                padding: 15px;
+            }
+
+            .divider:first-child {
+                border-top: none;
+            }
+        }
+
+        #hero {
+            min-width: calc(80vh);
+        !important;
+        }
+
+        .shadow {
+            text-shadow: 1px 0 10px #000000;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            display: inline-block;
+            clear: both;
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 2px;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        .him {
+            background: #eee;
+            float: left;
+        }
+
+        .me {
+            float: right;
+            background: #0084ff;
+            color: #fff;
+        }
+
+        .him + .me {
+            border-bottom-right-radius: 5px;
+        }
+
+        .me + .me {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .conversation-box {
+            margin-left: 20%;
+            margin-right: 20%;
+
+        }
+    </style>
+
+
+
+
+    <section id="hero" uk-height-viewport="offset-top: true;offset-bottom:200px"
+             class="uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light"
+             data-src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+             uk-img>
+
+        <div class="uk-section uk-align-center uk-width-2-3@m uk-padding ">
+            <div uk-parallax="target: h1,p; blur: 0,10;">
+                <h1 class="uk-text-center uk-heading-large shadow uk-text-bold">Zakupy SMS dla
+                    Seniora</h1>
+                <h2 class="uk-text-center uk-heading-small shadow uk-text-bold ">W czasie izolacji łączymy
+                    pokolenia</h2>
+            </div>
+        </div>
+        <hr>
+    </section>
+    <section class="uk-text-center uk-padding-large">
+    <h1 class="uk-heading-bullet uk-text-bold">O projekcie</h1>
+    <div class="uk-padding-large uk-text-left">
+        <p uk-scrollspy="cls: uk-animation-slide-left; repeat: false ;delay: 500;" class="uk-text-large">Celem
+            aplikacji jest
+            umożliwienie komunikacji pomiędzy seniorami a wolontariuszmi w
+            prosty i intuicyjny dla obu stron sposób.
+        </p>
+
+        <p uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;" class="uk-text-large">
+            Komunikacja
+            odbywa się przy
+            pomocy tablicy ogłoszeń, gdzie seniorzy za pośrednictwem
+            SMS mogą poprosić o zrobienie zakupów, a chętna osoba, po uprzednim kontakcie, przyniesie je pod drzwi.
+        </p>
+    </div>
+    <h1 class="uk-heading-bullet uk-text-bold">Jak to działa</h1>
+    <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">1. Senior wysła smsa z listą
+        potrzebnych produktów na wzkazany numer</h2>
+    <section class="uk-height-small uk-text-left uk-padding-top">
+        <div class="conversation-box">
+            <ul>
+                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="me">Dzień dobry,
+                    potrzebuje 2l wody, 3 bułki i litr oleju, mieszkam w Gdańsk Zaspa
+                </li>
+                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="him">Twoje
+                    zamówienie zostało przyjęte czekamy aż ktoś się zgłosi
+                </li>
+
+            </ul>
+        </div>
+    </section>
+    <section class='uk-text-center uk-margin-top uk-padding-large'>
+        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 3000;">2.
+            Wolontariusz znajduje ogłoszenie
+            na mapie i przyjmuje zlecenie</h2>
+    </section>
+    <img uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 3000;" src="{{ url_for('static', filename='apka_mapka.png') }}">
+      <section class='uk-text-center uk-margin-top uk-padding-large'>
+        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 500;">
+            3. Wolontariusz dostarcza potrzebne produkty</h2>
+    </section>
+    <img uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;" src="{{ url_for('static', filename='delivery.png') }}">
+       <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">4. Wiadomość o dostawie zostaje wysłana do seniora</h2>
+    <section class="uk-height-small uk-text-left uk-padding-top">
+        <div class="conversation-box">
+            <ul>
+                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="him">Twoje produkty
+                    powinny być już dostarczone, czy masz jakieś uwagi?
+                </li>
+                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="me">Wszystko poszło
+                    sprawnie :)
+                </li>
+
+            </ul>
+        </div>
+    </section>
+    <h1 class="uk-heading-bullet uk-text-bold">Jeśteś przedstawicielem organizacji prowadzącej wolontariat?</h1>
+    <section id="contact" uk-height-viewport class="uk-flex uk-flex-center uk-flex-middle uk-margin-medium">
+        <div class="uk-container ">
+            <div class="uk-section uk-padding uk-box-shadow-medium"
+                 uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-grid-medium; delay: 2000; repeat: false">
+                <div class="uk-grid-medium uk-align-center" uk-grid>
+                    <h2 class="uk-heading-medium uk-margin-top uk-text-center">Skontatkuj się z nami</h2>
+                    <div class="uk-divider-small uk-text-center"></div>
+                    <div class="uk-width-2-3@s uk-width-1-1 uk-align-center">
+                        <form action="" class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-5@s uk-width-1-1 ">
+                                <label for="fname">Imię</label>
+                            </div>
+                            <div class="uk-width-4-5@s uk-width-1-1 ">
+                                <input placeholder="Jan" type="text" name="fname" id="fname" class="uk-input">
+                            </div>
+                            <div class="uk-width-1-5@s uk-width-1-1 ">
+                                <label for="lname">Nazwisko</label>
+                            </div>
+                            <div class="uk-width-4-5@s uk-width-1-1 ">
+                                <input placeholder="Kowalski" type="text" name="lname" id="lname" class="uk-input">
+                            </div>
+                            <div class="uk-width-1-5@s uk-width-1-1">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="uk-width-4-5@s uk-width-1-1 ">
+                                <input placeholder="jankowalski@example.com" type="email" name="email" id="email"
+                                       class="uk-input">
+                            </div>
+                            <div class="uk-width-1-5@s uk-width-1-1 ">
+                                <label for="message">Wiadomość</label>
+                            </div>
+                            <div class="uk-width-4-5@s uk-width-1-1 ">
+                                <textarea name="message" id="message" rows="3" class="uk-textarea"
+                                          placeholder="Dzień dobry..."></textarea>
+                            </div>
+                            <div class="uk-width-4-5@s uk-align-right uk-margin-auto-left">
+                                <button type="submit" class=" uk-button uk-button-primary">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock content %}

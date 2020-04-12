@@ -1,0 +1,96 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>Zakupy dla seniora</title>
+{% endblock title %}
+
+{% block head %}
+    <style>
+        #mapid {
+            height: 100%;
+        }
+
+        #mapcard{
+            height: 75vh;
+
+        }
+
+        footer {
+            /*position: absolute;*/
+            bottom: 0; !important;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .footer-card{
+            padding: 0px;
+
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+    <div class="uk-child-width-1-2@l" uk-grid="">
+
+        <div class="uk-container" style="height: 70vh;">
+            <div class="uk-card-default  uk-card-body uk-padding-small uk-text-center" id="mapcard" style="padding: 5px;">
+                <div id="mapid"></div>
+            </div>
+        </div>
+
+        <div class="uk-container" id ="board" style="height: 90vh;overflow: scroll;">
+            {% for d in data['data'] %}
+                <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
+                    <h3 class="uk-card-title">{{ d['message_location'] }}</h3> <a href ="/take_order?user_id=1&message_id={{d['id']}}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
+                    <p>{{ d['message_content'] }}</p>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        var Icon = L.icon({
+            iconUrl: "{{ url_for('static', filename='shopping-cart.svg') }}",
+
+            iconSize:     [50, 50], // size of the icon
+            iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+            popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+        });
+
+        var mymap = L.map('mapid').setView([52.1009833, 19.100852], 7);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            maxZoom: 30,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYXZpZW5pciIsImEiOiJjam9mbmduMWkwMTNwM2tyeDJnbmkwc2tkIn0.IDeZinspovU6WJFNTH4I-g'
+        }).addTo(mymap);
+
+        {% for d in data['data']%}
+            {#var circle = L.Icon([{{d['message_location_lat']}}, {{d['message_location_lon']}}], {}).bindPopup("{{ d['message_location'] }}").addTo(mymap);#}
+            let L;
+            let marker  =L.marker([{{d['message_location_lat']}}+(Math.random()-0.5)*0.005, {{d['message_location_lon']}}+(Math.random()-0.5)*0.005], {icon: Icon}).bindPopup("<h3>{{d['message_location'] }}</h3><p>{{ d['message_content'] }}</p>").addTo(mymap);
+        {% endfor %}
+        mymap.on('moveend', function() {
+
+            display_shopping()
+
+        });
+        var data = {{ data['data'] |safe }}
+            function display_shopping() {
+                board = document.getElementById("board");
+                html_str = ""
+                for (var d in data) {
+                    var p =L.latLng(data[d]['message_location_lat'],data[d]['message_location_lon'])
+                    if (mymap.getBounds().contains(p)){
+                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 class=\"uk-card-title\">"+ data[d]['message_location']+"</h3> <a href =\"/take_order?user_id=6&message_id="+data[d]['id']+"\"style=\"float: right;\" align=\"right\" class=\"uk-button uk-button-primary uk-margin-left\">Weź zlecenie</a><p>" + data[d]['message_content'] + "</p></div>"
+                        html_str += str
+                    }
+                }
+
+                board.innerHTML= html_str;
+            }
+    </script>
+{% endblock content %}

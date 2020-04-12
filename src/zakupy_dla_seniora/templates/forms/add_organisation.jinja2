@@ -1,0 +1,28 @@
+{% extends "base.jinja2" %}
+{% block title %}
+    <title>Login</title>
+{% endblock title %}
+{% block content %}
+    <div class="uk-container uk-container-small uk-position-relative">
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="uk-input uk-form-width-medium") }}
+                </div>
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="uk-input uk-form-width-small") }}
+            </div>
+        </form>
+
+    </div>
+{% endblock content %}
