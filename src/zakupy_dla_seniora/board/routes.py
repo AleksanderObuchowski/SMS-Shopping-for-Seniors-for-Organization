@@ -4,7 +4,6 @@ from flask_login import current_user, login_required
 board = Blueprint('board', __name__)
 
 
-@board.route('/')
 @board.route('/board')
 @board.route('/board/<title>')
 @login_required
