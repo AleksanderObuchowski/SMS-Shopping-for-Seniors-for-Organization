@@ -42,7 +42,7 @@ class User(db.Model, UserMixin):
         self.is_active = is_superuser
         self.created_by = created_by
         self.create_date = datetime.now(timezone.utc)
-        self.verification_code = randint(1000, 9999)
+        # self.verification_code = randint(1000, 9999)
 
     def __repr__(self):
         return "<User(id='%s', username='%s')>" % (self.id, self.username)

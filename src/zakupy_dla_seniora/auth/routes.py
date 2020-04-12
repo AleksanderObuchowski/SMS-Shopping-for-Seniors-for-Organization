@@ -1,8 +1,7 @@
-from flask import Blueprint, request, url_for, redirect, render_template, flash
+from flask import Blueprint, request, url_for, redirect, render_template
 from flask_login import current_user, login_user, login_required, logout_user
 from zakupy_dla_seniora import bcrypt
-from zakupy_dla_seniora.auth.forms import LoginForm, RegistrationForm
-from zakupy_dla_seniora.auth.functions import admin_role_required
+from zakupy_dla_seniora.auth.forms import LoginForm
 from zakupy_dla_seniora.users.models import User
 
 auth = Blueprint('auth', __name__)
@@ -10,6 +9,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    # TODO Add "Login As" field in login template to login as employee or volunteer
+    # TODO Bonus feature, save choice in cookies for ease of access
     form = LoginForm()
     if current_user.is_authenticated:
         return redirect(url_for('board.view'))
@@ -30,20 +31,6 @@ def login():
             return render_template('forms/login.jinja2', message=error_message, form=form)
     else:
         return render_template('forms/login.jinja2', form=form)
-
-
-@auth.route('/register-account', methods=['GET', 'POST'])
-@admin_role_required
-def register_user():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, organisation=form.organisation.data,
-                    password_hash=hashed_password, created_by=current_user.id, is_superuser=form.superuser.data)
-        user.save()
-        flash('Konto zostało utworzone pomyślnie.', 'success')
-        return redirect(url_for('board.view'))
-    return render_template('forms/register-account.jinja2', form=form)
 
 
 @auth.route('/logout')
