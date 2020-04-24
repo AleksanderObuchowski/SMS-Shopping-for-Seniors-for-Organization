@@ -1,9 +1,46 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-<title>{{ org.name }}</title>
+<title>{{ name }} - Zakupy dla Seniora</title>
 {% endblock title %}
 
 {% block content %}
-<p>Profile page for organisation - {{ name }}</p>
+    <div class="uk-margin-auto uk-width-5-6 uk-child-width-expand" uk-grid>
+        <div class="uk-card uk-card-default uk-card-body uk-margin-right">
+            <h3 class="uk-card-title uk-text-center">{{ name }}</h3>
+            <table class="uk-table">
+                <tbody>
+                    {% for key, value in org.items() %}
+                    <tr>
+                        <td class="uk-text-bold">{{ key }}</td>
+                        <td class="uk-text-right">{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left uk-margin-right">
+            <h3 class="uk-card-title">Pracownicy</h3>
+            <list class="uk-list">
+                {% for employee in employees %}
+                    <li><span class="uk-text-bold">{{ employee.first_name }} {{ employee.last_name }}</span> ({{ employee.position }})</li>
+                {% endfor %}
+            </list>
+        </div>
+        <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left">
+            <h3 class="uk-card-title">Wolontariusze</h3>
+            {% if volunteers %}
+                <list class="uk-list">
+                    {% for volunteer in volunteers %}
+                        <li><span class="uk-text-bold">{{ volunteer.first_name }} {{ volunteer.last_name }}</span> ({{ volunteer.district }})</li>
+                    {% endfor %}
+                </list>
+            {% else %}
+                <p>
+                    Niestety żadni wolontariusze nie zostali zarejestrowani. Jeżeli są chętni można ich dodać w zakładce
+                    <a href="{{ url_for('volunteers.add_volunteers') }}">Dodaj Wolontariusza</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}
