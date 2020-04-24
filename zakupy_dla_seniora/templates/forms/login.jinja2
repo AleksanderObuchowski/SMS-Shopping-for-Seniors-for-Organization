@@ -3,31 +3,49 @@
     <title>Login</title>
 {% endblock title %}
 {% block content %}
-    <div class="uk-container uk-container-small uk-position-relative">
+    <div class="uk-flex uk-flex-center uk-flex-middle uk-margin-large ">
+        <div class="uk-card-body uk-card-default">
+            <h3 class="uk-card-title uk-text-center">Zaloguj się do aplikacji</h3>
 
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
 
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
+            {% if message %}
+                <div class="uk-alert-danger uk-alert" uk-alert>
+                    <a class="uk-alert-close uk-icon uk-close" uk-close></a>
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
 
-                <div class="form-group">
-                    {{ form.login.label(class="form-control-label") }}
-                    {{ form.login(class="uk-input uk-form-width-medium") }}
+
+            <form method="POST" action="" class="uk-form-stacked">
+                {{ form.hidden_tag() }}
+
+                <div class="uk-margin">
+                    <div class="uk-form-label">
+                        {{ form.login.label(class="form-control-label") }}
+                    </div>
+                    <div class="uk-form-controls">
+
+                        {{ form.login(class="uk-input uk-form-width-medium") }}
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {{ form.password(class="uk-input uk-form-width-medium") }}
+                <div class="uk-margin">
+                    <div class="uk-form-label">
+                        {{ form.password.label(class="form-control-label") }}
+                    </div>
+                    <div class="uk-form-controls">
+
+                        {{ form.password(class="uk-input uk-form-width-medium") }}
+                    </div>
                 </div>
 
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="uk-input uk-form-width-small") }}
-            </div>
-        </form>
 
+                <div class="form-group">
+                    {{ form.submit(class="uk-input uk-form-width-small") }}
+                </div>
+            </form>
+
+        </div>
     </div>
+
 {% endblock content %}
