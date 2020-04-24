@@ -6,6 +6,7 @@
         </a>
 
         {% if current_user.is_authenticated %}
+
             <div class="navbar-collapse" id="navbar_collapse">
                 <ul class="uk-navbar-nav">
                     <li class="uk-parent">
@@ -13,35 +14,47 @@
                             Ogłoszenia
                         </a>
                     </li>
+
                     <li class="uk-parent">
                         <a href="{{ url_for('users.profile') }}">
                             Profil
                         </a>
                     </li>
-                    <li class="uk-parent">
-                        <a href="{{ url_for('organisations.organisation') }}">
-                            Organizacja
-                        </a>
-                    </li>
-                    {% if current_user.is_superuser %}
+
+                    {% if current_user.is_employee or current_user.is_superuser %}
                         <li class="uk-parent">
-                            <a href="{{ url_for('organisations.add_organisation') }}">
-                                Dodaj organizację
+                            <a href="{{ url_for('organisations.organisation') }}">
+                                Organizacja
                             </a>
                         </li>
+
+                            {% if current_user.is_superuser %}
+
+                                <li class="uk-parent">
+                                    <a href="{{ url_for('organisations.add_organisation') }}">
+                                        Dodaj organizację
+                                    </a>
+                                </li>
+
+                            {% endif %}
+
+                        <li class="uk-parent">
+                            <a href="{{ url_for('organisations.get_all_organisations') }}">
+                                Wszystkie organizacje
+                            </a>
+                        </li>
+
+                        <li class="uk-parent">
+                            <a href="{{ url_for('volunteers.add_volunteer') }}">
+                                Dodaj Wolontariusza
+                            </a>
+                        </li>
+
                     {% endif %}
-                    <li class="uk-parent">
-                        <a href="{{ url_for('organisations.get_all_organisations') }}">
-                            Wszystkie organizacje
-                        </a>
-                    </li>
-                    <li class="uk-parent">
-                        <a href="{{ url_for('volunteers.add_volunteers') }}">
-                            Dodaj Wolontariusza
-                        </a>
-                    </li>
+
                 </ul>
             </div>
+
         {% endif %}
 
     </div>

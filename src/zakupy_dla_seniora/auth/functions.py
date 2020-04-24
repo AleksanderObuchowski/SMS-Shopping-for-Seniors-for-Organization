@@ -4,7 +4,7 @@ from flask_login.config import EXEMPT_METHODS
 from flask_login import current_user
 
 
-def admin_role_required(func):
+def employee_role_required(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if request.method in EXEMPT_METHODS:

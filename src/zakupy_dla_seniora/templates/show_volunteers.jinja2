@@ -1,0 +1,39 @@
+{% extends 'base.jinja2' %}
+{% block content %}
+    <table class="uk-table uk-table-divider">
+        <thead>
+            <tr>
+                <th>Nazwa użytkownika</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Miasto</th>
+                <th>Dzielnica</th>
+                <th>Dodany przez</th>
+                <th>Dodany dnia</th>
+                <th>Organizacja</th>
+                <th>Zweryfikowany telefon</th>
+                <th>Aktywny</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vol in data %}
+                <tr>
+                    <td>{{ vol.username }}</td>
+                    <td>{{ vol.first_name}}</td>
+                    <td>{{ vol.last_name}}</td>
+                    <td>{{ vol.phone_number}}</td>
+                    <td>{{ vol.email}}</td>
+                    <td>{{ vol.town}}</td>
+                    <td>{{ vol.district}}</td>
+                    <td>{{ vol.created_by}}</td>
+                    <td>{{ vol.Created_at}}</td>
+                    <td>{{ vol.organisation_id}}</td>
+                    <td>{{ vol.is_phone_verified}}</td>
+                    <td>{{ vol.is_active}}</td>
+                </tr>
+            {%  endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

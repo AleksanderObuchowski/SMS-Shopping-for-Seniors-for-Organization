@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from zakupy_dla_seniora import db
 from zakupy_dla_seniora.users.models import User
+from zakupy_dla_seniora.volunteers.models import Volunteers
 
 
 class Organisations(db.Model):
@@ -17,7 +18,7 @@ class Organisations(db.Model):
     added_by = db.Column('added_by', db.ForeignKey('user.id'))
     created_at = db.Column('created_at', db.DateTime)
     employees = db.relationship('User', backref='organisations', cascade='all, delete-orphan', lazy='dynamic',
-                                foreign_keys=[User.organisation_id])
+                                foreign_keys=[User.organisation_id, Volunteers.organisation_id])
 
     def __init__(self, name, added_by=None):
         self.name = name
@@ -30,6 +31,20 @@ class Organisations(db.Model):
     @classmethod
     def get_by_id(cls, id_):
         return cls.query.filter_by(id=id_).first()
+
+    # @classmethod
+    # def get_all(cls):
+    #     return cls.query.all()
+
+    @classmethod
+    def get_name_by_id(cls, id_):
+        org = cls.query.filter_by(id=id_).first()
+        return org.name
+
+    @classmethod
+    def get_id_by_name(cls, name_):
+        org = cls.query.filter_by(name=name_).first()
+        return org.id
 
     def save(self):
         db.session.add(self)
