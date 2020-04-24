@@ -4,14 +4,6 @@ from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from zakupy_dla_seniora.organisations.models import Organisations
 from zakupy_dla_seniora.volunteers.models import Volunteers
-from sqlalchemy.orm import sessionmaker
-from zakupy_dla_seniora.config import Config
-
-# Nie można z kontekstu tego forma bezpośdernio użyć Organisations.query.all()
-# Tymaczasowa sesja w tym kontekście rozwiązuje problem.
-tmp_engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
-Session = sessionmaker(bind=tmp_engine)
-session = Session()
 
 
 class AddVolunteerForm(FlaskForm):
@@ -24,7 +16,7 @@ class AddVolunteerForm(FlaskForm):
                                                    Email(message="Email jest niepoprawny"), Length(max=50)])
     town = StringField('Miasto', validators=[DataRequired(message="Proszę podać miasto"), Length(max=100)])
     district = StringField('Dzielnica', validators=[DataRequired(message="Proszę podać dzielnicę"), Length(max=100)])
-    organisation = SelectField('Organizacja', choices=[(e.id, e.name) for e in session.query(Organisations).all()])
+    organisation = StringField('Organizacja', validators=[DataRequired(message="Proszę podać nazwę organizacji")])
     submit = SubmitField('Zarejestruj')
 
     @staticmethod
