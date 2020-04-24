@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import current_user
 
 from zakupy_dla_seniora import bcrypt
-from zakupy_dla_seniora.auth.functions import admin_role_required
+from zakupy_dla_seniora.auth.functions import employee_role_required
 from zakupy_dla_seniora.users.forms import RegistrationForm
 from zakupy_dla_seniora.users.models import User
 
@@ -16,7 +16,7 @@ def profile():
 
 
 @users.route('/register-account', methods=['GET', 'POST'])
-@admin_role_required
+@employee_role_required
 def register_user():
     form = RegistrationForm()
     if form.validate_on_submit():
