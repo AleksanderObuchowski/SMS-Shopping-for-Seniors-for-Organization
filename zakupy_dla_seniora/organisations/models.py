@@ -17,8 +17,9 @@ class Organisations(db.Model):
     website = db.Column('website', db.String(200))
     added_by = db.Column('added_by', db.ForeignKey('user.id'))
     created_at = db.Column('created_at', db.DateTime)
-    employees = db.relationship('User', backref='organisations', cascade='all, delete-orphan', lazy='dynamic',
-                                foreign_keys=[User.organisation_id, Volunteers.organisation_id])
+
+    employees = db.relationship('User', backref='organisations', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[User.organisation_id])
+    volunteers = db.relationship('Volunteers', backref='organisations', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Volunteers.organisation_id])
 
     def __init__(self, name, added_by=None):
         self.name = name
