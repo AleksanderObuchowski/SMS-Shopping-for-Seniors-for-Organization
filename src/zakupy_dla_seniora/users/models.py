@@ -3,6 +3,8 @@ from datetime import datetime, timezone
 from random import randint
 from flask_login import UserMixin
 
+from zakupy_dla_seniora.volunteers.models import Volunteers
+from zakupy_dla_seniora.messages.models import Messages
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -26,6 +28,11 @@ class User(db.Model, UserMixin):
     is_superuser = db.Column('is_superuser', db.Boolean, default=False)
     is_employee = db.Column('is_employee', db.Boolean)
     is_active = db.Column('is_active', db.Boolean, default=False)
+
+    # message_creation = db.relationship('Messages', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Messages.created_by])
+    volunteers_creation = db.relationship('Volunteers', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Volunteers.created_by])
+    user_creation = db.relationship('Users', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[id])
+
     # code_sent = db.Column('code_sent', db.Boolean, default=False)
     # verification_code = db.Column('verification_code', db.Integer)
     # verified = db.Column('verified', db.Boolean, default=False)
