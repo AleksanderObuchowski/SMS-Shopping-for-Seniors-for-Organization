@@ -39,10 +39,10 @@
         </div>
 
         <div class="uk-container" id ="board" style="height: 90vh;overflow: scroll;">
-            {% for d in data['data'] %}
+            {%for  message in messages %}
                 <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
-                    <h3 class="uk-card-title">{{ d['message_location'] }}</h3> <a href ="/take_order?user_id=1&message_id={{d['id']}}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
-                    <p>{{ d['message_content'] }}</p>
+                    <h3 class="uk-card-title">{{ message['location'] }}</h3> <a  style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
+                    <p>{{ message['content'] }}</p>
 
                 </div>
             {% endfor %}
@@ -68,24 +68,31 @@
             accessToken: 'pk.eyJ1IjoiYXZpZW5pciIsImEiOiJjam9mbmduMWkwMTNwM2tyeDJnbmkwc2tkIn0.IDeZinspovU6WJFNTH4I-g'
         }).addTo(mymap);
 
-        {% for d in data['data']%}
-            {#var circle = L.Icon([{{d['message_location_lat']}}, {{d['message_location_lon']}}], {}).bindPopup("{{ d['message_location'] }}").addTo(mymap);#}
-            let L;
-            let marker  =L.marker([{{d['message_location_lat']}}+(Math.random()-0.5)*0.005, {{d['message_location_lon']}}+(Math.random()-0.5)*0.005], {icon: Icon}).bindPopup("<h3>{{d['message_location'] }}</h3><p>{{ d['message_content'] }}</p>").addTo(mymap);
+        {% for message in messages%}
+
+            var marker  =L.marker([{{message['latitude']}}+(Math.random()-0.5)*0.005, {{message['longtitude']}}+(Math.random()-0.5)*0.005], {icon: Icon}).bindPopup("<h3>{{message['longitude'] }}</h3><p>{{ message['content'] }}</p>").addTo(mymap);
         {% endfor %}
         mymap.on('moveend', function() {
 
             display_shopping()
 
         });
-        let data = {{ data['data'] |safe }}
+        let data = []
+        {% for m in messages %}
+            data.push({
+                'content': "{{m['content']|safe}}",
+                'latitude' : {{m['latitude']}},
+                'longtitude' : {{m['longtitude']}},
+                'location' : "{{ m['location'] }}"
+            })
+        {% endfor %}
             function display_shopping() {
                 board = document.getElementById("board");
                 html_str = ""
-                for (let d in data) {
-                    let p = L.latLng(data[d]['message_location_lat'],data[d]['message_location_lon'])
+                for (let message of data) {
+                    var p = L.latLng(message['latitude'],message['longtitude'])
                     if (mymap.getBounds().contains(p)){
-                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 class=\"uk-card-title\">"+ data[d]['message_location']+"</h3> <a href =\"/take_order?user_id=6&message_id="+data[d]['id']+"\"style=\"float: right;\" align=\"right\" class=\"uk-button uk-button-primary uk-margin-left\">Weź zlecenie</a><p>" + data[d]['message_content'] + "</p></div>"
+                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 class=\"uk-card-title\">"+ message['location']+"</h3> <a style=\"float: right;\" align=\"right\" class=\"uk-button uk-button-primary uk-margin-left\">Weź zlecenie</a><p>" + message['content'] + "</p></div>"
                         html_str += str
                     }
                 }
