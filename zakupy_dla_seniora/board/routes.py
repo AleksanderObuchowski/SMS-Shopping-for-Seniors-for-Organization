@@ -7,9 +7,7 @@ board = Blueprint('board', __name__)
 
 
 @board.route('/board')
-@board.route('/board/<title>')
 @login_required
-def view(title=None):
+def view():
     messages = Messages.get_received()
-
     return render_template('board.jinja2', user=current_user, messages = messages)

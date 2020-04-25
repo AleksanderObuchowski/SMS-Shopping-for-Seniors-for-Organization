@@ -5,12 +5,15 @@ from zakupy_dla_seniora.organisations.forms import AddOrganisationForm, EditOrga
 from zakupy_dla_seniora.organisations.models import Organisations
 from zakupy_dla_seniora.organisations.functions import get_organisation_name
 
-organisations = Blueprint('organisations', __name__)
+from flask_babel import _
+
+organisations = Blueprint('organisations', __name__, url_prefix='/<lang_code>')
 
 
 @organisations.route('/organisation')
 def organisation():
     org = Organisations.get_by_id(current_user.organisation_id)
+    print(org)
     return render_template('view_organisation.jinja2', org=org)
 
 
@@ -21,7 +24,7 @@ def add_organisation():
     if form.validate_on_submit():
         org = Organisations(name=form.name.data, added_by=current_user.id)
         org.save()
-        flash('Nowa organizacja została dodana pomyślnie.', 'success')
+        flash(_('New organisation has been added successfully.'), 'success')
         return redirect(url_for('board.view'))
     return render_template('forms/add_organisation.jinja2', form=form)
 
@@ -48,6 +51,6 @@ def edit_organisation(name):
         org.address = form.address.data
         org.website = form.website.data
         org.save()
-        flash('Dane organizacji zostały pomyślnie zaktualizowane', 'success')
+        flash(_('Organisation data has been updated successfully'), 'success')
         return redirect(url_for('organisation', name=org.name))
     return render_template('forms/edit_organisation.jinja2', organisation=org, form=form)

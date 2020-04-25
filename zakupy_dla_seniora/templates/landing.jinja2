@@ -91,109 +91,129 @@
 
         <div class="uk-section uk-align-center uk-width-2-3@m uk-padding ">
             <div uk-parallax="target: h1,p; blur: 0,10;">
-                <h1 class="uk-text-center uk-heading-large shadow uk-text-bold">Zakupy SMS dla
-                    Seniora</h1>
-                <h2 class="uk-text-center uk-heading-small shadow uk-text-bold ">W czasie izolacji łączymy
-                    pokolenia</h2>
+                 <h1 class="uk-text-center uk-heading-large shadow uk-text-bold">{{_('SMS shopping for senior')}}</h1>
+                <h2 class="uk-text-center uk-heading-small shadow uk-text-bold ">{{_('We connect generations during isolation')}}</h2>
             </div>
         </div>
         <hr>
     </section>
     <section class="uk-text-center uk-padding-large">
-    <h1 class="uk-heading-bullet uk-text-bold">O projekcie</h1>
+    <h1 class="uk-heading-bullet uk-text-bold">{{_('About Project')}}</h1>
     <div class="uk-padding-large uk-text-left">
-        <p uk-scrollspy="cls: uk-animation-slide-left; repeat: false ;delay: 500;" class="uk-text-large">Celem
-            aplikacji jest
-            umożliwienie komunikacji pomiędzy seniorami a wolontariuszmi w
-            prosty i intuicyjny dla obu stron sposób.
+        <p uk-scrollspy="cls: uk-animation-slide-left; repeat: false ;delay: 500;" class="uk-text-large">
+            {{_('The main goal of our application is to connect and enable communication between seniors and volunteers in simple and intuitive
+            way for both sides.')}}
+{#            Celem#}
+{#            aplikacji jest#}
+{#            umożliwienie komunikacji pomiędzy seniorami a wolontariuszmi w#}
+{#            prosty i intuicyjny dla obu stron sposób.#}
         </p>
 
         <p uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;" class="uk-text-large">
-            Komunikacja
-            odbywa się przy
-            pomocy tablicy ogłoszeń, gdzie seniorzy za pośrednictwem
-            SMS mogą poprosić o zrobienie zakupów, a chętna osoba, po uprzednim kontakcie, przyniesie je pod drzwi.
+            {{_('Communication is establiszed via annnouncment board where senior is able to request for shopping via SMS and volunteer, after
+            contacting with senior, will bring them just to senior\'s door.')}}
+{#            Komunikacja#}
+{#            odbywa się przy#}
+{#            pomocy tablicy ogłoszeń, gdzie seniorzy za pośrednictwem#}
+{#            SMS mogą poprosić o zrobienie zakupów, a chętna osoba, po uprzednim kontakcie, przyniesie je pod drzwi.#}
         </p>
     </div>
-    <h1 class="uk-heading-bullet uk-text-bold">Jak to działa</h1>
-    <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">1. Senior wysła smsa z listą
-        potrzebnych produktów na wzkazany numer</h2>
+    <h1 class="uk-heading-bullet uk-text-bold">{{_('How it works')}}</h1>
+    <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">{{_('1. Senior send SMS with a list of needed grocery on provided
+    telephone number.')}}
+    </h2>
+{#        1. Senior wysła smsa z listą#}
+{#        potrzebnych produktów na wzkazany numer</h2>#}
     <section class="uk-height-small uk-text-left uk-padding-top">
         <div class="conversation-box">
             <ul>
-                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="me">Dzień dobry,
-                    potrzebuje 2l wody, 3 bułki i litr oleju, mieszkam w Gdańsk Zaspa
+                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="me">{{_('Hi, I need 2l of water, 3 rolls,
+                and 1 l of oil, i live in Gansk Zaspa')}}
+{#                    Dzień dobry,#}
+{#                    potrzebuje 2l wody, 3 bułki i litr oleju, mieszkam w Gdańsk Zaspa#}
                 </li>
-                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="him">Twoje
-                    zamówienie zostało przyjęte czekamy aż ktoś się zgłosi
+                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="him">{{_('Your request has been collected. We
+                are waiting for someone to take care of it.')}}
+{#                    Twoje#}
+{#                    zamówienie zostało przyjęte czekamy aż ktoś się zgłosi#}
                 </li>
 
             </ul>
         </div>
     </section>
     <section class='uk-text-center uk-margin-top uk-padding-large'>
-        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 3000;">2.
-            Wolontariusz znajduje ogłoszenie
-            na mapie i przyjmuje zlecenie</h2>
+        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 3000;"> {{_('2. The volunteer finds the
+        advertisement on the map and accepts the request.')}}
+{#            2.#}
+{#            Wolontariusz znajduje ogłoszenie#}
+{#            na mapie i przyjmuje zlecenie#}
+        </h2>
     </section>
     <img uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 3000;" src="{{ url_for('static', filename='apka_mapka.png') }}">
       <section class='uk-text-center uk-margin-top uk-padding-large'>
-        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 500;">
-            3. Wolontariusz dostarcza potrzebne produkty</h2>
+        <h2 class="uk-margin-top" uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 500;">{{_('3. Volunteer provides the
+        needed products')}}
+{#            3. Wolontariusz dostarcza potrzebne produkty#}
+        </h2>
     </section>
     <img uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;" src="{{ url_for('static', filename='delivery.png') }}">
-       <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">4. Wiadomość o dostawie zostaje wysłana do seniora</h2>
+       <h2 uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 1000;">{{_('4. Delivery message has been sent to the senior')}}
+{#           4. Wiadomość o dostawie zostaje wysłana do seniora#}
+       </h2>
     <section class="uk-height-small uk-text-left uk-padding-top">
         <div class="conversation-box">
             <ul>
-                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="him">Twoje produkty
-                    powinny być już dostarczone, czy masz jakieś uwagi?
+                <li uk-scrollspy="cls: uk-animation-slide-right; repeat: false; delay: 1500;" class="him">{{_('Your products should already be
+                delivered, do you have any comments ?')}}
+{#                    Twoje produkty#}
+{#                    powinny być już dostarczone, czy masz jakieś uwagi?#}
                 </li>
-                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="me">Wszystko poszło
-                    sprawnie :)
+                <li uk-scrollspy="cls: uk-animation-slide-left; repeat: false; delay: 2500;" class="me">{{_('Everything was perfect :)')}}
+{#                    Wszystko poszło#}
+{#                    sprawnie :)#}
                 </li>
 
             </ul>
         </div>
     </section>
-    <h1 class="uk-heading-bullet uk-text-bold">Jeśteś przedstawicielem organizacji prowadzącej wolontariat?</h1>
+    <h1 class="uk-heading-bullet uk-text-bold">{{ _('Are you a representative of an organization that runs volunteering?')}}</h1>
     <section id="contact" uk-height-viewport class="uk-flex uk-flex-center uk-flex-middle uk-margin-medium">
         <div class="uk-container ">
             <div class="uk-section uk-padding uk-box-shadow-medium"
                  uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-grid-medium; delay: 2000; repeat: false">
                 <div class="uk-grid-medium uk-align-center" uk-grid>
-                    <h2 class="uk-heading-medium uk-margin-top uk-text-center">Skontatkuj się z nami</h2>
+                    <h2 class="uk-heading-medium uk-margin-top uk-text-center">{{_('Contact with us')}}</h2>
                     <div class="uk-divider-small uk-text-center"></div>
                     <div class="uk-width-2-3@s uk-width-1-1 uk-align-center">
                         <form action="" class="uk-grid-small" uk-grid>
                             <div class="uk-width-1-5@s uk-width-1-1 ">
-                                <label for="fname">Imię</label>
+                                <label for="fname">{{_('Name')}}</label>
                             </div>
                             <div class="uk-width-4-5@s uk-width-1-1 ">
                                 <input placeholder="Jan" type="text" name="fname" id="fname" class="uk-input">
                             </div>
                             <div class="uk-width-1-5@s uk-width-1-1 ">
-                                <label for="lname">Nazwisko</label>
+                                <label for="lname">{{_('Surname')}}</label>
                             </div>
                             <div class="uk-width-4-5@s uk-width-1-1 ">
                                 <input placeholder="Kowalski" type="text" name="lname" id="lname" class="uk-input">
                             </div>
                             <div class="uk-width-1-5@s uk-width-1-1">
-                                <label for="email">Email</label>
+                                <label for="email">{{_('Email')}}</label>
                             </div>
                             <div class="uk-width-4-5@s uk-width-1-1 ">
                                 <input placeholder="jankowalski@example.com" type="email" name="email" id="email"
                                        class="uk-input">
                             </div>
                             <div class="uk-width-1-5@s uk-width-1-1 ">
-                                <label for="message">Wiadomość</label>
+                                <label for="message">{{_('Message')}}</label>
                             </div>
                             <div class="uk-width-4-5@s uk-width-1-1 ">
                                 <textarea name="message" id="message" rows="3" class="uk-textarea"
-                                          placeholder="Dzień dobry..."></textarea>
+                                          placeholder="{{_('Hello, ')}}"></textarea>
                             </div>
                             <div class="uk-width-4-5@s uk-align-right uk-margin-auto-left">
-                                <button type="submit" class=" uk-button uk-button-primary">Send</button>
+                                <button type="submit" class=" uk-button uk-button-primary">{{_('Send')}}</button>
                             </div>
                         </form>
                     </div>

@@ -3,10 +3,12 @@ from flask_login import current_user
 
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required
+from zakupy_dla_seniora.messages.models import Messages
 from zakupy_dla_seniora.users.forms import RegistrationForm
 from zakupy_dla_seniora.users.models import User
-from zakupy_dla_seniora.messages.models import Messages
-users = Blueprint('users', __name__)
+from flask_babel import _
+
+users = Blueprint('users', __name__, url_prefix='/<lang_code>')
 
 
 @users.route('/profile')
@@ -24,7 +26,7 @@ def register_user():
         user = User(username=form.username.data, email=form.email.data, organisation=form.organisation.data,
                     password_hash=hashed_password, created_by=current_user.id, is_superuser=form.superuser.data)
         user.save()
-        flash('Konto zostało utworzone pomyślnie.', 'success')
+        flash(_('Account has been created successfully.'), 'success')
         return redirect(url_for('board.view'))
     return render_template('forms/register-account.jinja2', form=form)
 

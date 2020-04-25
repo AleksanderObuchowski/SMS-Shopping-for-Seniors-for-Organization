@@ -4,7 +4,7 @@ from zakupy_dla_seniora.messages.forms import AddMessagesForm
 from zakupy_dla_seniora.messages.models import Messages
 from zakupy_dla_seniora.messages.functions import get_location
 
-messages = Blueprint('messages', __name__)
+messages = Blueprint('messages', __name__, url_prefix='/<lang_code>')
 
 
 @messages.route('/add_message', methods=['GET', 'POST'])
