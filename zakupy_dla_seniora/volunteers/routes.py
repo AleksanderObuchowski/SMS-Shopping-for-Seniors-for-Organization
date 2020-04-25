@@ -7,8 +7,9 @@ from zakupy_dla_seniora.organisations.models import Organisations
 from zakupy_dla_seniora.users.functions import random_password
 from zakupy_dla_seniora.volunteers.forms import AddVolunteerForm
 from zakupy_dla_seniora.volunteers.models import Volunteers
+from flask_babel import _
 
-volunteers = Blueprint('volunteers', __name__)
+volunteers = Blueprint('volunteers', __name__, url_prefix='/<lang_code>')
 
 
 @volunteers.route('/volunteer/new', methods=['GET', 'POST'])
@@ -21,10 +22,10 @@ def add_volunteer():
         elif form.organisation.data:
             org_id = Organisations.get_id_by_name(form.organisation.data)
             if not org_id:
-                error_message = "Nie znaleziono takiej organizacji"
+                error_message = _("There is no such organisation")
                 return render_template('forms/add_volunteer.jinja2', form=form, message=error_message)
         else:
-            error_message = "Podaj organizację"
+            error_message = __("Give organisation")
             return render_template('forms/add_volunteer.jinja2', form=form, message=error_message)
         passwd = random_password()
         ph = bcrypt.generate_password_hash(passwd).decode('utf-8')
@@ -33,7 +34,7 @@ def add_volunteer():
                          town=form.town.data, distr=form.district.data, pass_hash=ph,
                          created_by=current_user.id)
         vol.save()
-        print("Dodano wolontariusza: ", form.first_name, " ", form.last_name, " Hasło: ", passwd)
+        print(_("Added volutneer: "), form.first_name, " ", form.last_name, " Hasło: ", passwd)
         return redirect(url_for('volunteers.show_all'))
     return render_template('forms/add_volunteer.jinja2', form=form)
 
@@ -62,7 +63,7 @@ def show(id):
     elif current_user.is_employee:
         v = Volunteers.get_one(id, current_user.organisation_id)
         if not v:
-            error_message = "Nie znaleziono wolontariusza w Twojej organizacji."
+            error_message = _("There is no such volunteer in your organisation.")
         else:
             return render_template('view_volunteer_profile.jinja2', volunteer=v)
     else:

@@ -4,7 +4,9 @@ from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.forms import LoginForm
 from zakupy_dla_seniora.users.models import User
 
-auth = Blueprint('auth', __name__)
+from flask_babel import _
+
+auth = Blueprint('auth', __name__, url_prefix='/<lang_code>')
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -27,7 +29,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('board.view'))
         else:
-            error_message = "Wrong username or password."
+            error_message = _("Wrong username or password.")
             return render_template('forms/login.jinja2', message=error_message, form=form)
     else:
         return render_template('forms/login.jinja2', form=form)
@@ -38,3 +40,5 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('landing.landing_view'))
+
+

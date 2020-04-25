@@ -1,7 +1,7 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-    <title>Zakupy dla seniora</title>
+    <title>{{ _('SMS Shopping for Seniors')}}</title>
 {% endblock title %}
 
 {% block head %}
@@ -60,7 +60,7 @@
 
         let mymap = L.map('mapid').setView([52.1009833, 19.100852], 7);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">{{ _('OpenStreetMap')}}</a> {{ _('contirbutors')}}',
             maxZoom: 30,
             id: 'mapbox/streets-v11',
             tileSize: 512,
@@ -93,7 +93,10 @@
                 for (let message of data) {
                     var p = L.latLng(message['latitude'],message['longtitude'])
                     if (mymap.getBounds().contains(p)){
-                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 class=\"uk-card-title\">"+ message['location']+"</h3> <a href=\"take_message"+"\\"+message['id']+" style=\"float: right;\" align=\"right\" class=\"uk-button uk-button-primary uk-margin-left\">Weź zlecenie</a><p>" + message['content'] + "</p></div>"
+                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 " +
+                            "class=\"uk-card-title\">"+ data[d]['message_location']+"</h3> <a href " +
+                            "=\"/take_order?user_id=6&message_id="+data[d]['id']+"\"style=\"float: right;\" align=\"right\" class=\"uk-button " +
+                            "uk-button-primary uk-margin-left\">{{ _('Take order') }}</a><p>" + data[d]['message_content'] + "</p></div>"
                         html_str += str
                     }
                 }
