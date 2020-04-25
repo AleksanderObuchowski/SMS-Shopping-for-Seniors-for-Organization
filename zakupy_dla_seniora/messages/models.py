@@ -17,11 +17,17 @@ class Messages(db.Model):
     status = db.Column('status', db.String(60))
 
 
-    def __init__(self, content, contact_number, location, status ):
+    def __init__(self, content, contact_number, location,latitude,longtitude, status, created_by = None ):
         self.content = content
         self.contact_number = contact_number
         self.location = location
+        self.latitude = latitude
+        self.longtitude = longtitude
         self.status = status
+        self.created_at = datetime.now()
+        self.created_by = created_by
+
+
 
     def __repr__(self):
         return "Message : ".format(self.content, self.contact_number, self.location, self.status)
