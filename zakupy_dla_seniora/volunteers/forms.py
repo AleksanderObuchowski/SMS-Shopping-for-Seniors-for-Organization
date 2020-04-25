@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, SubmitField
+from wtforms import StringField, SelectField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from zakupy_dla_seniora.volunteers.models import Volunteers
 
@@ -38,6 +38,7 @@ class EditVolunteerForm(FlaskForm):
     town = StringField('Miasto', validators=[Length(max=100)])
     district = StringField('Dzielnica', validators=[Length(max=100)])
     organisation = SelectField('Organizacja')
+    is_active = BooleanField("Aktywny")
     submit = SubmitField('Zapisz')
 
     @staticmethod

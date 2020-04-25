@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required
 from flask_login import current_user, login_required
@@ -80,7 +80,56 @@ def show(volunteer_id):
 @volunteers.route('/volunteer/<volunteer_id>/edit', methods=["GET", "POST"])
 @login_required
 def edit(volunteer_id):
+    if not current_user.is_superuser or not current_user.is_employee:
+        if volunteer_id != current_user.id:
+            return redirect(url_for('volunteers.edit', volunteer_id=current_user.id))
+    elif current_user.is_employee:
+        v = Volunteers.get_by_id(volunteer_id)
+        if v.organisation_id != current_user.organisation_id:
+            return render_template('error_pages/access_denied.jinja2',
+                                   msg=f"Nie możesz edytować tego wolontariusza, "
+                                       f"ponieważ nie należy on do organizacji "
+                                       f"{Organisations.get_name_by_id(current_user.organisation_id)}")
+    # Initially fill form
+    v = Volunteers.get_by_id(volunteer_id)
     form = EditVolunteerForm()
+
+    if request.method == "POST" and form.validate_on_submit():
+        v.first_name = form.first_name.data
+        v.last_name = form.last_name.data
+        v.phone_number = form.phone_number.data
+        v.email = form.email.data
+        v.town = form.town.data
+        v.district = form.district.data
+        v.organisation_id = form.organisation.data
+        v.is_active = form.is_active.data
+        v.save()
+        flash('Użytkownik został dodany!', 'success')
+        return redirect(url_for('board.view'))
+
+    elif request.method == "GET":
+        form.first_name.data = v.first_name
+        form.last_name.data = v.last_name
+        form.phone_number.data = v.phone_number
+        form.email.data = v.email
+        form.town.data = v.town
+        form.district.data = v.district
+        form.organisation.data = v.organisation_id
+        form.is_active.data = v.is_active
+
     return render_template('forms/edit_volunteer.jinja2', form=form)
 
-# TODO Edit Volunteer, delete Volunteer
+
+@volunteers.route('/volunteer/<volunteer_id>/delete')
+@employee_role_required
+def delete(volunteer_id):
+    v = Volunteers.get_by_id(volunteer_id)
+    if current_user.is_employee:
+        if v.organisation_id != current_user.organisation_id:
+            return render_template('error_pages/access_denied.jinja2',
+                                   msg=f"Nie znaleziono tego wolontariusza w organizacji "
+                                       f"{Organisations.get_name_by_id(current_user.organisation_id)}")
+    v.delete()
+    flash('Wolontariusz został usunięty z bazy', 'success')
+    return redirect(url_for('board.view'))
+
