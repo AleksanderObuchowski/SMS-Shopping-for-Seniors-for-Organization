@@ -5,5 +5,63 @@
 {% endblock title %}
 
 {% block content %}
-<p>Profile view</p>
+<h1 class="uk-text-center">{{ user.username}}</h1>
+<div class="uk-container uk-margin-large-top" id="board" style="height: 100vh;">
+    <h3>Zamówienia realizowane przez ciebie:</h3>
+    {% for message in messages %}
+        {% if not message['status'] == 'Done' %}
+            <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
+                <h3 class="uk-card-title">{{ message['location'] }}</h3>
+                {% if not message['status'] == 'taken' %}
+                    <a style="float: right;" align="right"
+                       class="uk-button uk-button-primary uk-margin-left">Zakończ
+                    </a>
+                {% endif %}
+
+                <p>{{ message['content'] }}</p>
+                {% if  message['location'] %}
+                    <p> <span
+                            class="uk-label-success"
+                            style="padding: 5px;">Lokalizacja: {{ message['location'] }}</span></p>
+                {% endif %}
+
+                {% if message['status'] == 'Waiting for address' %}
+                    <p><span
+                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie i podanie lokalizacji przez seniora</span>
+                    </p>
+                {% endif %}
+                {% if message['status'] == 'waiting for ending approval' %}
+                    <p><span
+                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie dostarczenia zakupów przez seniora</span>
+                    </p>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    {% endfor %}
+    <h3>Zakończone zamówienia</h3>
+    {% for message in messages %}
+        {% if message['status'] == 'Done' %}
+            <div class="uk-margin uk-card-default uk-card-body uk-margin-auto" style="background-color: #f8f8f8;">
+                <h3 class="uk-card-title">{{ d['message_location'] }}</h3>
+
+
+                <p>{{ message['content'] }}</p>
+
+
+                {% if message['status'] == 'Waiting for address' %}
+                    <p><span
+                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie i podanie lokalizacji przez seniora</span>
+                    </p>
+                {% endif %}
+                {% if message['status'] == 'waiting for ending approval' %}
+                    <p><span
+                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie dostarczenia zakupów przez seniora</span>
+                    </p>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
 {% endblock content %}
