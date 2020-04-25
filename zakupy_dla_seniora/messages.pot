@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-25 18:48+0200\n"
+"POT-Creation-Date: 2020-04-25 22:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: auth/forms.py:9 organisations/forms.py:19
+#: auth/forms.py:9 organisations/forms.py:38
 msgid "Save"
 msgstr ""
 
@@ -37,12 +37,14 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: messages/forms.py:9 messages/forms.py:17 organisations/forms.py:13
-#: templates/show_volunteers.jinja2:9 volunteers/forms.py:14
+#: messages/forms.py:9 messages/forms.py:17 organisations/forms.py:10
+#: organisations/forms.py:32 templates/show_volunteers.jinja2:9
+#: volunteers/forms.py:14
 msgid "Phone number"
 msgstr ""
 
 #: messages/forms.py:10 messages/forms.py:18
+#: templates/view_user_profile.jinja2:26
 msgid "Location"
 msgstr ""
 
@@ -62,49 +64,79 @@ msgstr ""
 msgid "Latitude"
 msgstr ""
 
-#: organisations/forms.py:8
+#: organisations/forms.py:9
 msgid "Organisation name"
 msgstr ""
 
-#: organisations/forms.py:9
-msgid "Add"
-msgstr ""
-
-#: organisations/forms.py:14 templates/landing.jinja2:202
-#: templates/show_volunteers.jinja2:10 users/forms.py:11
+#: organisations/forms.py:12 organisations/forms.py:33
+#: templates/landing.jinja2:202 templates/show_volunteers.jinja2:10
+#: users/forms.py:11
 msgid "Email"
 msgstr ""
 
-#: organisations/forms.py:15 volunteers/forms.py:18
+#: organisations/forms.py:13 organisations/forms.py:34
+#: organisations/models.py:51 volunteers/forms.py:18
 msgid "City"
 msgstr ""
 
-#: organisations/forms.py:16
-msgid "ZIP code"
+#: organisations/forms.py:14 organisations/forms.py:35
+#: organisations/models.py:53
+msgid "Postal code"
 msgstr ""
 
-#: organisations/forms.py:17
-msgid "Street and number"
+#: organisations/forms.py:15 organisations/models.py:52
+msgid "Address"
 msgstr ""
 
-#: organisations/forms.py:18
+#: organisations/forms.py:16 organisations/forms.py:37
+#: organisations/models.py:54 organisations/models.py:64
 msgid "Website"
 msgstr ""
 
-#: organisations/routes.py:26
-msgid "New organisation has been added successfully."
+#: organisations/forms.py:17
+msgid "Add"
 msgstr ""
 
-#: organisations/routes.py:53
-msgid "Organisation data has been updated successfully"
+#: organisations/forms.py:36
+msgid "Street and number"
 msgstr ""
 
-#: templates/all_organisations.jinja2:4 users/forms.py:12
-msgid "Organisations"
+#: organisations/models.py:50
+msgid "Phone"
+msgstr ""
+
+#: organisations/models.py:55 templates/show_volunteers.jinja2:14
+msgid "Created at"
+msgstr ""
+
+#: organisations/models.py:62
+msgid "ID"
+msgstr ""
+
+#: organisations/models.py:63 templates/all_organisations.jinja2:23
+#: templates/landing.jinja2:190 templates/show_volunteers.jinja2:7
+#: volunteers/forms.py:11
+msgid "Name"
+msgstr ""
+
+#: organisations/models.py:65
+msgid "Created"
+msgstr ""
+
+#: organisations/models.py:66 templates/view_organisation.jinja2:23
+msgid "Employees"
+msgstr ""
+
+#: organisations/models.py:67 templates/view_organisation.jinja2:31
+msgid "Volunteers"
+msgstr ""
+
+#: organisations/routes.py:62
+msgid "Changes were successfully saved."
 msgstr ""
 
 #: templates/board.jinja2:4 templates/navbar.jinja2:6
-#: templates/navbar.jinja2:11 templates/view_organisation.jinja2:4
+#: templates/navbar.jinja2:11
 msgid "SMS Shopping for Seniors"
 msgstr ""
 
@@ -116,7 +148,7 @@ msgstr ""
 msgid "contirbutors"
 msgstr ""
 
-#: templates/board.jinja2:91
+#: templates/board.jinja2:99
 msgid "Take order"
 msgstr ""
 
@@ -202,11 +234,6 @@ msgstr ""
 msgid "Contact with us"
 msgstr ""
 
-#: templates/landing.jinja2:190 templates/show_volunteers.jinja2:7
-#: volunteers/forms.py:11
-msgid "Name"
-msgstr ""
-
 #: templates/landing.jinja2:196 templates/show_volunteers.jinja2:8
 #: volunteers/forms.py:12
 msgid "Surname"
@@ -233,7 +260,7 @@ msgstr ""
 msgid "Organisation"
 msgstr ""
 
-#: templates/navbar.jinja2:41
+#: templates/forms/add_organisation.jinja2:6 templates/navbar.jinja2:41
 msgid "Add organisation"
 msgstr ""
 
@@ -241,15 +268,15 @@ msgstr ""
 msgid "All organisations"
 msgstr ""
 
-#: templates/navbar.jinja2:55
+#: templates/navbar.jinja2:55 templates/view_organisation.jinja2:41
 msgid "Add volunteer"
 msgstr ""
 
-#: templates/navbar.jinja2:73
+#: templates/navbar.jinja2:78
 msgid "Log out"
 msgstr ""
 
-#: templates/navbar.jinja2:83
+#: templates/navbar.jinja2:88
 msgid "Log in"
 msgstr ""
 
@@ -269,10 +296,6 @@ msgstr ""
 msgid "Created by"
 msgstr ""
 
-#: templates/show_volunteers.jinja2:14
-msgid "Created at"
-msgstr ""
-
 #: templates/show_volunteers.jinja2:16
 msgid "Is phone verified"
 msgstr ""
@@ -281,30 +304,54 @@ msgstr ""
 msgid "Is active"
 msgstr ""
 
-#: templates/view_organisation.jinja2:23
-msgid "Workers"
-msgstr ""
-
-#: templates/view_organisation.jinja2:31
-msgid "Volunteers"
+#: templates/view_organisation.jinja2:10
+msgid "edit"
 msgstr ""
 
 #: templates/view_organisation.jinja2:40
 msgid ""
-"Unfortunatelly no volunteers has been registered. If you would like to "
-"add someone you can do this here"
+"Sadly there are no volunteers registered. If someone wishes to help you "
+"can add them in"
 msgstr ""
 
-#: templates/forms/add_volunteer.jinja2:6 templates/view_organisation.jinja2:42
+#: templates/view_user_profile.jinja2:4
+msgid "Profile view"
+msgstr ""
+
+#: templates/view_user_profile.jinja2:11
+msgid "Orders processed by you."
+msgstr ""
+
+#: templates/view_user_profile.jinja2:18
+msgid "End"
+msgstr ""
+
+#: templates/view_user_profile.jinja2:31 templates/view_user_profile.jinja2:55
+msgid "Status : Waiting for approval and exact location from senior"
+msgstr ""
+
+#: templates/view_user_profile.jinja2:36 templates/view_user_profile.jinja2:60
+msgid "Status : Waiting for senior approval of delivery"
+msgstr ""
+
+#: templates/view_user_profile.jinja2:43
+msgid "Completed orders"
+msgstr ""
+
+#: templates/forms/add_volunteer.jinja2:6
 msgid "Add Volunteer"
 msgstr ""
 
-#: templates/view_user_profile.jinja2:4 templates/view_user_profile.jinja2:8
-msgid "Profile view"
+#: templates/forms/edit_organisation.jinja2:6
+msgid "Editing"
 msgstr ""
 
 #: templates/forms/login.jinja2:8
 msgid "Log in to application"
+msgstr ""
+
+#: users/forms.py:12
+msgid "Organisations"
 msgstr ""
 
 #: users/forms.py:14
@@ -327,7 +374,7 @@ msgstr ""
 msgid "This email is already taken. Please choose other one."
 msgstr ""
 
-#: users/routes.py:28
+#: users/routes.py:29
 msgid "Account has been created successfully."
 msgstr ""
 
