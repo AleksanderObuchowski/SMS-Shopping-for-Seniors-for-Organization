@@ -42,6 +42,10 @@ class Messages(db.Model):
         return cls.query.filter_by(status='received').all()
 
     @classmethod
+    def get_user_messages(cls,id):
+        return cls.query.filter_by(volunteer_id=id).all()
+
+    @classmethod
     def get_by_phone(cls, phone_):
         # first newest
         return cls.query.filter_by(contact_number=phone_).order_by(Messages.created_at.desc())

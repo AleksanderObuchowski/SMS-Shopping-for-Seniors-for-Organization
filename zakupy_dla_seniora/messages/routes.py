@@ -20,3 +20,13 @@ def add_message():
     else:
         form = AddMessagesForm()
         return render_template('forms/add_message.jinja2', form=form)
+
+@messages.route('/take_message/<id>', methods = ['GET'])
+def take_message(id):
+    message = Messages.get_by_id(id)
+    message.status = 'taken'
+    message.volunteer_id = current_user.id
+    message.save()
+    return redirect(url_for('users.profile'))
+
+
