@@ -1,7 +1,7 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-<title>{{ name }} - Zakupy dla Seniora</title>
+<title>{{ name }} - {{ _('SMS Shopping for Seniors')}}</title>
 {% endblock title %}
 
 {% block content %}
@@ -20,7 +20,7 @@
             </table>
         </div>
         <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left uk-margin-right">
-            <h3 class="uk-card-title">Pracownicy</h3>
+            <h3 class="uk-card-title">{{ _('Workers') }}</h3>
             <list class="uk-list">
                 {% for employee in employees %}
                     <li><span class="uk-text-bold">{{ employee.first_name }} {{ employee.last_name }}</span> ({{ employee.position }})</li>
@@ -28,7 +28,7 @@
             </list>
         </div>
         <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left">
-            <h3 class="uk-card-title">Wolontariusze</h3>
+            <h3 class="uk-card-title">{{ _('Volunteers') }}</h3>
             {% if volunteers %}
                 <list class="uk-list">
                     {% for volunteer in volunteers %}
@@ -37,8 +37,9 @@
                 </list>
             {% else %}
                 <p>
-                    Niestety żadni wolontariusze nie zostali zarejestrowani. Jeżeli są chętni można ich dodać w zakładce
-                    <a href="{{ url_for('volunteers.add_volunteers') }}">Dodaj Wolontariusza</a>
+                    {{ _('Unfortunatelly no volunteers has been registered. If you would like to add someone you can do this here') }}
+{#                    Niestety żadni wolontariusze nie zostali zarejestrowani. Jeżeli są chętni można ich dodać w zakładce#}
+                    <a href="{{ url_for('volunteers.add_volunteers') }}">{{ _('Add Volunteer') }}</a>
                 </p>
             {% endif %}
         </div>

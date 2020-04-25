@@ -1,20 +1,21 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-<title>Profile view</title>
+<title>{{ _('Profile view')}}</title>
 {% endblock title %}
 
 {% block content %}
+
 <h1 class="uk-text-center">{{ user.username}}</h1>
 <div class="uk-container uk-margin-large-top" id="board" style="height: 100vh;">
-    <h3>Zamówienia realizowane przez ciebie:</h3>
+    <h3>{{_('Orders processed by you.')}}</h3>
     {% for message in messages %}
         {% if not message['status'] == 'Done' %}
             <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
                 <h3 class="uk-card-title">{{ message['location'] }}</h3>
                 {% if not message['status'] == 'taken' %}
                     <a style="float: right;" align="right"
-                       class="uk-button uk-button-primary uk-margin-left">Zakończ
+                       class="uk-button uk-button-primary uk-margin-left">{{_('End')}}
                     </a>
                 {% endif %}
 
@@ -22,24 +23,24 @@
                 {% if  message['location'] %}
                     <p> <span
                             class="uk-label-success"
-                            style="padding: 5px;">Lokalizacja: {{ message['location'] }}</span></p>
+                            style="padding: 5px;">{{_('Location')}} {{ message['location'] }}</span></p>
                 {% endif %}
 
                 {% if message['status'] == 'Waiting for address' %}
                     <p><span
-                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie i podanie lokalizacji przez seniora</span>
+                            class="uk-label-warning" style="padding: 5px;"> {{_('Status : Waiting for approval and exact location from senior')}}</span>
                     </p>
                 {% endif %}
                 {% if message['status'] == 'waiting for ending approval' %}
                     <p><span
-                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie dostarczenia zakupów przez seniora</span>
+                            class="uk-label-warning" style="padding: 5px;"> {{_('Status : Waiting for senior approval of delivery')}}</span>
                     </p>
                 {% endif %}
 
             </div>
         {% endif %}
     {% endfor %}
-    <h3>Zakończone zamówienia</h3>
+    <h3>{{_('Completed orders')}}</h3>
     {% for message in messages %}
         {% if message['status'] == 'Done' %}
             <div class="uk-margin uk-card-default uk-card-body uk-margin-auto" style="background-color: #f8f8f8;">
@@ -51,12 +52,12 @@
 
                 {% if message['status'] == 'Waiting for address' %}
                     <p><span
-                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie i podanie lokalizacji przez seniora</span>
+                            class="uk-label-warning" style="padding: 5px;"> {{_('Status : Waiting for approval and exact location from senior')}}</span>
                     </p>
                 {% endif %}
                 {% if message['status'] == 'waiting for ending approval' %}
                     <p><span
-                            class="uk-label-warning" style="padding: 5px;"> Status : Oczekiwanie na na potwierdzenie dostarczenia zakupów przez seniora</span>
+                            class="uk-label-warning" style="padding: 5px;"> {{_('Status : Waiting for senior approval of delivery')}}</span>
                     </p>
                 {% endif %}
 
