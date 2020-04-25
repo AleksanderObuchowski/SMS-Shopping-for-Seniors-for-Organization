@@ -1,5 +1,4 @@
 from flask_wtf import FlaskForm
-from sqlalchemy import create_engine
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from zakupy_dla_seniora.organisations.models import Organisations
@@ -16,7 +15,8 @@ class AddVolunteerForm(FlaskForm):
                                                    Email(message="Email jest niepoprawny"), Length(max=50)])
     town = StringField('Miasto', validators=[DataRequired(message="Proszę podać miasto"), Length(max=100)])
     district = StringField('Dzielnica', validators=[DataRequired(message="Proszę podać dzielnicę"), Length(max=100)])
-    organisation = StringField('Organizacja', validators=[DataRequired(message="Proszę podać nazwę organizacji")])
+    #organisation = StringField('Organizacja', validators=[DataRequired(message="Proszę podać nazwę organizacji")])
+    organisation = SelectField('Organizacja')
     submit = SubmitField('Zarejestruj')
 
     @staticmethod

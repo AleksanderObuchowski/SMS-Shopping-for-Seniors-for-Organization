@@ -14,7 +14,9 @@ volunteers = Blueprint('volunteers', __name__)
 @volunteers.route('/volunteer/new', methods=['GET', 'POST'])
 @employee_role_required
 def add_volunteer():
+    choices = [Organisations.query.with_entities(Organisations.id, Organisations.name).all()]
     form = AddVolunteerForm()
+    form.organisation.choices = choices
     if request.method == 'POST' and form.validate_on_submit():
         if current_user.is_employee:
             org_id = current_user.organisation_id
