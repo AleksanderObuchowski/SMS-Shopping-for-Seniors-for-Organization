@@ -23,3 +23,4 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Ten aders email jest zajęty. Proszę wybrać inny.')
+
