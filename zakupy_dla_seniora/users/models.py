@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
 
     # message_creation = db.relationship('Messages', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Messages.created_by])
     volunteers_creation = db.relationship('Volunteers', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Volunteers.created_by])
-    user_creation = db.relationship('User', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[id])
+    user_creation = db.relationship('User', backref='sub_user', remote_side = id)
 
     # code_sent = db.Column('code_sent', db.Boolean, default=False)
     # verification_code = db.Column('verification_code', db.Integer)
