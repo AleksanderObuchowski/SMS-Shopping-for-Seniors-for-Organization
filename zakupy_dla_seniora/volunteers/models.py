@@ -1,6 +1,5 @@
 from datetime import datetime, timezone
-
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from zakupy_dla_seniora import db
 
 
@@ -47,12 +46,19 @@ class Volunteers(db.Model, UserMixin):
         return cls.query.all()
 
     @classmethod
-    def get_one(cls, id_, current_org_id=None, usr_name=None):
-        if current_org_id:
-            return cls.query.filter_by(id=id_, organisation_id=current_org_id).first()
-        elif usr_name:
-            return cls.query.filter_by(id=id_, username=usr_name).first()
-        return cls.query.filter_by(id=id_).first()
+    def get_by_id(cls, volunteer_id):
+        """
+        Returns volunteer based on current_user. If request is made by superuser, returns any Volunteer. If request
+        is made by organisation employee, returns organisation specific Volunteers
+        :param volunteer_id:
+        :return Volunteer object or None:
+        """
+        if current_user.is_superuser:
+            return cls.query.filter_by(id=volunteer_id).first()
+        elif current_user.is_employee:
+            return cls.query.filter_by(id=volunteer_id, organisation_id=current_user.organisation_id).first()
+        else:
+            return cls.query.filter_by(id=current_user.id).first()
 
     def save(self):
         db.session.add(self)

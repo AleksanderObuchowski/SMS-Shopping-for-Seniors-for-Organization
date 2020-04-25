@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 from zakupy_dla_seniora.users.models import User
@@ -8,7 +8,7 @@ from zakupy_dla_seniora.users.models import User
 class RegistrationForm(FlaskForm):
     username = StringField('Nazwa użytkownika', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    organisation = StringField('Organizacja', validators=[DataRequired()])
+    organisation = SelectField('Organizacja')
     password = PasswordField('Hasło', validators=[DataRequired()])
     confirm_password = PasswordField('Powtórz hasło', validators=[DataRequired(), EqualTo('password')])
     superuser = BooleanField('Superuser')
