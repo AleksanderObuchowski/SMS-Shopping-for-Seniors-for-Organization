@@ -27,7 +27,19 @@ def organisation(org_id=None):
 def get_all_organisations():
     orgs = Organisations.query.all()
     orgs = [org.to_dict_view_all_organisations() for org in orgs]
+    if 'msg' in request.args:
+        return render_template('all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys(),
+                               msg=request.args['msg'])
     return render_template('all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys())
+
+
+@organisations.route('/organisation/delete/<org_id>')
+@superuser_role_required
+def delete_organisation(org_id):
+    org = Organisations.get_by_id(org_id)
+    msg = f"{_('Organisation')} {org.name} {_('has been deleted')}."
+    org.delete()
+    return redirect(url_for('organisations.get_all_organisations', msg=msg))
 
 
 @organisations.route('/organisation/add', methods=['GET', 'POST'])

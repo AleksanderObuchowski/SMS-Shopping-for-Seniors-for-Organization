@@ -11,7 +11,8 @@ class Volunteers(db.Model, UserMixin):
     last_name = db.Column('last_name', db.String(30), nullable=False)
     phone_number = db.Column('phone_number', db.String(12), nullable=False)
     email = db.Column('email', db.String(50), nullable=False, unique=True)
-    organisation_id = db.Column('organisation_id', db.Integer, db.ForeignKey('organisations.id'), nullable=False)
+    organisation_id = db.Column('organisation_id', db.Integer, db.ForeignKey('organisations.id', ondelete='CASCADE'),
+                                nullable=False)
     town = db.Column('town', db.String(100), nullable=False)
     district = db.Column('district', db.String(100), nullable=False)
     password_hash = db.Column('password_hash', db.String(255), nullable=False)
