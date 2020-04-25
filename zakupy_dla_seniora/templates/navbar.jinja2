@@ -42,13 +42,13 @@
                                 </a>
                             </li>
 
-                        {% endif %}
+                            <li class="uk-parent">
+                                <a href="{{ url_for('organisations.get_all_organisations') }}">
+                                    {{ _('All organisations')}}
+                                </a>
+                            </li>
 
-                        <li class="uk-parent">
-                            <a href="{{ url_for('organisations.get_all_organisations') }}">
-                                {{ _('All organisations')}}
-                            </a>
-                        </li>
+                        {% endif %}
 
                         <li class="uk-parent">
                             <a href="{{ url_for('volunteers.add_volunteer') }}">
@@ -57,7 +57,7 @@
                         </li>
                            <li class="uk-parent">
                             <a href="{{ url_for('messages.add_message') }}">
-                                Dodaj Wiadomość
+                                {{ _('Add message')}}
                             </a>
                         </li>
 
