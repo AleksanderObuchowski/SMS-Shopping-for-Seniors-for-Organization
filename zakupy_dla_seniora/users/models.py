@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column('last_name', db.String(50))
     phone = db.Column('phone', db.String(12), unique=True)
     position = db.Column('position', db.String(100))
-    organisation_id = db.Column(db.Integer, db.ForeignKey('organisations.id'), nullable=False)
+    organisation_id = db.Column(db.Integer, db.ForeignKey('organisations.id', ondelete='CASCADE'), nullable=False)
     town = db.Column('town', db.String(100))
     created_at = db.Column('created_at', db.DateTime)
     created_by = db.Column('created_by', db.ForeignKey('user.id'))
@@ -29,8 +29,9 @@ class User(db.Model, UserMixin):
     is_employee = db.Column('is_employee', db.Boolean)
     is_active = db.Column('is_active', db.Boolean, default=False)
 
-    volunteers_creation = db.relationship('Volunteers', backref='user', cascade='all, delete-orphan', lazy='dynamic', foreign_keys=[Volunteers.created_by])
-    user_creation = db.relationship('User', backref='sub_user', remote_side = id)
+    volunteers_creation = db.relationship('Volunteers', backref='user', cascade='all, delete-orphan', lazy='dynamic',
+                                          foreign_keys=[Volunteers.created_by])
+    user_creation = db.relationship('User', backref='sub_user', remote_side=id)
 
     def __init__(self, username, email, organisation_id, password_hash, first_name=None, last_name=None,
                  phone=None, position=None, town=None, created_by=None, is_superuser=False):
@@ -63,4 +64,3 @@ class User(db.Model, UserMixin):
     def save(self):
         db.session.add(self)
         db.session.commit()
-

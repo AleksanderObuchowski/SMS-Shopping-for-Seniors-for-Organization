@@ -17,7 +17,7 @@ class Organisations(db.Model):
     postal_code = db.Column('postal_code', db.String(10))
     address = db.Column('address', db.String(50))
     website = db.Column('website', db.String(200))
-    added_by = db.Column('added_by', db.ForeignKey('user.id'))
+    added_by = db.Column('added_by', db.ForeignKey('user.id', ondelete="SET NULL"))
     created_at = db.Column('created_at', db.DateTime)
 
     employees = db.relationship('User', backref='organisations', cascade='all, delete-orphan', lazy=True,
@@ -90,4 +90,8 @@ class Organisations(db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
