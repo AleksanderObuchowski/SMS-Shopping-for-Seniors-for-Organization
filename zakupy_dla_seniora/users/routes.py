@@ -6,14 +6,14 @@ from zakupy_dla_seniora.auth.functions import employee_role_required
 from zakupy_dla_seniora.organisations.models import Organisations
 from zakupy_dla_seniora.users.forms import RegistrationForm
 from zakupy_dla_seniora.users.models import User
-
+from zakupy_dla_seniora.messages.models import Messages
 users = Blueprint('users', __name__)
 
 
 @users.route('/profile')
 def profile():
-    # TODO Display current user profile
-    return render_template('view_user_profile.jinja2', user=current_user)
+    messages = Messages.get_user_messages(current_user.id)
+    return render_template('view_user_profile.jinja2', user=current_user, messages = messages)
 
 
 @users.route('/register-account', methods=['GET', 'POST'])
