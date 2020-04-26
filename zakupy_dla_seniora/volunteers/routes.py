@@ -45,7 +45,7 @@ def add_volunteer():
         vol.save()
         print("Dodano wolontariusza: ", form.first_name, " ", form.last_name, " Hasło: ", passwd)
         return redirect(url_for('volunteers.show_all'))
-    return render_template('forms/add_volunteer.jinja2', form=form)
+    return render_template('volunteers/add_volunteer.jinja2', form=form)
 
 
 @volunteers.route('/volunteers')
@@ -62,7 +62,7 @@ def show_all():
     else:
         data = Volunteers.get_all_as_dict()
     columns = Volunteers.get_columns()
-    return render_template('show_volunteers.jinja2', volunteers=data, columns=columns)
+    return render_template('volunteers/show_volunteers.jinja2', volunteers=data, columns=columns)
 
 
 @volunteers.route('/volunteer/<volunteer_id>')
@@ -74,7 +74,7 @@ def show(volunteer_id):
     :return volunteer profile template or access denied template:
     """
     v = Volunteers.get_by_id(volunteer_id)
-    return render_template('view_volunteer_profile.jinja2', volunteer=v)
+    return render_template('volunteers/view_volunteer_profile.jinja2', volunteer=v)
 
 
 @volunteers.route('/volunteer/<volunteer_id>/edit', methods=["GET", "POST"])
@@ -125,7 +125,7 @@ def edit(volunteer_id):
         form.organisation.data = v.organisation_id
         form.is_active.data = v.is_active
 
-    return render_template('forms/edit_volunteer.jinja2', form=form)
+    return render_template('volunteers/edit_volunteer.jinja2', form=form)
 
 
 @volunteers.route('/volunteer/<volunteer_id>/delete')
