@@ -19,13 +19,13 @@ users = Blueprint('users', __name__, url_prefix='/<lang_code>')
 def show(id):
     if current_user.is_superuser:
         _user = User.get_one(id)
-        return render_template('view_user_profile.jinja2', user=_user)
+        return render_template('users/view_user_profile.jinja2', user=_user)
     elif current_user.is_employee:
         _user = User.get_one(id, current_user.organisation_id)
         if not _user:
             error_message = _("There is no such user in your organisation.")
         else:
-            return render_template('view_user_profile.jinja2', user=_user)
+            return render_template('users/view_user_profile.jinja2', user=_user)
     else:
         return redirect(url_for('board.view'))
 
@@ -40,13 +40,13 @@ def profile(id=None):
 
     if current_user.is_superuser:
         _user = User.get_by_id(id)
-        return render_template('view_user_profile.jinja2', user=_user)
+        return render_template('users/view_user_profile.jinja2', user=_user)
     elif current_user.is_employee:
         _user = User.get_by_id(id, current_user.organisation_id)
         if not _user:
             error_message = _("There is no such user in your organisation.")
         else:
-            return render_template('view_user_profile.jinja2', user=_user, messages = messages)
+            return render_template('users/view_user_profile.jinja2', user=_user, messages = messages)
     else:
         return redirect(url_for('board.view'))
 
@@ -88,7 +88,7 @@ def add_user():
         flash(_('Account has been created successfully.'), 'success')
         print("username : {} , password : {}".format(username, password))
         return redirect(url_for('board.view'))
-    return render_template('forms/add_user.jinja2', form=form)
+    return render_template('users/add_user.jinja2', form=form)
 
 
 @users.route('/users')
@@ -102,8 +102,8 @@ def show_all():
     [p.update(Organisation=Organisations.get_name_by_id(p['Organisation'])) for p in data_list]
     print(data_list)
     if 'msg' in request.args:
-        return render_template('show_users.jinja2', data=data_list, columns=data_list[0].keys(), msg=request.args['msg'])
-    return render_template('show_users.jinja2', data=data_list, columns=data_list[0].keys())
+        return render_template('users/show_users.jinja2', data=data_list, columns=data_list[0].keys(), msg=request.args['msg'])
+    return render_template('users/show_users.jinja2', data=data_list, columns=data_list[0].keys())
 
 
 @users.route('/organisation/delete/<id>')
@@ -148,7 +148,7 @@ def edit_user(id):
         form.position.data = _user.position
         form.is_superuser.data = _user.is_superuser
 
-    return render_template('forms/edit_user_profile.jinja2', form=form, user=_user)
+    return render_template('users/edit_user_profile.jinja2', form=form, user=_user)
 
 
 

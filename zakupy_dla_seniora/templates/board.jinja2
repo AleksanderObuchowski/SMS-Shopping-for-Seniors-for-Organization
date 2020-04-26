@@ -41,7 +41,7 @@
         <div class="uk-container" id ="board" style="height: 90vh;overflow: scroll;">
             {%for  message in messages %}
                 <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
-                    <h3 class="uk-card-title">{{ message['location'] }}</h3> <a href="/take_message/{{ message['id'] }}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
+                    <h3 class="uk-card-title">{{ message['location'] }}</h3> <a href="{{ url_for('messages.take_message', id = message['id']) }}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
                     <p>{{ message['content'] }}</p>
 
                 </div>

@@ -33,6 +33,8 @@
                             <td><a href="{{ url_for('users.edit_user', id=user[_('ID')]) }}">{{ value }}</a></td>
                         {% elif key == _('ID') %}
                             <td><a href="{{ url_for('users.profile', id=user[_('ID')]) }}">{{ value }}</a></td>
+                        {% elif key == _('Organisation') %}
+                            <td><a href="{{ url_for('organisations.organisation') }}">{{ value }}</a></td>
                         {% else %}
                             <td>{{ value }}</td>
                         {% endif %}

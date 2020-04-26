@@ -8,10 +8,10 @@ from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phon
 from twilio.rest import Client
 
 client = Client(twilio_sid, twilio_auth_token)
-messages = Blueprint('messages', __name__,url_prefix='/<lang_code>')
+messages = Blueprint('messages', __name__, url_prefix='/<lang_code>')
 
 
-@messages.route('/add_message', methods=['GET', 'POST'],)
+@messages.route('/add_message', methods=['GET', 'POST'], )
 def add_message():
     form = AddMessagesForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -21,10 +21,10 @@ def add_message():
                            latitude=lat, longitude=lon, status='received', created_by=current_user.id)
         message.save()
         print("Dodano Wiadomość")
-        return render_template('forms/add_message.jinja2', form=form, message='Message created successfully!')
+        return render_template('messages/add_message.jinja2', form=form, message='Message created successfully!')
     else:
         form = AddMessagesForm()
-        return render_template('forms/add_message.jinja2', form=form)
+        return render_template('messages/add_message.jinja2', form=form)
 
 
 @messages.route('/take_message/<id>', methods=['GET'])
@@ -42,8 +42,22 @@ def take_message(id):
     return redirect(url_for('users.profile'))
 
 
+@messages.route('/end_message/<id>', methods=['GET'])
+def end_message(id):
+    message = Messages.get_by_id(id)
+    message.status = 'waiting for feedback'
+    message.save()
+    client.messages.create(
+        to=message.contact_number,
+        from_=twilio_phone,
+        body='Volunteer marked your order as finish. Did everything go well? Respond "ok" if yes. If something was wrong tell us about it'
+    )
+
+    return redirect(url_for('users.profile'))
+
+
 @messages.route('/receive_sms', methods=['POST'])
-def receieve_sms():
+def receive_sms():
     phone_number = request.values['From']
     content = request.values['Body']
 
@@ -54,3 +68,9 @@ def receieve_sms():
         from_=twilio_phone,
         body=result['response']
     )
+
+
+@messages.route('/error_messages', methods=['GET'])
+def error_messages():
+    messages = Messages.get_errors()
+    return render_template('messages/error_messages.jinja2', messages=messages)

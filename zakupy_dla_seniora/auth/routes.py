@@ -1,10 +1,11 @@
 from flask import Blueprint, request, url_for, redirect, render_template
 from flask_login import current_user, login_user, login_required, logout_user
+from flask_babel import _
+
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.forms import LoginForm
 from zakupy_dla_seniora.users.models import User
 
-from flask_babel import _
 
 auth = Blueprint('auth', __name__, url_prefix='/<lang_code>')
 
@@ -30,9 +31,9 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('board.view'))
         else:
             error_message = _("Wrong username or password.")
-            return render_template('forms/login.jinja2', message=error_message, form=form)
+            return render_template('auth.jinja2', message=error_message, form=form)
     else:
-        return render_template('forms/login.jinja2', form=form)
+        return render_template('auth.jinja2', form=form)
 
 
 @auth.route('/logout')
