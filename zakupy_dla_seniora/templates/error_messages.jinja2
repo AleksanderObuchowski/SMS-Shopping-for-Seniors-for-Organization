@@ -1,0 +1,50 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>Zakupy dla seniora</title>
+{% endblock title %}
+
+{% block head %}
+    <style>
+        #mapid {
+            height: 100%;
+        }
+
+        #mapcard {
+            height: 75vh;
+
+        }
+
+        footer {
+            /*position: absolute;*/
+            bottom: 0;
+        !important;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .footer-card {
+            padding: 0px;
+
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+
+
+
+<div class="uk-container uk-margin-large-top" id="board" style="height: 100vh;">
+    {% for  message in messages %}
+        <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
+            <h3 class="uk-card-title">{{ message['location'] }}</h3>
+            <p> <span
+                    class="uk-label-danger"
+                    style="padding: 5px;">{{ _('Location') }} {{ message['error'] }}</span></p>
+            <p>{{ message['content'] }}</p>
+
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}

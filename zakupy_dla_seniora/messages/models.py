@@ -47,6 +47,11 @@ class Messages(db.Model):
         # first newest
         return cls.query.filter_by(contact_number=phone_).order_by(Messages.created_at.desc()).first()
 
+    @classmethod
+    def get_errors(cls):
+        # first newest
+        return cls.query.filter_by(status = 'error').order_by(Messages.created_at.desc())
+
     def save(self):
         db.session.add(self)
         db.session.commit()

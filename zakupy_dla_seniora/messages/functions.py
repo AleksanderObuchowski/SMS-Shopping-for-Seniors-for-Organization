@@ -22,7 +22,7 @@ def get_location(message, search=True):
         text = Text(message)
         for ent in text.entities:
             if ent.tag in ['I-LOC', 'I-ORG']:
-                geocoder_data['q'] = ent
+                geocoder_data['q'] = ent[0]
                 location = requests.get(geocoder_url, params=geocoder_data)
                 if 'error' not in location.json():
                     lat = float(location.json()[0]['lat'])
@@ -93,7 +93,7 @@ def conversation(last_message, content, phone_number):
             response = 'Got it! Your volunteer will be there shortly, stay tuned!'
             return {'success': True, 'response': response}, 200
         elif last_message.status == 'waiting for feedback':
-            if content.lowercase() in ['ok', 'okey', 'yes', 'thanks']:
+            if content.lower() in ['ok', 'okey', 'yes', 'thanks']:
                 last_message.status = 'ended'
                 last_message.save()
                 response = 'Thanks! If you need us again, please write new message same as before!'
@@ -104,7 +104,9 @@ def conversation(last_message, content, phone_number):
                 last_message.save()
                 response = 'Thank you for your feedback, someone will contact you shortly'
                 return {'success': True, 'response': response}, 200
-
+        elif last_message.status == 'error':
+            response = 'We are investigating the error, plase wait'
+            return {'success': True, 'response': response}, 200
         else:
             last_message.status = 'error'
             last_message.error = 'unknown state'
@@ -120,11 +122,11 @@ def conversation(last_message, content, phone_number):
             message = Messages(content=content, contact_number=phone_number, status='error')
             message.save()
             response = 'Something went wrong, someone will contact you shortly'
-            return {'success': False, 'response': 'error'}, 200
+            return {'success': False, 'response': response}, 200
 
         else:
             last_message.status = 'error'
             last_message.error = e
             last_message.save()
             response = 'Something went wrong, someone will contact you shortly'
-            return {'success': False, 'response': 'error'}, 200
+            return {'success': False, 'response': response}, 200
