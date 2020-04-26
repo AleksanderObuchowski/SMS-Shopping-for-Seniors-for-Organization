@@ -1,6 +1,6 @@
 import requests
 import json
-# from polyglot.text import Text
+from polyglot.text import Text
 from twilio.rest import Client
 
 from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phone
@@ -19,7 +19,7 @@ geocoder_data = {
 
 def get_location(message, search=True):
     if search:
-        # text = Text(message)
+        text = Text(message)
         for ent in text.entities:
             if ent.tag in ['I-LOC', 'I-ORG']:
                 geocoder_data['q'] = ent[0]
