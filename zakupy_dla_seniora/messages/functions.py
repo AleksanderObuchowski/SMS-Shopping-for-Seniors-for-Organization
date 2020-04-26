@@ -3,10 +3,8 @@ import json
 from polyglot.text import Text
 from twilio.rest import Client
 
-
 from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phone
 from zakupy_dla_seniora.messages.models import Messages
-
 
 client = Client(twilio_sid, twilio_auth_token)
 
@@ -18,7 +16,8 @@ geocoder_data = {
     'format': 'json'
 }
 
-def get_location(message,search = True):
+
+def get_location(message, search=True):
     if search:
         text = Text(message)
         for ent in text.entities:
@@ -42,14 +41,17 @@ def get_location(message,search = True):
             return message, lat, lon
         else:
             return None, None, None
-def respond(response,phone_number):
+
+
+def respond(response, phone_number):
     client.messages.create(
         to=phone_number,
         from_=twilio_phone,
         body=response,
     )
 
-def conversation(last_message, content,phone_number):
+
+def conversation(last_message, content, phone_number):
     try:
 
         if not last_message or last_message.status == 'ended':

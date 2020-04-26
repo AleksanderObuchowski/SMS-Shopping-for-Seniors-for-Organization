@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 
 from zakupy_dla_seniora.messages.models import Messages
 
+
 board = Blueprint('board', __name__, url_prefix='/<lang_code>')
 
 

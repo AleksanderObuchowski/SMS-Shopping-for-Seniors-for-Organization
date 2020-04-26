@@ -1,5 +1,4 @@
 from flask import render_template
-from werkzeug.exceptions import HTTPException
 
 
 def unauthorized(error):

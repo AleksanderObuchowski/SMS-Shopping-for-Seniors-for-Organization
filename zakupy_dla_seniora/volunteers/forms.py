@@ -8,16 +8,19 @@ from flask_babel import _
 
 
 class AddVolunteerForm(FlaskForm):
-    first_name = StringField(_('Name'), validators=[DataRequired(message=_("Please, give name")), Length(min=2, max=30)])
+    first_name = StringField(_('Name'),
+                             validators=[DataRequired(message=_("Please, give name")), Length(min=2, max=30)])
     last_name = StringField(_('Surname'), validators=[DataRequired(message=_("Please, give surname")),
-                                                    Length(min=2, max=30)])
+                                                      Length(min=2, max=30)])
     phone_number = StringField(_('Phone number'), validators=[DataRequired(message=_("Please, give phone number")),
-                                                             Length(min=9, max=12)])
+                                                              Length(min=9, max=12)])
     email = StringField(_('Email address'), validators=[DataRequired(message=_("Please, give email")),
-                                                   Email(message=_("Email is incorrect")), Length(max=50)])
+                                                        Email(message=_("Email is incorrect")), Length(max=50)])
     town = StringField(_('City'), validators=[DataRequired(message=_("Please, give city")), Length(max=100)])
-    district = StringField(_('District'), validators=[DataRequired(message=_("Please, give district")), Length(max=100)])
-    organisation = StringField(_('Organisation'), validators=[DataRequired(message=_("Please, give name of organisation"))])
+    district = StringField(_('District'),
+                           validators=[DataRequired(message=_("Please, give district")), Length(max=100)])
+    organisation = StringField(_('Organisation'),
+                               validators=[DataRequired(message=_("Please, give name of organisation"))])
     submit = SubmitField(_("Register"))
 
     @staticmethod

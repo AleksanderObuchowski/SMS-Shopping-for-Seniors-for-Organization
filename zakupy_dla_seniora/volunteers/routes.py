@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_babel import _
 
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required
@@ -7,7 +8,6 @@ from zakupy_dla_seniora.organisations.models import Organisations
 from zakupy_dla_seniora.users.functions import random_password
 from zakupy_dla_seniora.volunteers.forms import AddVolunteerForm
 from zakupy_dla_seniora.volunteers.models import Volunteers
-from flask_babel import _
 
 volunteers = Blueprint('volunteers', __name__, url_prefix='/<lang_code>')
 
