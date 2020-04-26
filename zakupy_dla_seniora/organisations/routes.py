@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash, url_for, request
+from flask import Blueprint, render_template, redirect, abort, url_for, request
 from flask_login import current_user
 from flask_babel import _
 
@@ -15,6 +15,8 @@ organisations = Blueprint('organisations', __name__, url_prefix='/<lang_code>')
 @organisations.route('/organisation/<org_id>')
 def organisation(org_id=None):
     org = Organisations.get_by_id(org_id).to_dict_view_organisation()
+    if not org:
+        abort(404)
     name = org.pop('Name')
     employees = org.pop('Employees')
     volunteers = org.pop('Volunteers')
@@ -66,6 +68,8 @@ def add_organisation():
 @employee_role_required
 def edit_organisation(org_id=None):
     org = Organisations.get_by_id(org_id)
+    if not org:
+        abort(404)
     form = EditOrganisationForm(obj=org)
     if request.method == 'POST' and form.validate_on_submit():
         org.edit(**form.to_dict())

@@ -33,9 +33,18 @@ def register_blueprints(app):
     app.register_blueprint(messages)
 
 
+def register_error_handlers(app):
+    from zakupy_dla_seniora.errors.resources import page_not_found, server_internal
+    from werkzeug.exceptions import NotFound
+    app.register_error_handler(404, page_not_found)
+    # app.register_error_handler(NotFound, page_not_found)
+    app.register_error_handler(500, server_internal)
+
+
 def create_app(config_class=Config):
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object(Config)
+    app.url_map.strict_slashes = False
 
     # translations
     babel = Babel(app)
@@ -50,8 +59,6 @@ def create_app(config_class=Config):
 
     @app.url_defaults
     def set_language_code(endpoint, values):
-        if 'lang_code' in values or not g.get('lang_code', None):
-            return
         if app.url_map.is_endpoint_expecting(endpoint, 'lang_code'):
             values['lang_code'] = g.lang_code
 
@@ -62,14 +69,20 @@ def create_app(config_class=Config):
 
     @app.before_request
     def ensure_lang_support():
-        lang_code = g.get('lang_code', None)
-        if lang_code and lang_code not in app.config['LANGUAGES']:
-            return abort(404)
+        lang_code = g.get('lang_code')
+        if not lang_code:
+            g.lang_code = 'en'
+        else:
+            if lang_code not in app.config['LANGUAGES']:
+                if len(g.lang_code) <= 3:
+                    g.lang_code = 'en'
+                else:
+                    g.lang_code = 'en'
+                    abort(404)
 
     register_blueprints(app)
-
+    register_error_handlers(app)
     db.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
-
     return app

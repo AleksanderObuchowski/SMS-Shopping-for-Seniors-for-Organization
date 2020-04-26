@@ -8,7 +8,7 @@ from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phon
 from twilio.rest import Client
 
 client = Client(twilio_sid, twilio_auth_token)
-messages = Blueprint('messages', __name__,url_prefix='/<lang_code>')
+messages = Blueprint('messages', __name__, url_prefix='/<lang_code>')
 
 
 @messages.route('/add_message', methods=['GET', 'POST'],)

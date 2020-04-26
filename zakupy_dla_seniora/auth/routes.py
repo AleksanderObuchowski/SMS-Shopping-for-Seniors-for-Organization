@@ -1,5 +1,6 @@
 from flask import Blueprint, request, url_for, redirect, render_template
 from flask_login import current_user, login_user, login_required, logout_user
+
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.forms import LoginForm
 from zakupy_dla_seniora.users.models import User
