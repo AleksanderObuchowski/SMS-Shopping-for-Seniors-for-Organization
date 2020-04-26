@@ -13,4 +13,4 @@ def landing_view():
 @landing.route('/', methods=['GET'])
 def switch_view():
     local_lang = request.accept_languages.best_match(config.Config.LANGUAGES)
-    return redirect(url_for('landing.landing_view',lang_code=local_lang))
+    return redirect(url_for('landing.landing_view', lang_code=local_lang))

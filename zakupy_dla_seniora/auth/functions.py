@@ -1,4 +1,5 @@
 from functools import wraps
+
 from flask import current_app, request
 from flask_login.config import EXEMPT_METHODS
 from flask_login import current_user

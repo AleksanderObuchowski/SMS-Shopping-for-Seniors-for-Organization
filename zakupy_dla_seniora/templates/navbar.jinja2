@@ -106,23 +106,26 @@
     {% endif %}
 
 
+    {% if request.endpoint %}
     <div class="uk-navbar-item">
         <button class="uk-button uk-button-primary" type="button">Lang</button>
         <div uk-dropdown>
             <ul class="uk-nav uk-dropdown-nav">
                 <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='en') }}">english</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a>
                 </li>
                 <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='de') }}">german</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='de') }}">German</a>
                 </li>
                 <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='pl') }}">polish</a>
+                    <a href="{{ url_for(request.endpoint, lang_code='pl') }}">Polish</a>
                 </li>
             </ul>
             </ul>
         </div>
     </div>
+    {% endif %}
+ 
 
 
 </nav>
