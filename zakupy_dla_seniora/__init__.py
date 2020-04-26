@@ -34,10 +34,9 @@ def register_blueprints(app):
 
 
 def register_error_handlers(app):
-    from zakupy_dla_seniora.errors.resources import page_not_found, server_internal
-    from werkzeug.exceptions import NotFound
+    from zakupy_dla_seniora.errors.resources import unauthorized, page_not_found, server_internal
+    app.register_error_handler(401, unauthorized)
     app.register_error_handler(404, page_not_found)
-    # app.register_error_handler(NotFound, page_not_found)
     app.register_error_handler(500, server_internal)
 
 

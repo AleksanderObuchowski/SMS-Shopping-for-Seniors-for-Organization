@@ -2,6 +2,10 @@ from flask import render_template
 from werkzeug.exceptions import HTTPException
 
 
+def unauthorized(error):
+    return render_template('errors/unauthorized.jinja2')
+
+
 def page_not_found(error):
     return render_template('errors/page_not_found.jinja2')
 
