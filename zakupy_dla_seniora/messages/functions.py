@@ -1,15 +1,12 @@
 import requests
-import json
 from polyglot.text import Text
 from twilio.rest import Client
 
-from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phone
-from zakupy_dla_seniora.messages.models import Messages
+from zakupy_dla_seniora.config import twilio_sid, twilio_auth_token, twilio_phone, geocoder_url, geocoder_api
+from zakupy_dla_seniora.messages.models import Message
 
 client = Client(twilio_sid, twilio_auth_token)
 
-geocoder_url = 'https://us1.locationiq.com/v1/search.php'
-geocoder_api = '81a3bf223e5959'
 geocoder_data = {
     'key': geocoder_api,
     'q': '',
@@ -29,7 +26,7 @@ def get_location(message, search=True):
                     lon = float(location.json()[0]['lon'])
                     return ent, lat, lon
                 else:
-                    return 'unk', 'unk', 'unk'
+                    return None, None, None
 
         return None, None, None
     else:
@@ -53,21 +50,20 @@ def respond(response, phone_number):
 
 def conversation(last_message, content, phone_number):
     try:
-
         if not last_message or last_message.status == 'ended':
 
             ent, lat, lon = get_location(content)
             if None in [ent, lat, lon]:
-                message = Messages(content=content, location=ent, longitude=lon, latitude=lat,
-                                   contact_number=phone_number,
-                                   status='waiting for location')
+                message = Message(content=content, location=ent, longitude=lon, latitude=lat,
+                                  contact_number=phone_number,
+                                  status='waiting for location')
                 message.save()
                 response = "We didn't get your location, can you type it again?"
                 return {'success': True, 'response': response}, 200
             else:
-                message = Messages(content=content, location=ent, longitude=lon, latitude=lat,
-                                   contact_number=phone_number,
-                                   status='received')
+                message = Message(content=content, location=ent, longitude=lon, latitude=lat,
+                                  contact_number=phone_number,
+                                  status='received')
                 message.save()
                 response = 'Thanks, we will let you know once someone volunteers to do your shopping'
         elif last_message.status == 'waiting for location':
@@ -115,11 +111,11 @@ def conversation(last_message, content, phone_number):
             return {'success': False, 'response': response}, 200
 
     except Exception as e:
-        if not 'last_message' in locals() or last_message.status == 'ended':
+        if 'last_message' not in locals() or last_message.status == 'ended':
             content = content if 'content' in locals() else None
             phone_number = phone_number if 'phone_number' in locals() else None
 
-            message = Messages(content=content, contact_number=phone_number, status='error')
+            message = Message(content=content, contact_number=phone_number, status='error')
             message.save()
             response = 'Something went wrong, someone will contact you shortly'
             return {'success': False, 'response': response}, 200

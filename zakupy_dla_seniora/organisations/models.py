@@ -1,13 +1,12 @@
-from datetime import datetime, timezone
 from flask_login import current_user
 from flask_babel import _
+from datetime import datetime, timezone
 
 from zakupy_dla_seniora import db
 from zakupy_dla_seniora.users.models import User
-from zakupy_dla_seniora.volunteers.models import Volunteers
 
 
-class Organisations(db.Model):
+class Organisation(db.Model):
     __tablename__ = 'organisations'
     id = db.Column('id', db.Integer, primary_key=True)
     name = db.Column('name', db.String(200), unique=True, nullable=False)
@@ -17,13 +16,13 @@ class Organisations(db.Model):
     postal_code = db.Column('postal_code', db.String(10))
     address = db.Column('address', db.String(50))
     website = db.Column('website', db.String(200))
-    added_by = db.Column('added_by', db.ForeignKey('user.id', ondelete="SET NULL"))
+    added_by = db.Column('added_by', db.ForeignKey('users.id', ondelete="SET NULL"))
     created_at = db.Column('created_at', db.DateTime)
 
     employees = db.relationship('User', backref='organisations', cascade='all, delete-orphan', lazy=True,
                                 foreign_keys=[User.organisation_id])
-    volunteers = db.relationship('Volunteers', backref='organisations', cascade='all, delete-orphan', lazy=True,
-                                 foreign_keys=[Volunteers.organisation_id])
+    # volunteers = db.relationship('Volunteer', backref='organisations', cascade='all, delete-orphan', lazy=True,
+    #                              foreign_keys=[User.organisation_id])
 
     def __init__(self, name, contact_phone=None, contact_email=None, town=None, postal_code=None,
                  address=None, website=None, added_by=None):
@@ -53,8 +52,8 @@ class Organisations(db.Model):
             _('Postal code'): self.postal_code,
             _('Website'): self.website,
             _('Created at'): self.created_at,
-            'Employees': self.employees,
-            'Volunteers': self.volunteers
+            'Employees': self.get_company_employees(),
+            'Volunteers': self.get_company_volunteers()
         }
 
     def to_dict_view_all_organisations(self):
@@ -63,9 +62,22 @@ class Organisations(db.Model):
             _('Name'): self.name,
             _('Website'): self.website,
             _('Created'): self.created_at,
-            _('Employees'): len(self.employees),
-            _('Volunteers'): len(self.volunteers)
+            _('Employees'): len(self.get_company_employees()),
+            _('Volunteers'): len(self.get_company_volunteers())
         }
+
+    def get_company_employees(self):
+        return User.query.filter_by(
+            organisation_id=self.id,
+            is_employee=True
+        ).all()
+
+    def get_company_volunteers(self):
+        return User.query.filter_by(
+            organisation_id=self.id,
+            is_superuser=False,
+            is_employee=False
+        ).all()
 
     @classmethod
     def get_by_id(cls, id_):

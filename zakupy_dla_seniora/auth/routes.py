@@ -5,6 +5,7 @@ from flask_babel import _
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.forms import LoginForm
 from zakupy_dla_seniora.users.models import User
+# from zakupy_dla_seniora.volunteers.models import Volunteer
 
 
 auth = Blueprint('auth', __name__, url_prefix='/<lang_code>')
@@ -14,6 +15,7 @@ auth = Blueprint('auth', __name__, url_prefix='/<lang_code>')
 def login():
     # TODO Add "Login As" field in login template to login as employee or volunteer
     # TODO Bonus feature, save choice in cookies for ease of access
+    # TODO Use uikit switcher
     form = LoginForm()
     if current_user.is_authenticated:
         return redirect(url_for('board.view'))
@@ -41,5 +43,3 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('landing.landing_view'))
-
-

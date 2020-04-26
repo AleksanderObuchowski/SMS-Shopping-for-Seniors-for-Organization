@@ -2,8 +2,7 @@ from flask_wtf import FlaskForm
 from flask_babel import _
 
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length, Email
-
+from wtforms.validators import DataRequired, Length, Email, ValidationError
 
 
 class AddOrganisationForm(FlaskForm):
@@ -16,6 +15,11 @@ class AddOrganisationForm(FlaskForm):
     address = StringField(_('Address'), validators=[Length(max=100)])
     website = StringField(_('Website'), validators=[Length(max=200)])
     submit = SubmitField(_('Add'))
+
+    def validate_contact_phone(self, contact_phone):
+        check = contact_phone.data if contact_phone.data[0] != '+' else contact_phone[1:]
+        if not check.isnumeric():
+            raise ValidationError(_('Given phone number is invalid.'))
 
     def to_dict(self):
         return {
@@ -38,6 +42,11 @@ class EditOrganisationForm(FlaskForm):
     website = StringField(_('Website'), validators=[Length(max=200)])
     submit = SubmitField(_('Save'))
 
+    def validate_phone_number(self, contact_phone):
+        check = contact_phone.data if contact_phone.data[0] != '+' else contact_phone[1:]
+        if not check.isnumeric():
+            raise ValidationError(_('Given phone number is invalid.'))
+
     def to_dict(self):
         return {
             'contact_phone': self.contact_phone.data,
@@ -47,3 +56,4 @@ class EditOrganisationForm(FlaskForm):
             'address': self.address.data,
             'website': self.website.data,
         }
+

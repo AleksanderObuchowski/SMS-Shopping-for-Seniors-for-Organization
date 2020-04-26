@@ -196,7 +196,7 @@ msgid "Everything was perfect :)"
 msgstr ""
 
 #: templates/landing.jinja2:179
-msgid "Are you a representative of an organization that runs volunteering?"
+msgid "Are you a representative of an organisation that runs volunteering?"
 msgstr ""
 
 #: templates/landing.jinja2:185

@@ -6,7 +6,7 @@
     {% endblock title %}
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.3.7/dist/css/uikit.min.css"/>
-    <link rel='icon' href="{{ url_for('static', filename='delight.ico') }}" type='image/x-icon' />
+    <link rel='icon' href="{{ url_for('static', filename='delight.ico') }}" type='image/x-icon'/>
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.7/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.3.7/dist/js/uikit-icons.min.js"></script>
@@ -21,12 +21,15 @@
     {% endblock head %}
 </head>
 <body>
-    {% include 'navbar.jinja2' %}
-    {% block content %}
-    {% endblock content %}
+{% include 'navbar.jinja2' %}
+{% block content %}
+{% endblock content %}
 </body>
 <footer id="page-footer" class="uk-margin uk-background-default" uk-sticky="bottom: true">
-    <h5 class="uk-text-center uk-margin-remove uk-margin-top">Made with <span style='font-size:20px; color: bl'>&#128567;</span> by <a href="http://artifai.pl/" class="uk-link-heading">Artifai Team</a> with support from <img src="https://govtech.gov.pl/wp-content/themes/auberge/assets/images/svg/govtech_Polska_logo_black.svg" style="width: 100px"> </h5>
+    <h5 class="uk-text-center uk-margin-remove uk-margin-top">Made with <span style='font-size:20px; color: bl'>&#128567;</span>
+        by <a href="http://artifai.pl/" class="uk-link-heading">Artifai Team</a> with support from <img
+                src="https://govtech.gov.pl/wp-content/themes/auberge/assets/images/svg/govtech_Polska_logo_black.svg"
+                style="width: 100px"></h5>
 
 
 </footer>

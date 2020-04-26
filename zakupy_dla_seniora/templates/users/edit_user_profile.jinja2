@@ -1,13 +1,17 @@
 {% extends 'base.jinja2' %}
 
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Edit user') }}</title>
+{% endblock title %}
+
 {% block content %}
     <div class="uk-flex uk-flex-center uk-flex-middle uk-margin-large ">
         <div class="uk-card-body uk-card-default">
-            <h3 class="uk-card-title uk-text-center">{{ _('Editing') }} {{ user.firs_name }}</h3>
-           {% if msg %}
+            <h3 class="uk-card-title uk-text-center">{{ _('Editing') }} {{ user.first_name }}</h3>
+            {% if msg %}
                 {% if success %}
                     <div class="uk-alert-success" uk-alert>
-                        <a clasgts="uk-alert-close" uk-close></a>
+                        <a class="uk-alert-close" uk-close></a>
                         <p>{{ msg }}</p>
                     </div>
                 {% else %}
