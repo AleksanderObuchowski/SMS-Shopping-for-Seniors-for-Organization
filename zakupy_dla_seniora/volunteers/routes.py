@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required
 from flask_login import current_user, login_required
@@ -7,7 +7,7 @@ from zakupy_dla_seniora.users.functions import random_password
 from zakupy_dla_seniora.volunteers.forms import AddVolunteerForm, EditVolunteerForm
 from zakupy_dla_seniora.volunteers.models import Volunteers
 
-volunteers = Blueprint('volunteers', __name__)
+volunteers = Blueprint('volunteers', __name__, url_prefix='/<lang_code>')
 
 
 @volunteers.route('/volunteer/new', methods=['GET', 'POST'])
@@ -34,7 +34,7 @@ def add_volunteer():
 
     form = AddVolunteerForm()
     form.organisation.choices = organisations
-
+    print(form.organisation.data)
     if request.method == 'POST' and form.validate_on_submit():
         passwd = random_password()
         ph = bcrypt.generate_password_hash(passwd).decode('utf-8')
@@ -58,43 +58,50 @@ def show_all():
     :returns All Volunteers for superuser and Organisation specific Volunteers for organisation employee.
     """
     if current_user.is_employee:
-        data = Volunteers.get_all_for_organisation(current_user.organisation_id)
+        data = Volunteers.get_all_as_dict(current_user.organisation_id)
     else:
-        data = Volunteers.get_all()
-    return render_template('show_volunteers.jinja2', data=data)
+        data = Volunteers.get_all_as_dict()
+    columns = Volunteers.get_columns()
+    return render_template('show_volunteers.jinja2', volunteers=data, columns=columns)
 
 
 @volunteers.route('/volunteer/<volunteer_id>')
 @login_required
 def show(volunteer_id):
     """
+    Show specific volunteer.
     :param volunteer_id:
     :return volunteer profile template or access denied template:
     """
     v = Volunteers.get_by_id(volunteer_id)
-    if v:
-        return render_template('view_volunteer_profile.jinja2', volunteer=v)
-    return render_template('error_pages/access_denied.jinja2')
+    return render_template('view_volunteer_profile.jinja2', volunteer=v)
 
 
 @volunteers.route('/volunteer/<volunteer_id>/edit', methods=["GET", "POST"])
 @login_required
 def edit(volunteer_id):
+    """
+    Renders volunteer profile edit page. If volunteer tries to edit other volunteer profile, his own profile is
+    rendered instead. If organisation employee tries to edit a profile of volunteer outside his own organisation, an
+    error page is returned.
+    In other case form is properly rendered, pre-filled with known data. Then saved if properly filled.
+    :param volunteer_id:
+    :return Volunteer profile edit page or board view on success or 401 on access denied:
+    """
     if not current_user.is_superuser or not current_user.is_employee:
         if volunteer_id != current_user.id:
             return redirect(url_for('volunteers.edit', volunteer_id=current_user.id))
     elif current_user.is_employee:
         v = Volunteers.get_by_id(volunteer_id)
         if v.organisation_id != current_user.organisation_id:
-            return render_template('error_pages/access_denied.jinja2',
-                                   msg=f"Nie możesz edytować tego wolontariusza, "
-                                       f"ponieważ nie należy on do organizacji "
-                                       f"{Organisations.get_name_by_id(current_user.organisation_id)}")
+            abort(401)
+
     # Initially fill form
     v = Volunteers.get_by_id(volunteer_id)
     form = EditVolunteerForm()
 
     if request.method == "POST" and form.validate_on_submit():
+        v.username = form.username.data
         v.first_name = form.first_name.data
         v.last_name = form.last_name.data
         v.phone_number = form.phone_number.data
@@ -108,6 +115,7 @@ def edit(volunteer_id):
         return redirect(url_for('board.view'))
 
     elif request.method == "GET":
+        form.username.data = v.username
         form.first_name.data = v.first_name
         form.last_name.data = v.last_name
         form.phone_number.data = v.phone_number
@@ -123,13 +131,16 @@ def edit(volunteer_id):
 @volunteers.route('/volunteer/<volunteer_id>/delete')
 @employee_role_required
 def delete(volunteer_id):
+    """
+    Deletes given Volunteer based on permissions
+    :param volunteer_id:
+    :return redirect to board.view:
+    """
     v = Volunteers.get_by_id(volunteer_id)
     if current_user.is_employee:
         if v.organisation_id != current_user.organisation_id:
-            return render_template('error_pages/access_denied.jinja2',
-                                   msg=f"Nie znaleziono tego wolontariusza w organizacji "
-                                       f"{Organisations.get_name_by_id(current_user.organisation_id)}")
+            abort(401)
+
     v.delete()
     flash('Wolontariusz został usunięty z bazy', 'success')
     return redirect(url_for('board.view'))
-

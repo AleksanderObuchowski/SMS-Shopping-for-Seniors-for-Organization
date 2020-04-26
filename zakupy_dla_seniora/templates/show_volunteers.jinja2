@@ -1,39 +1,81 @@
 {% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>All Volunteers</title>
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>
+{% endblock head %}
+
 {% block content %}
-    <table class="uk-table uk-table-divider">
-        <thead>
-            <tr>
-                <th>{{ _('Username')}}</th>
-                <th>{{ _('Name')}}</th>
-                <th>{{ _('Surname')}}</th>
-                <th>{{ _('Phone number')}}</th>
-                <th>{{ _('Email')}}</th>
-                <th>{{ _('Town')}}</th>
-                <th>{{ _('District')}}</th>
-                <th>{{ _('Created by')}}</th>
-                <th>{{ _('Created at')}}</th>
-                <th>{{ _('Organisation')}}</th>
-                <th>{{ _('Is phone verified')}}</th>
-                <th>{{ _('Is active')}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for vol in data %}
+    <div class="uk-card uk-card-body uk-card-default uk-width-3-4 uk-margin-auto">
+        {% if msg %}
+            <div class="uk-alert-primary" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>{{ msg }}</p>
+            </div>
+        {% endif %}
+
+    <table id="sortableTable" class="display cell-border row-border text-center table-light">
+            <thead class="uk-background-muted">
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+                <th>{{ _('Delete') }}</th>
+            </thead>
+            {% for vol in volunteers %}
                 <tr>
-                    <td>{{ vol.username }}</td>
-                    <td>{{ vol.first_name}}</td>
-                    <td>{{ vol.last_name}}</td>
-                    <td>{{ vol.phone_number}}</td>
-                    <td>{{ vol.email}}</td>
-                    <td>{{ vol.town}}</td>
-                    <td>{{ vol.district}}</td>
-                    <td>{{ vol.created_by}}</td>
-                    <td>{{ vol.Created_at}}</td>
-                    <td>{{ vol.organisation_id}}</td>
-                    <td>{{ vol.is_phone_verified}}</td>
-                    <td>{{ vol.is_active}}</td>
+                    {% for key, value in vol.items() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                        <td>
+                            <a uk-toggle="target: #delete-confirmation-modal-{{ vol[_('ID')] }}">&#128465;</a>
+                            <div id="delete-confirmation-modal-{{ vol[_('ID')] }}" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <h2 class="uk-modal-title">{{ _('Are you sure?') }}</h2>
+                                    <p class="uk-text-large">
+                                        {{ _('Are you sure you want to delete')}} {{ vol[_('Name')] }}?
+                                        {{ _('This action cannot be undone.') }}
+                                    </p>
+                                    <p class="uk-text-right">
+                                        <button class="uk-button uk-button-default uk-modal-close" type="button">{{ _('Cancel') }}</button>
+
+                                        <a href="{{ url_for('volunteers.delete', volunteer_id=vol[_('ID')]) }}">
+                                            <button class="uk-button uk-button-danger" type="button">{{ _('Delete') }}</button>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('volunteers.edit', volunteer_id=vol['ID']) }}">{{ _('Edit') }}</a>
+                        </td>
                 </tr>
-            {%  endfor %}
-        </tbody>
-    </table>
+            {% endfor %}
+        </table>
+    </div>
+
+    <style>
+    .dataTables_length {
+        margin-bottom: 1rem;
+        white-space: nowrap;
+    }
+
+    </style>
+    <script>
+        $.extend( $.fn.dataTable.defaults, {
+            responsive: true,
+        } );
+        $('#sortableTable').DataTable({
+            "order": [[ 0, 'asc' ]]
+        });
+        $(document).ready(function() {
+            let select = document.getElementsByName("sortableTable_length");
+            console.log(select);
+            select[0].classList.add("uk-width-auto");
+            select[0].classList.add("uk-select");
+        });
+    </script>
 {% endblock content %}

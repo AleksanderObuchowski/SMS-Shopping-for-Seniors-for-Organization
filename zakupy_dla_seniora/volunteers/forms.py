@@ -14,7 +14,7 @@ class AddVolunteerForm(FlaskForm):
                                                    Email(message="Email jest niepoprawny"), Length(max=50)])
     town = StringField('Miasto', validators=[DataRequired(message="Proszę podać miasto"), Length(max=100)])
     district = StringField('Dzielnica', validators=[DataRequired(message="Proszę podać dzielnicę"), Length(max=100)])
-    organisation = SelectField('Organizacja')
+    organisation = SelectField('Organizacja', coerce=int)
     submit = SubmitField('Zarejestruj')
 
     @staticmethod
@@ -31,13 +31,14 @@ class AddVolunteerForm(FlaskForm):
 
 
 class EditVolunteerForm(FlaskForm):
+    username = StringField('Nazwa użytkownika', validators=[Length(max=20)])
     first_name = StringField('Imię', validators=[Length(min=2, max=30)])
     last_name = StringField('Nazwisko', validators=[Length(min=2, max=30)])
     phone_number = StringField('Numer telefonu', validators=[Length(min=9, max=12)])
     email = StringField('Adres email', validators=[Email(message="Email jest niepoprawny"), Length(max=50)])
     town = StringField('Miasto', validators=[Length(max=100)])
     district = StringField('Dzielnica', validators=[Length(max=100)])
-    organisation = SelectField('Organizacja')
+    organisation = SelectField('Organizacja', coerce=int)
     is_active = BooleanField("Aktywny")
     submit = SubmitField('Zapisz')
 

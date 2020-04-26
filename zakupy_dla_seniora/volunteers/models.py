@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from flask_login import UserMixin, current_user
 from zakupy_dla_seniora import db
+from flask_babel import _
 
 
 class Volunteers(db.Model, UserMixin):
@@ -34,16 +35,40 @@ class Volunteers(db.Model, UserMixin):
     def __repr__(self):
         return "<Volunteer(id='%s', username='%s')>" % (self.id, self.username)
 
-    def set_active(self):
-        self.is_active = True
+    @classmethod
+    def get_all_as_dict(cls, user_org_id=None):
+        """
+        :param user_org_id:
+        :return Volunteer objects as dictionary:
+        """
+        if user_org_id:
+            data = cls.query.filter_by(organisation_id=user_org_id).all()
+        else:
+            data = cls.query.all()
+
+        return [{
+            _('ID'): vol.id,
+            _('Username'): vol.username,
+            _('First name'): vol.first_name,
+            _('Last name'): vol.last_name,
+            _('Phone number'): vol.phone_number,
+            _('Email'): vol.email,
+            _('Organisation'): vol.organisation_id,
+            _('Town'): vol.town
+        } for vol in data]
 
     @classmethod
-    def get_all_for_organisation(cls, user_org_id):
-        return cls.query.filter_by(organisation_id=user_org_id).all()
-
-    @classmethod
-    def get_all(cls):
-        return cls.query.all()
+    def get_columns(cls, user_org_id=None):
+        return [
+            _('ID'),
+            _('Username'),
+            _('First name'),
+            _('Last name'),
+            _('Phone number'),
+            _('Email'),
+            _('Organisation'),
+            _('Town')
+        ]
 
     @classmethod
     def get_by_id(cls, volunteer_id):
