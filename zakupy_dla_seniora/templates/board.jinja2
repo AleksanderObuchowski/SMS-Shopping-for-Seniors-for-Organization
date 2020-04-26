@@ -1,7 +1,7 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-    <title>{{ _('SMS Shopping for Seniors')}}</title>
+    <title>Zakupy dla seniora</title>
 {% endblock title %}
 
 {% block head %}
@@ -41,7 +41,7 @@
         <div class="uk-container" id ="board" style="height: 90vh;overflow: scroll;">
             {%for  message in messages %}
                 <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
-                    <h3 class="uk-card-title">{{ message['location'] }}</h3> <a href="/take_message/{{ message['id'] }}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
+                    <h3 class="uk-card-title">{{ message['location'] }}</h3> <a href="{{ url_for('messages.take_message', id = message['id']) }}" style="float: right;" align="right" class="uk-button uk-button-primary uk-margin-left">Weź zlecenie</a>
                     <p>{{ message['content'] }}</p>
 
                 </div>
@@ -60,7 +60,7 @@
 
         let mymap = L.map('mapid').setView([52.1009833, 19.100852], 7);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">{{ _('OpenStreetMap')}}</a> {{ _('contirbutors')}}',
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
             maxZoom: 30,
             id: 'mapbox/streets-v11',
             tileSize: 512,
@@ -70,7 +70,7 @@
 
         {% for message in messages%}
 
-            var marker  =L.marker([{{message['latitude']}}+(Math.random()-0.5)*0.005, {{message['longtitude']}}+(Math.random()-0.5)*0.005], {icon: Icon}).bindPopup("<h3>{{message['longitude'] }}</h3><p>{{ message['content'] }}</p>").addTo(mymap);
+            var marker  =L.marker([{{message['latitude']}}+(Math.random()-0.5)*0.005, {{message['longitude']}}+(Math.random()-0.5)*0.005], {icon: Icon}).bindPopup("<h3>{{message['longitude'] }}</h3><p>{{ message['content'] }}</p>").addTo(mymap);
         {% endfor %}
         mymap.on('moveend', function() {
 
@@ -82,21 +82,19 @@
             data.push({
                 'content': "{{m['content']|safe}}",
                 'latitude' : {{m['latitude']}},
-                'longtitude' : {{m['longtitude']}},
+                'longitude' : {{m['longitude']}},
                 'location' : "{{ m['location'] }}",
-                'id':{{ m['id'] }}
+                'id':{{ m['id'] }},
+                'url': "{{ url_for('messages.take_message', id = m['id']) }}"
             })
         {% endfor %}
             function display_shopping() {
                 board = document.getElementById("board");
                 html_str = ""
                 for (let message of data) {
-                    var p = L.latLng(message['latitude'],message['longtitude'])
+                    var p = L.latLng(message['latitude'],message['longitude'])
                     if (mymap.getBounds().contains(p)){
-                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 " +
-                            "class=\"uk-card-title\">"+ data[d]['message_location']+"</h3> <a href " +
-                            "=\"/take_order?user_id=6&message_id="+data[d]['id']+"\"style=\"float: right;\" align=\"right\" class=\"uk-button " +
-                            "uk-button-primary uk-margin-left\">{{ _('Take order') }}</a><p>" + data[d]['message_content'] + "</p></div>"
+                        str = "<div class=\"uk-margin uk-card uk-card-default uk-card-hover uk-card-body uk-margin-auto\"><h3 class=\"uk-card-title\">"+ message['location']+"</h3> <a href="+message['url']+" style=\"float: right;\" align=\"right\" class=\"uk-button uk-button-primary uk-margin-left\">Weź zlecenie</a><p>" + message['content'] + "</p></div>"
                         html_str += str
                     }
                 }
