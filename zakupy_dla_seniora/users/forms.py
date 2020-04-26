@@ -6,7 +6,7 @@ from flask_babel import _
 from zakupy_dla_seniora.users.models import User
 
 
-class AddForm(FlaskForm):
+class AddUserForm(FlaskForm):
     username = StringField(_('Username'), validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField(_('Email'), validators=[DataRequired(), Email()])
     first_name = StringField(_('Name'), validators=[DataRequired(), Length(min=2, max=50)])
@@ -29,7 +29,7 @@ class AddForm(FlaskForm):
             raise ValidationError(_('This email is already taken. Please choose other one.'))
 
 
-class EditForm(FlaskForm):
+class EditUserForm(FlaskForm):
     username = StringField(_('Username'), validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField(_('Email'), validators=[DataRequired(), Email()])
     first_name = StringField(_('Name'), validators=[DataRequired(), Length(min=2, max=50)])

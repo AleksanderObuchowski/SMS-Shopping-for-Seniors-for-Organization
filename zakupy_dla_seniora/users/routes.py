@@ -5,7 +5,7 @@ from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required, superuser_role_required
 from zakupy_dla_seniora.messages.models import Messages
 from zakupy_dla_seniora.users.functions import random_password
-from zakupy_dla_seniora.users.forms import AddForm, EditForm
+from zakupy_dla_seniora.users.forms import AddUserForm, EditUserForm
 from zakupy_dla_seniora.users.models import User
 from zakupy_dla_seniora.organisations.models import Organisations
 from flask_babel import _
@@ -64,7 +64,7 @@ def add_user():
         organisations = (current_user.organisation_id, Organisations.get_name_by_id(current_user.id))
 
 
-    form = AddForm()
+    form = AddUserForm()
     form.organisation.choices = organisations
 
     if form.validate_on_submit() and request.method == "POST":
@@ -119,7 +119,7 @@ def delete_user(id):
 @users.route('/users/edit/<id>', methods=['GET', 'POST'])
 @employee_role_required
 def edit_user(id):
-    form = EditForm()
+    form = EditUserForm()
     _user = User.get_by_id(id)
     if form.validate_on_submit() and request.method == "POST":
         username = form.username.data
