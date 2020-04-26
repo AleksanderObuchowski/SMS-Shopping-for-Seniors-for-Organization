@@ -47,6 +47,23 @@
 
                     </ul>
                 </div>
+
+                <button class="uk-button uk-button" type="button">{{ _('Employee') }}</button>
+                <div uk-dropdown>
+
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-parent">
+                            <a href="{{ url_for('users.show_all') }}">
+                                {{ _('Employees') }}
+                            </a>
+                        </li>
+                        <li class="uk-parent">
+                            <a href="{{ url_for('users.add_user') }}">
+                                {{ _('Add User') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             {% endif %}
             <div class="navbar-collapse" id="navbar_collapse">
                 <ul class="uk-navbar-nav">

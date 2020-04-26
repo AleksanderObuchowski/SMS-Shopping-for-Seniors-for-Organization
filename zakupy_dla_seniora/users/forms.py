@@ -1,26 +1,80 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
 from flask_babel import _
 
 from zakupy_dla_seniora.users.models import User
 
 
-class RegistrationForm(FlaskForm):
+class AddUserForm(FlaskForm):
     username = StringField(_('Username'), validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField(_('Email'), validators=[DataRequired(), Email()])
-    organisation = StringField(_('Organisations'), validators=[DataRequired()])
-    password = PasswordField(_('Password'), validators=[DataRequired()])
-    confirm_password = PasswordField(_('Repeat password'), validators=[DataRequired(), EqualTo('password')])
-    superuser = BooleanField(_('Superuser'))
+    first_name = StringField(_('Name'), validators=[DataRequired(), Length(min=2, max=50)])
+    last_name = StringField(_('Surname'), validators=[DataRequired(), Length(min=2, max=50)])
+    phone = StringField(_('Phone number'), validators=[DataRequired(), Length(min=9, max=12)])
+    town = StringField(_('City'), validators=[DataRequired(), Length(max=100)])
+    organisation = SelectField(_('Organisation'), coerce=int, validators=[DataRequired()])
+    position = StringField('Position', validators=[Length(max=100)])
+    is_superuser = SelectField('Is superuser', validators=[InputRequired()], choices=[('No', 'No'), ('Yes', 'Yes')])
     submit = SubmitField(_('Register'))
 
+    def validate_phone_number(self, phone):
+        user = User.query_filter_by(phone=phone.data).first()
+        if user:
+            raise ValidationError(_('This phone number is already taken. Please choose another one.'))
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError(_('This user name is already taken. Please choose other one.'))
+            raise ValidationError(_('This user name is already taken. Please choose another one.'))
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError(_('This email is already taken. Please choose other one.'))
+            raise ValidationError(_('This email is already taken. Please choose another one.'))
+
+    def to_dict(self):
+        return {
+            'username': self.username.data,
+            'email': self.email.data,
+            'first_name': self.first_name.data,
+            'last_name': self.last_name.data,
+            'phone': self.phone.data,
+            'town': self.town.data,
+            'organisation_id': self.organisation.data,
+            'position': self.position.data,
+            'is_superuser': self.is_superuser.data == 'Yes'
+        }
+
+
+class EditUserForm(FlaskForm):
+    username = StringField(_('Username'), validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField(_('Email'), validators=[DataRequired(), Email()])
+    first_name = StringField(_('Name'), validators=[DataRequired(), Length(min=2, max=50)])
+    last_name = StringField(_('Surname'), validators=[DataRequired(), Length(min=2, max=50)])
+    phone = StringField(_('Phone number'), validators=[DataRequired(), Length(min=9, max=12)])
+    town = StringField(_('City'), validators=[DataRequired(), Length(max=100)])
+    position = StringField('Position', validators=[DataRequired(), Length(max=100)])
+    is_superuser = SelectField('Is superuser', validators=[InputRequired()], choices=[('No', 'No'), ('Yes', 'Yes')])
+    submit = SubmitField(_('Save changes'))
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user and user.username != self.username.data:
+            raise ValidationError(_('This user name is already taken. Please choose another one.'))
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user and user.username != self.username.data:
+            raise ValidationError(_('This email is already taken. Please choose another one.'))
+
+    def to_dict(self):
+        return {
+            'username': self.username.data,
+            'email': self.email.data,
+            'first_name': self.first_name.data,
+            'last_name': self.last_name.data,
+            'phone': self.phone.data,
+            'town': self.town.data,
+            'position': self.position.data,
+            'is_superuser': self.is_superuser.data == 'Yes'
+        }

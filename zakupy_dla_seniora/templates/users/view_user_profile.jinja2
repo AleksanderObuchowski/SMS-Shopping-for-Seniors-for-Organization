@@ -5,7 +5,43 @@
 {% endblock title %}
 
 {% block content %}
-
+    
+    <table class="uk-table uk-table-divider">
+        <thead>
+            <tr>
+                <th>{{ _('Username')}}</th>
+                <th>{{ _('Name')}}</th>
+                <th>{{ _('Surname')}}</th>
+                <th>{{ _('Phone number')}}</th>
+                <th>{{ _('Email')}}</th>
+                <th>{{ _('Town')}}</th>
+                <th>{{ _('District')}}</th>
+                <th>{{ _('Created by')}}</th>
+                <th>{{ _('Created at')}}</th>
+                <th>{{ _('Organisation')}}</th>
+                <th>{{ _('Is phone verified')}}</th>
+                <th>{{ _('Is active')}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name}}</td>
+                <td>{{ user.last_name}}</td>
+                <td>{{ user.phone_number}}</td>
+                <td>{{ user.email}}</td>
+                <td>{{ user.town}}</td>
+                <td>{{ user.district}}</td>
+                <td>{{ user.created_by}}</td>
+                <td>{{ user.Created_at}}</td>
+                <td>{{ user.organisation_id}}</td>
+                <td>{{ user.is_phone_verified}}</td>
+                <td>{{ user.is_active}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
 <h1 class="uk-text-center">{{ user.username}}</h1>
 <div class="uk-container uk-margin-large-top" id="board" style="height: 100vh;">
     <h3>{{_('Orders processed by you.')}}</h3>

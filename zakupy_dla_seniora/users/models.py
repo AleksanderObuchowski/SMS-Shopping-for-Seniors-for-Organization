@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from zakupy_dla_seniora import db, login_manager
 from zakupy_dla_seniora.volunteers.models import Volunteers
 from zakupy_dla_seniora.messages.models import Messages
+from flask_babel import _
 
 
 @login_manager.user_loader
@@ -34,17 +35,10 @@ class User(db.Model, UserMixin):
     user_creation = db.relationship('User', backref='sub_user', remote_side=id)
 
     def __init__(self, username, email, organisation_id, password_hash, first_name=None, last_name=None,
-                 phone=None, position=None, town=None, created_by=None, is_superuser=False):
-        self.username = username
-        self.email = email
+                 phone=None, city=None, position=None, town=None, created_by=None, is_superuser=False):
+        self.edit(username, email, first_name, last_name, phone, town, position, is_superuser)
         self.organisation_id = organisation_id
         self.password_hash = password_hash
-        self.first_name = first_name
-        self.last_name = last_name
-        self.phone = phone
-        self.position = position
-        self.town = town
-        self.is_superuser = is_superuser
         self.is_employee = not is_superuser
         self.is_active = is_superuser
         self.created_by = created_by
@@ -53,8 +47,59 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'<User(id={self.id}, username={self.username})>'
 
+    def edit(self, username, email, first_name, last_name, phone, town, position, is_superuser):
+        self.username = username
+        self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
+        self.phone = phone
+        self.town = town
+        self.position = position
+        self.is_superuser = is_superuser
+
+
+    def to_dict_view_user(self):
+        return {
+            _('Username'): self.username,
+            _('Name'): self.first_name,
+            _('Lastname'): self.last_name,
+            _('Email'): self.email,
+            _('Phone'): self.phone,
+            _('City'): self.town,
+            _('Organisation'): self.organisation_id,
+            _('Position'): self.position,
+            _('Special privileges'): self.is_superuser,
+            _('Created by'): self.created_by,
+            _('Created at'): self.created_at,
+            _('Is active'): self.is_active
+        }
+
+    def to_dict_view_all_users(self):
+        return {
+            _('ID'): self.id,
+            _('Name'): self.first_name,
+            _('Lastname'): self.last_name,
+            _('Email'): self.email,
+            _('Phone'): self.phone,
+            _('City'): self.town,
+            _('Organisation'): self.organisation_id,
+            _('Position'): self.position,
+            _('Special privileges'): self.is_superuser,
+            _('Is active'): self.is_active
+        }
+
     @classmethod
-    def get_by_id(cls, id_):
+    def get_all_for_organisation(cls, user_org_id):
+        return cls.query.filter_by(organisation_id=user_org_id).all()
+
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def get_by_id(cls, id_, org_id=None):
+        if org_id:
+            return cls.query.filter_by(id=id_, organisation_id=org_id).first()
         return cls.query.filter_by(id=id_).first()
 
     @classmethod
@@ -63,4 +108,8 @@ class User(db.Model, UserMixin):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()

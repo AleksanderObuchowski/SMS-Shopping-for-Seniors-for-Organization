@@ -51,7 +51,8 @@ def add_organisation():
         if not Organisations.get_by_name(form.name.data):
             org = Organisations(**form.to_dict(), added_by=current_user.id)
             org.save()
-            return redirect(url_for('organisations.add_organisation', msg=f'Organizacja {org.name} została dodana.'))
+            msg = f"{_('Organisation')} {org.name} {_('has been successfully added')}."
+            return redirect(url_for('organisations.add_organisation', msg=msg))
         else:
             msg = f"{_('Name')} {form.name.data} {_('is already taken.')}."
             return render_template('organisations/add_organisation.jinja2', form=form,
