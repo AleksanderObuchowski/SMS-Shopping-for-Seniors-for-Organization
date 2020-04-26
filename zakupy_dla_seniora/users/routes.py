@@ -55,14 +55,14 @@ def profile(user_id=None):
 
     if current_user.is_superuser:
         _user = User.get_by_id(user_id)
-        return render_template('users/view_user_profile.jinja2', user=_user)
+        return render_template('users/view_user_profile.jinja2', user=_user.to_dict_view_user(), messages=messages)
     elif current_user.is_employee:
         _user = User.get_by_id(user_id, current_user.organisation_id)
         if not _user:
             abort(404)
             # error_message = _("There is no such user in your organisation.")
         else:
-            return render_template('users/view_user_profile.jinja2', user=_user, messages=messages)
+            return render_template('users/view_user_profile.jinja2', user=_user.to_dict_view_user(), messages=messages)
     else:
         return redirect(url_for('board.view'))
 
