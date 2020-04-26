@@ -4,7 +4,7 @@ from flask_login import UserMixin
 from zakupy_dla_seniora import db, login_manager
 from zakupy_dla_seniora.volunteers.models import Volunteers
 from zakupy_dla_seniora.messages.models import Messages
-
+from flask_babel import _
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -53,6 +53,36 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'<User(id={self.id}, username={self.username})>'
 
+    def to_dict_view_user(self):
+        return {
+            _('Username'):self.username,
+            _('Name'): self.first_name,
+            _('Lastname'):self.last_name,
+            _('Email'):self.email,
+            _('Phone'): self.phone,
+            _('City'): self.town,
+            _('Organisation') : self.organisation_id,
+            _('Position'): self.position,
+            _('Special privileges'):self.is_superuser,
+            _('Created by'):self.created_by,
+            _('Created at'):self.created_at,
+            _('Is active') : self.is_active
+        }
+
+    def to_dict_view_all_users(self):
+        return {
+            _('ID'): self.id,
+            _('Name'):self.first_name,
+            _('Lastname'):self.last_name,
+            _('Email'):self.email,
+            _('Phone'):self.phone,
+            _('City'):self.town,
+            _('Organisation'):self.organisation_id,
+            _('Position'):self.position,
+            _('Special privileges'):self.is_superuser,
+            _('Is active'):self.is_active
+        }
+
     @classmethod
     def get_all_for_organisation(cls, user_org_id):
         return cls.query.filter_by(organisation_id=user_org_id).all()
@@ -62,7 +92,9 @@ class User(db.Model, UserMixin):
         return cls.query.all()
 
     @classmethod
-    def get_by_id(cls, id_):
+    def get_by_id(cls, id_,org_id = None):
+        if org_id :
+            return cls.query.filter_by(id=id_, organisation_id=org_id).first()
         return cls.query.filter_by(id=id_).first()
 
     @classmethod

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, flash, redirect, request, url_for
 from flask_login import current_user
 
 from zakupy_dla_seniora import bcrypt
-from zakupy_dla_seniora.auth.functions import employee_role_required
+from zakupy_dla_seniora.auth.functions import employee_role_required, superuser_role_required
 from zakupy_dla_seniora.messages.models import Messages
 from zakupy_dla_seniora.users.functions import random_password
 from zakupy_dla_seniora.users.forms import AddForm, EditForm
@@ -13,10 +13,42 @@ from flask_babel import _
 users = Blueprint('users', __name__, url_prefix='/<lang_code>')
 
 
+
+@users.route('/users/<id>')
+@employee_role_required
+def show(id):
+    if current_user.is_superuser:
+        _user = User.get_one(id)
+        return render_template('view_user_profile.jinja2', user=_user)
+    elif current_user.is_employee:
+        _user = User.get_one(id, current_user.organisation_id)
+        if not _user:
+            error_message = _("There is no such user in your organisation.")
+        else:
+            return render_template('view_user_profile.jinja2', user=_user)
+    else:
+        return redirect(url_for('board.view'))
+
+
 @users.route('/profile')
-def profile():
-    messages = Messages.get_user_messages(current_user.id)
-    return render_template('view_user_profile.jinja2', user=current_user, messages = messages)
+@users.route('/profile/<id>')
+def profile(id=None):
+    if not id:
+        id = current_user.id
+
+    messages = Messages.get_user_messages(id)
+
+    if current_user.is_superuser:
+        _user = User.get_by_id(id)
+        return render_template('view_user_profile.jinja2', user=_user)
+    elif current_user.is_employee:
+        _user = User.get_by_id(id, current_user.organisation_id)
+        if not _user:
+            error_message = _("There is no such user in your organisation.")
+        else:
+            return render_template('view_user_profile.jinja2', user=_user, messages = messages)
+    else:
+        return redirect(url_for('board.view'))
 
 
 @users.route('/add_user', methods=['GET', 'POST'])
@@ -32,7 +64,7 @@ def add_user():
         organisations = (current_user.organisation_id, Organisations.get_name_by_id(current_user.id))
 
 
-    form = EditForm()
+    form = AddForm()
     form.organisation.choices = organisations
 
     if form.validate_on_submit() and request.method == "POST":
@@ -66,27 +98,25 @@ def show_all():
         data = User.get_all_for_organisation(current_user.organisation_id)
     else:
         data = User.get_all()
-    return render_template('show_users.jinja2', data=data)
+    data_list = [user.to_dict_view_all_users() for user in data]
+    [p.update(Organisation=Organisations.get_name_by_id(p['Organisation'])) for p in data_list]
+    print(data_list)
+    if 'msg' in request.args:
+        return render_template('show_users.jinja2', data=data_list, columns=data_list[0].keys(), msg=request.args['msg'])
+    return render_template('show_users.jinja2', data=data_list, columns=data_list[0].keys())
 
 
-@users.route('/users/<id>')
-@employee_role_required
-def show(id):
-    if current_user.is_superuser:
-        _user = User.get_one(id)
-        return render_template('view_user_profile.jinja2', user=_user)
-    elif current_user.is_employee:
-        _user = User.get_one(id, current_user.organisation_id)
-        if not _user:
-            error_message = _("There is no such user in your organisation.")
-        else:
-            return render_template('view_user_profile.jinja2', user=_user)
-    else:
-        return redirect(url_for('board.view'))
+@users.route('/organisation/delete/<id>')
+@superuser_role_required
+def delete_user(id):
+    user = User.get_by_id(id)
+    msg = f"{_('User')} {user.name} {_('has been deleted')}."
+    user.delete()
+    return redirect(url_for('users.show_all', msg=msg))
 
 
-
-@users.route('/users/<id>/edit', methods=['GET', 'POST'])
+@users.route('/users/edit', methods=['GET', 'POST'])
+@users.route('/users/edit/<id>', methods=['GET', 'POST'])
 @employee_role_required
 def edit_user(id):
     form = EditForm()
@@ -118,8 +148,8 @@ def edit_user(id):
         form.position.data = _user.position
         form.is_superuser.data = _user.is_superuser
 
-    return render_template('forms/edit_user.jinja2', form=form)
+    return render_template('forms/edit_user_profile.jinja2', form=form, user=_user)
 
 
 
-# TODO Add edit user profile form, for superuser add possibility to see all users and manage them
+# DONE Add edit user profile form, for superuser add possibility to see all users and manage them

@@ -48,6 +48,18 @@
                                 </a>
                             </li>
 
+                            <li class="uk-parent">
+                                <a href="{{ url_for('users.show_all') }}">
+                                    {{ _('View employees')}}
+                                </a>
+                            </li>
+
+                             <li class="uk-parent">
+                                <a href="{{ url_for('users.add_user') }}">
+                                    {{ _('Add employee')}}
+                                </a>
+                            </li>
+
                         {% endif %}
 
                         <li class="uk-parent">

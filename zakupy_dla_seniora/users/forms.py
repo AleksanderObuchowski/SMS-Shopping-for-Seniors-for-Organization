@@ -15,7 +15,7 @@ class AddForm(FlaskForm):
     town = StringField(_('City'), validators=[DataRequired(), Length(max=100)])
     organisation = SelectField(_('Organisation'), coerce=int, validators=[DataRequired()])
     position = StringField('Position', validators=[Length(max=100)])
-    is_superuser = BooleanField(_('Superuser'))
+    is_superuser = SelectField('Is superuser', choices=[False, True])
     submit = SubmitField(_('Register'))
 
     def validate_username(self, username):
