@@ -17,7 +17,7 @@
                 {#                <button class="uk-button uk-button" type="button">{{ _('Organization') }}</button>#}
                 <ul class="uk-navbar-nav">
                 <li>
-                    <a class="uk-button" href="#">{{ _('Organization') }}</a>
+                    <a class="uk-button" href="{{ url_for('organisations.organisation') }}">{{ _('Organisation') }}</a>
                     <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
                         <div class="uk-navbar-dropdown-grid uk-child-width-1-3" uk-grid>
                             <div>
@@ -26,7 +26,7 @@
                                     <li class="uk-nav-divider"></li>
                                     {% if current_user.is_superuser %}
                                         <li>
-                                            <a href="{{ url_for('organisations.organisation') }}">{{ _('All organisations') }}</a>
+                                            <a href="{{ url_for('organisations.get_all_organisations') }}">{{ _('All organisations') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ url_for('organisations.add_organisation') }}">{{ _('Add organisation') }}</a>
@@ -38,14 +38,14 @@
                             </div>
                             <div>
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li><a href="#">{{ _('View Volunteers') }}</a></li>
+                                    <li><a href="#">{{ _('View volunteers') }}</a></li>
                                     <li><a href="{{ url_for('volunteers.add_volunteer') }}">{{ _('Add volunteer') }}</a>
                                     </li>
                                 </ul>
                             </div>
                             <div>
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li><a href="{{ url_for('users.show_all') }}">{{ _('View Employees') }}</a></li>
+                                    <li><a href="{{ url_for('users.show_all') }}">{{ _('View employees') }}</a></li>
                                     <li><a href="{{ url_for('users.add_user') }}">{{ _('Add employee') }}</a></li>
 
                                 </ul>

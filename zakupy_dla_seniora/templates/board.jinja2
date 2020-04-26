@@ -39,15 +39,20 @@
         </div>
 
         <div class="uk-container uk-width-1-3" id ="board" style="height: 90vh;overflow: hidden;">
-            {%for  message in messages %}
+            {% if messages|length == 0 %}
                 <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
-                    <h5 class="uk-card-title">{{ message['location'] }}</h5>
-                    <p>{{ message['content'] }}</p>
-                    <a href="{{ url_for('messages.take_message', id = message['id']) }}" style="" class="uk-button uk-button-primary">Weź zlecenie</a>
-
-
+                    <h5 class="uk-card-title">{{ _('No messages were found in selected area.') }}</h5>
+                    <p>{{ _('Please try expanding the search area or wait for new messages to come.') }}</p>
                 </div>
-            {% endfor %}
+            {% else %}
+                {%for message in messages %}
+                    <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
+                        <h5 class="uk-card-title">{{ message['location'] }}</h5>
+                        <p>{{ message['content'] }}</p>
+                        <a href="{{ url_for('messages.take_message', id = message['id']) }}" style="" class="uk-button uk-button-primary">Weź zlecenie</a>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
