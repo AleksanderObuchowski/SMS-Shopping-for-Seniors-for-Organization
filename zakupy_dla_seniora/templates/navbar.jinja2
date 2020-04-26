@@ -1,9 +1,9 @@
-<nav class="uk-card-default uk-margin-small uk-card-hover" uk-navbar>
+<nav class="uk-card-default uk-card-hover" uk-navbar>
     <div class="uk-navbar-left">
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('board.view') }}" class="uk-navbar-item uk-logo">
                 <img src="{{ url_for('static', filename='delight.svg') }}" style=" height:50px; ">
-                <p class="uk-margin-left">{{ _('SMS Shopping for Seniors') }}</p>
+                {#                <p class="uk-margin-left">{{ _('SMS Shopping for Seniors') }}</p>#}
             </a>
         {% else %}
             <a href="{{ url_for('landing.landing_view') }}" class="uk-navbar-item uk-logo">
@@ -14,104 +14,142 @@
         {% if current_user.is_authenticated %}
             {% if current_user.is_employee or current_user.is_superuser %}
 
-                <button class="uk-button uk-button" type="button">{{ _('Organization') }}</button>
-                <div uk-dropdown>
-
-                    <ul class="uk-nav uk-dropdown-nav">
-                        <li class="uk-parent">
-                            <a href="{{ url_for('organisations.organisation') }}">
-                                {{ _('My organisation') }}
-                            </a>
-                        </li>
-                        <li class="uk-parent">
-                            <a href="{{ url_for('volunteers.add_volunteer') }}">
-                                {{ _('Add volunteer') }}
-                            </a>
-                        </li>
-                        {% if current_user.is_superuser %}
-
-                            <li class="uk-parent">
-                                <a href="{{ url_for('organisations.add_organisation') }}">
-                                    {{ _('Add organisation') }}
-                                </a>
-                            </li>
-
-                            <li class="uk-parent">
-                                <a href="{{ url_for('organisations.get_all_organisations') }}">
-                                    {{ _('All organisations') }}
-                                </a>
-                            </li>
-
-                        {% endif %}
-
-
-                    </ul>
-                </div>
-
-                <button class="uk-button uk-button" type="button">{{ _('Employee') }}</button>
-                <div uk-dropdown>
-
-                    <ul class="uk-nav uk-dropdown-nav">
-                        <li class="uk-parent">
-                            <a href="{{ url_for('users.show_all') }}">
-                                {{ _('Employees') }}
-                            </a>
-                        </li>
-                        <li class="uk-parent">
-                            <a href="{{ url_for('users.add_user') }}">
-                                {{ _('Add User') }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            {% endif %}
-            <div class="navbar-collapse" id="navbar_collapse">
+                {#                <button class="uk-button uk-button" type="button">{{ _('Organization') }}</button>#}
                 <ul class="uk-navbar-nav">
-                    <li class="uk-parent">
-                        <a href="{{ url_for('board.view') }}">
-                            {{ _('Messages') }}
-                        </a>
-                    </li>
-
-                    <li class="uk-parent">
-                        <a href="{{ url_for('users.profile') }}">
-                            {{ _('Profile') }}
-                        </a>
-                    </li>
-
-
-                    <li class="uk-parent">
-                        <a href="{{ url_for('messages.error_messages') }}">
-                            {{ _('Errors') }}
-                        </a>
-                    </li>
+                <li>
+                    <a class="uk-button" href="#">{{ _('Organization') }}</a>
+                    <div class="uk-navbar-dropdown uk-navbar-dropdown-width-3">
+                        <div class="uk-navbar-dropdown-grid uk-child-width-1-3" uk-grid>
+                            <div>
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="{{ url_for('organisations.organisation') }}">{{ _("My organization") }}</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    {% if current_user.is_superuser %}
+                                        <li>
+                                            <a href="{{ url_for('organisations.organisation') }}">{{ _('All organisations') }}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url_for('organisations.add_organisation') }}">{{ _('Add organisation') }}</a>
+                                        </li>
+                                    {% endif %}
 
 
-                    <li class="uk-parent">
-                        <a href="{{ url_for('messages.add_message') }}">
-                            {{ _('Add message') }}
-                        </a>
-                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="#">{{ _('View Volunteers') }}</a></li>
+                                    <li><a href="{{ url_for('volunteers.add_volunteer') }}">{{ _('Add volunteer') }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="{{ url_for('users.show_all') }}">{{ _('View Employees') }}</a></li>
+                                    <li><a href="{{ url_for('users.add_user') }}">{{ _('Add employee') }}</a></li>
 
-                </ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% else %}
+                <li class="uk-parent">
+                    <a href="{{ url_for('organisations.organisation') }}">
+                        {{ _('My organization') }}
+                    </a>
+                </li>
+
+                {#                        <li class="uk-parent">#}
+                {#                            <a href="{{ url_for('organisations.organisation') }}">#}
+                {#                                {{ _('My organisation') }}#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                        <li class="uk-parent">#}
+                {#                            <a href="{{ url_for('volunteers.add_volunteer') }}">#}
+                {#                                {{ _('Add volunteer') }}#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                        {% if current_user.is_superuser %}#}
+                {##}
+                {#                            <li class="uk-parent">#}
+                {#                                <a href="{{ url_for('organisations.add_organisation') }}">#}
+                {#                                    {{ _('Add organisation') }}#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {##}
+                {#                            <li class="uk-parent">#}
+                {#                                <a href="{{ url_for('organisations.get_all_organisations') }}">#}
+                {#                                    {{ _('All organisations') }}#}
+                {#                                </a>#}
+                {#                            </li>#}
+                {##}
+                {#                        {% endif %}#}
+
+
+                {#                </div>#}
+                {##}
+                {#                <button class="uk-button uk-button" type="button">{{ _('Employee') }}</button>#}
+                {#                <div uk-dropdown>#}
+                {##}
+                {#                    <ul class="uk-nav uk-dropdown-nav">#}
+                {#                        <li class="uk-parent">#}
+                {#                            <a href="{{ url_for('users.show_all') }}">#}
+                {#                                {{ _('Employees') }}#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                        <li class="uk-parent">#}
+                {#                            <a href="{{ url_for('users.add_user') }}">#}
+                {#                                {{ _('Add User') }}#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                    </ul>#}
+                {#                </div>#}
+            {% endif %}
+        <li class="uk-parent">
+            <a href="{{ url_for('board.view') }}">
+                {{ _('Messages') }}
+            </a>
+        </li>
+
+        <li class="uk-parent">
+            <a href="{{ url_for('users.profile') }}">
+                {{ _('Profile') }}
+            </a>
+        </li>
+
+
+        <li class="uk-parent">
+            <a href="{{ url_for('messages.error_messages') }}">
+                {{ _('Errors') }}
+            </a>
+        </li>
+
+
+        <li class="uk-parent">
+            <a href="{{ url_for('messages.add_message') }}">
+                {{ _('Add message') }}
+            </a>
+        </li>
+
+        </ul>
             </div>
 
         {% endif %}
 
     </div>
+    <div class="uk-navbar-right">
 
-    {% if current_user.is_authenticated %}
-        <div class="uk-navbar-right">
+        {% if current_user.is_authenticated %}
             <div class="uk-navbar-item">
                 <ul class="uk-navbar-nav">
                     <li>
-                        <button class="uk-button"><a href="{{ url_for('auth.logout') }}">{{ _('Log out') }}</a></button>
+                        <button class="uk-button"><a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a></button>
                     </li>
                 </ul>
             </div>
-        </div>
-    {% else %}
-        <div class="uk-navbar-right">
+        {% else %}
+            <div class="uk-navbar-right">
             <div class="uk-navbar-item">
                 <ul class="uk-navbar-nav">
                     <li>
@@ -119,30 +157,29 @@
                     </li>
                 </ul>
             </div>
+        {% endif %}
         </div>
-    {% endif %}
 
 
-    {% if request.endpoint %}
-    <div class="uk-navbar-item">
-        <button class="uk-button uk-button-primary" type="button">Lang</button>
-        <div uk-dropdown>
-            <ul class="uk-nav uk-dropdown-nav">
-                <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a>
-                </li>
-                <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='de') }}">German</a>
-                </li>
-                <li>
-                    <a href="{{ url_for(request.endpoint, lang_code='pl') }}">Polish</a>
-                </li>
-            </ul>
-            </ul>
-        </div>
-    </div>
-    {% endif %}
- 
+        {% if request.endpoint %}
+            <div class="uk-navbar-item">
+                <button class="uk-button uk-button-primary" type="button">Lang</button>
+                <div uk-dropdown>
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                            <a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for(request.endpoint, lang_code='de') }}">German</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for(request.endpoint, lang_code='pl') }}">Polish</a>
+                        </li>
+                    </ul>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
 
 
 </nav>
