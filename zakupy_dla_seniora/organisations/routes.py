@@ -5,7 +5,6 @@ from flask_babel import _
 from zakupy_dla_seniora.auth.functions import superuser_role_required, employee_role_required
 from zakupy_dla_seniora.organisations.forms import AddOrganisationForm, EditOrganisationForm
 from zakupy_dla_seniora.organisations.models import Organisations
-from zakupy_dla_seniora.organisations.functions import get_organisation_name
 
 
 organisations = Blueprint('organisations', __name__, url_prefix='/<lang_code>')
@@ -20,7 +19,7 @@ def organisation(org_id=None):
     name = org.pop('Name')
     employees = org.pop('Employees')
     volunteers = org.pop('Volunteers')
-    return render_template('view_organisation.jinja2', org=org, name=name, employees=employees,
+    return render_template('organisations/view_organisation.jinja2', org=org, name=name, employees=employees,
                            volunteers=volunteers)
 
 
@@ -30,9 +29,9 @@ def get_all_organisations():
     orgs = Organisations.query.all()
     orgs = [org.to_dict_view_all_organisations() for org in orgs]
     if 'msg' in request.args:
-        return render_template('all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys(),
+        return render_template('organisations/all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys(),
                                msg=request.args['msg'])
-    return render_template('all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys())
+    return render_template('organisations/all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys())
 
 
 @organisations.route('/organisation/delete/<org_id>')
@@ -55,11 +54,11 @@ def add_organisation():
             return redirect(url_for('organisations.add_organisation', msg=f'Organizacja {org.name} została dodana.'))
         else:
             msg = f"{_('Name')} {form.name.data} {_('is already taken.')}."
-            return render_template('forms/add_organisation.jinja2', form=form,
+            return render_template('organisations/add_organisation.jinja2', form=form,
                                    msg=msg)
     if 'msg' not in request.args:
-        return render_template('forms/add_organisation.jinja2', form=form)
-    return render_template('forms/add_organisation.jinja2', form=form,
+        return render_template('organisations/add_organisation.jinja2', form=form)
+    return render_template('organisations/add_organisation.jinja2', form=form,
                            msg=request.args['msg'], success=True)
 
 
@@ -77,6 +76,6 @@ def edit_organisation(org_id=None):
         return redirect(url_for('organisations.edit_organisation', org_id=org_id,
                                 msg=_('Changes were successfully saved.')))
     if 'msg' not in request.args:
-        return render_template('forms/edit_organisation.jinja2', organisation=org, form=form)
-    return render_template('forms/edit_organisation.jinja2', organisation=org, form=form,
+        return render_template('organisations/edit_organisation.jinja2', organisation=org, form=form)
+    return render_template('organisations/edit_organisation.jinja2', organisation=org, form=form,
                            msg=request.args['msg'], success=True)

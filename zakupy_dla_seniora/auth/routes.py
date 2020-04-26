@@ -31,9 +31,9 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('board.view'))
         else:
             error_message = _("Wrong username or password.")
-            return render_template('forms/login.jinja2', message=error_message, form=form)
+            return render_template('auth.jinja2', message=error_message, form=form)
     else:
-        return render_template('forms/login.jinja2', form=form)
+        return render_template('auth.jinja2', form=form)
 
 
 @auth.route('/logout')

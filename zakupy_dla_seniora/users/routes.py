@@ -15,7 +15,7 @@ users = Blueprint('users', __name__, url_prefix='/<lang_code>')
 @users.route('/profile')
 def profile():
     messages = Messages.get_user_messages(current_user.id)
-    return render_template('view_user_profile.jinja2', user=current_user, messages = messages)
+    return render_template('users/view_user_profile.jinja2', user=current_user, messages = messages)
 
 
 @users.route('/register-account', methods=['GET', 'POST'])
@@ -30,6 +30,6 @@ def register_user():
         user.save()
         flash(_('Account has been created successfully.'), 'success')
         return redirect(url_for('board.view'))
-    return render_template('forms/register-account.jinja2', form=form)
+    return render_template('users/register-account.jinja2', form=form)
 
 # TODO Add edit user profile form, for superuser add possibility to see all users and manage them

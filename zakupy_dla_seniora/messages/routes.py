@@ -21,10 +21,10 @@ def add_message():
                            latitude=lat, longitude=lon, status='received', created_by=current_user.id)
         message.save()
         print("Dodano Wiadomość")
-        return render_template('forms/add_message.jinja2', form=form, message='Message created successfully!')
+        return render_template('messages/add_message.jinja2', form=form, message='Message created successfully!')
     else:
         form = AddMessagesForm()
-        return render_template('forms/add_message.jinja2', form=form)
+        return render_template('messages/add_message.jinja2', form=form)
 
 
 @messages.route('/take_message/<id>', methods=['GET'])
@@ -68,8 +68,9 @@ def receive_sms():
         from_=twilio_phone,
         body=result['response']
     )
+
+
 @messages.route('/error_messages', methods=['GET'])
 def error_messages():
     messages = Messages.get_errors()
-    return render_template('error_messages.jinja2',messages= messages)
-
+    return render_template('messages/error_messages.jinja2', messages=messages)
