@@ -54,6 +54,14 @@ class User(db.Model, UserMixin):
         return f'<User(id={self.id}, username={self.username})>'
 
     @classmethod
+    def get_all_for_organisation(cls, user_org_id):
+        return cls.query.filter_by(organisation_id=user_org_id).all()
+
+    @classmethod
+    def get_all(cls):
+        return cls.query.all()
+
+    @classmethod
     def get_by_id(cls, id_):
         return cls.query.filter_by(id=id_).first()
 
