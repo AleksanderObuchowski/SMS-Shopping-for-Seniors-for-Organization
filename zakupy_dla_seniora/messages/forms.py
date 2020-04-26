@@ -3,20 +3,18 @@ from wtforms import StringField, SelectField, FloatField, SubmitField, TextAreaF
 from wtforms.validators import DataRequired, Length
 from flask_babel import _
 
-
 class AddMessagesForm(FlaskForm):
-    content = StringField(_('Message'), validators=[Length(max=500)])
-    contact_number = StringField(_('Phone number'), validators=[Length(max=12)])
+    content = TextAreaField(_('Message'), validators=[Length(max=500)])
+    contact_number = StringField('Phone Number', validators=[Length(max=12)])
     location = StringField(_('Location'), validators=[Length(max=100)])
-    status = SelectField(_('Status'), choices=[('Taken'),('Waiting for approval'),('Approved')])
-    submit = SubmitField(_('Submit'))
+    submit = SubmitField(_('Add'))
 
 
 class EditMessagesForm(FlaskForm):
     content = StringField(_('Message'), validators=[Length(max=500)])
-    contact_number = StringField(_('Phone number'), validators=[Length(max=12)])
+    contact_number = StringField('Phone Number', validators=[Length(max=12)])
     location = StringField(_('Location'), validators=[Length(max=100)])
-    longtitude = FloatField(_('Longitude'))
-    latitude = FloatField(_('Latitude'))
-    status = SelectField(_('Status'), choices=[('Taken'), ('Waiting for approval'), ('Approved')])
-    submit = SubmitField(_('Submit'))
+    longitude = FloatField('Latitude')
+    latitude = FloatField('Longitude')
+    status = SelectField('Status', choices=[(_('Taken')),('Waiting for approval'),(_('Approved'))])
+    submit = SubmitField(_('Save'))

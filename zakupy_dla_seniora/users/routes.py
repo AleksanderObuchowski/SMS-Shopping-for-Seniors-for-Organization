@@ -6,6 +6,7 @@ from zakupy_dla_seniora.auth.functions import employee_role_required
 from zakupy_dla_seniora.messages.models import Messages
 from zakupy_dla_seniora.users.forms import RegistrationForm
 from zakupy_dla_seniora.users.models import User
+from zakupy_dla_seniora.organisations.models import Organisations
 from flask_babel import _
 
 users = Blueprint('users', __name__, url_prefix='/<lang_code>')
@@ -23,7 +24,8 @@ def register_user():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, organisation=form.organisation.data,
+        organisation_id = Organisations.get_by_name(form.organisation.data).id
+        user = User(username=form.username.data, email=form.email.data, organisation_id=organisation_id,
                     password_hash=hashed_password, created_by=current_user.id, is_superuser=form.superuser.data)
         user.save()
         flash(_('Account has been created successfully.'), 'success')
