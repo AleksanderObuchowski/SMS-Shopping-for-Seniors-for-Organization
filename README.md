@@ -1,6 +1,6 @@
 <div align="center">
 
-![zakupy sms dla seniora logo](src/zakupy_dla_seniora/static/logo.png)
+![zakupy sms dla seniora logo](https://media.discordapp.net/attachments/689575084171591848/704144374031712327/delight.png)
 ![govtech](https://i.imgur.com/TaV0bSw.png)
 </div>
 
