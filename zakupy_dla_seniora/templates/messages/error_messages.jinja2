@@ -1,0 +1,52 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Error messages') }}</title>
+{% endblock title %}
+
+{% block head %}
+    <style>
+        #mapid {
+            height: 100%;
+        }
+
+        #mapcard {
+            height: 75vh;
+
+        }
+
+        footer {
+            /*position: absolute;*/
+            bottom: 0;
+        !important;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .footer-card {
+            padding: 0;
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+{#    <div class="uk-container uk-margin-large-top" id="board" style="height: 100vh;">#}
+    <div class=" uk-card-body uk-card-default uk-width-5-6 uk-margin-auto uk-margin-top" uk-grid="">
+    {% if messages|length != 0 %}
+        {% for  message in messages %}
+            <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">
+                <h3 class="uk-card-title">{{ message['location'] }}</h3>
+                <p> <span
+                        class="uk-label-danger"
+                        style="padding: 5px;">{{ _('Location') }} {{ message['error'] }}</span></p>
+                <p>{{ message['content'] }}</p>
+
+            </div>
+        {% endfor %}
+    {% else %}
+{#        <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto">#}
+            <h3 class="uk-card-title">{{ _('There are currently no messages with errors.') }}</h3>
+{#        </div>#}
+    {% endif %}
+    </div>
+{% endblock content %}

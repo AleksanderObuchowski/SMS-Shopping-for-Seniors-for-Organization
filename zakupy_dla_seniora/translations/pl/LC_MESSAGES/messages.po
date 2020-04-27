@@ -1,0 +1,633 @@
+# Polish translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-04-27 01:56+0200\n"
+"PO-Revision-Date: 2020-04-27 01:56+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: pl\n"
+"Language-Team: pl <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: auth/forms.py:9
+msgid "Login or Email"
+msgstr "Nazwa użytkownika lub e-mail"
+
+#: auth/forms.py:10
+msgid "Password"
+msgstr "Hasło"
+
+#: auth/forms.py:11 messages/forms.py:27 organisations/forms.py:43
+#: volunteers/forms.py:51
+msgid "Save"
+msgstr "Zapisz"
+
+#: auth/routes.py:35
+msgid "Wrong username or password."
+msgstr "Niepoprawna nazwa użytkownika lub hasło."
+
+#: messages/forms.py:9 messages/forms.py:21 templates/landing.jinja2:203
+msgid "Message"
+msgstr "Wiadomość"
+
+#: messages/forms.py:11 messages/forms.py:23
+#: templates/messages/error_messages.jinja2:41
+#: templates/users/view_user_profile.jinja2:36
+#: templates/users/view_user_profile.jinja2:66
+#: templates/users/view_user_profile.jinja2:118
+msgid "Location"
+msgstr "Lokalizacja"
+
+#: messages/forms.py:12 organisations/forms.py:17
+msgid "Add"
+msgstr "Dodaj"
+
+#: messages/forms.py:17 messages/forms.py:32 organisations/forms.py:22
+#: organisations/forms.py:48 users/forms.py:28 volunteers/forms.py:30
+#: volunteers/forms.py:62
+msgid "Given phone number is invalid."
+msgstr "Niepoprawny numer telefonu."
+
+#: messages/forms.py:26
+msgid "Taken"
+msgstr "Zajęty"
+
+#: messages/forms.py:26
+msgid "Waiting for approval"
+msgstr "Oczekiwanie na akceptację"
+
+#: messages/forms.py:26
+msgid "Approved"
+msgstr "Zaakceptowane"
+
+#: messages/routes.py:26
+msgid "Message created successfully."
+msgstr "Wiadomość została dodana"
+
+#: organisations/forms.py:9
+msgid "Organisation name"
+msgstr "Nazwa organizacji"
+
+#: organisations/forms.py:10 organisations/forms.py:37 users/forms.py:14
+#: users/forms.py:59 users/models.py:103 volunteers/forms.py:15
+#: volunteers/forms.py:46 volunteers/models.py:65
+msgid "Phone number"
+msgstr "Numer telefonu"
+
+#: organisations/forms.py:12 organisations/forms.py:38 users/forms.py:11
+#: users/forms.py:56 users/models.py:104 users/models.py:114
+#: users/models.py:130 volunteers/forms.py:16 volunteers/forms.py:47
+#: volunteers/models.py:66
+msgid "Email"
+msgstr "Email"
+
+#: organisations/forms.py:13 organisations/forms.py:39
+#: organisations/models.py:50 users/forms.py:15 users/forms.py:60
+#: users/models.py:116 users/models.py:132 volunteers/forms.py:17
+#: volunteers/forms.py:48
+msgid "City"
+msgstr "Miasto"
+
+#: organisations/forms.py:14 organisations/forms.py:40
+#: organisations/models.py:52
+msgid "Postal code"
+msgstr "Kod pocztowy"
+
+#: organisations/forms.py:15 organisations/models.py:51
+msgid "Address"
+msgstr "Adres"
+
+#: organisations/forms.py:16 organisations/forms.py:42
+#: organisations/models.py:53 organisations/models.py:63
+msgid "Website"
+msgstr "Strona internetowa"
+
+#: organisations/forms.py:41
+msgid "Street and number"
+msgstr "Ulica i numer"
+
+#: organisations/models.py:49 users/models.py:115 users/models.py:131
+msgid "Phone"
+msgstr "Telefon"
+
+#: organisations/models.py:54 users/models.py:121
+msgid "Created at"
+msgstr "Utworzono"
+
+#: organisations/models.py:61
+#: templates/organisations/all_organisations.jinja2:35
+#: templates/organisations/all_organisations.jinja2:42
+#: templates/organisations/all_organisations.jinja2:43
+#: templates/organisations/all_organisations.jinja2:54
+#: templates/users/show_users.jinja2:34 templates/users/show_users.jinja2:35
+#: templates/users/show_users.jinja2:36 templates/users/show_users.jinja2:45
+#: templates/users/show_users.jinja2:46 templates/users/show_users.jinja2:57
+#: templates/volunteers/show_volunteers.jinja2:35
+#: templates/volunteers/show_volunteers.jinja2:36
+#: templates/volunteers/show_volunteers.jinja2:47 users/models.py:99
+#: users/models.py:127 volunteers/models.py:61
+msgid "ID"
+msgstr "ID"
+
+#: organisations/models.py:62 templates/landing.jinja2:184
+#: templates/organisations/all_organisations.jinja2:34
+#: templates/organisations/all_organisations.jinja2:40
+#: templates/organisations/all_organisations.jinja2:47
+#: templates/users/show_users.jinja2:33 templates/users/show_users.jinja2:43
+#: templates/users/show_users.jinja2:50
+#: templates/volunteers/show_volunteers.jinja2:40
+msgid "Name"
+msgstr "Nazwa"
+
+#: organisations/models.py:64
+msgid "Created"
+msgstr "Utworzono"
+
+#: organisations/models.py:65
+#: templates/organisations/view_organisation.jinja2:27
+msgid "Employees"
+msgstr "Pracownicy"
+
+#: organisations/models.py:66
+#: templates/organisations/view_organisation.jinja2:45
+#: templates/volunteers/show_volunteers.jinja2:4
+msgid "Volunteers"
+msgstr "Wolontariusze"
+
+#: organisations/routes.py:78
+msgid "Changes were successfully saved."
+msgstr "Zmiany zostały zapisane."
+
+#: templates/auth.jinja2:4 templates/board.jinja2:4 templates/landing.jinja2:4
+#: templates/messages/add_message.jinja2:4
+#: templates/messages/error_messages.jinja2:4
+#: templates/organisations/add_organisation.jinja2:4
+#: templates/organisations/all_organisations.jinja2:4
+#: templates/organisations/edit_organisation.jinja2:4
+#: templates/organisations/view_organisation.jinja2:4
+#: templates/users/add_user.jinja2:4 templates/users/edit_user_profile.jinja2:4
+#: templates/users/register-account.jinja2:4
+#: templates/users/show_users.jinja2:4
+#: templates/users/view_user_profile.jinja2:4
+#: templates/volunteers/add_volunteer.jinja2:4
+#: templates/volunteers/edit_volunteer.jinja2:4
+#: templates/volunteers/show_volunteers.jinja2:4
+msgid "SMS Shopping for senior"
+msgstr "Zakupy dla seniora SMS"
+
+#: templates/auth.jinja2:4
+msgid "Login"
+msgstr "Logowanie"
+
+#: templates/auth.jinja2:10
+msgid "Log in to application"
+msgstr "Zaloguj się"
+
+#: templates/board.jinja2:4 templates/navbar.jinja2:65
+msgid "Messages"
+msgstr "Wiadomości"
+
+#: templates/board.jinja2:51 templates/board.jinja2:118
+msgid "No messages were found in selected area."
+msgstr "Nie znaleziono zgłoszeń w podanym obszarze."
+
+#: templates/board.jinja2:52 templates/board.jinja2:118
+msgid "Please try expanding the search area or wait for new messages to come."
+msgstr "Spróbuj poszerzyć obszar lub poczekaj na nowe zgłoszenia."
+
+#: templates/errors/page_not_found.jinja2:4
+#: templates/errors/server_internal.jinja2:4
+#: templates/errors/unauthorized.jinja2:4 templates/landing.jinja2:92
+msgid "SMS shopping for senior"
+msgstr "Zakupy dla seniora SMS"
+
+#: templates/landing.jinja2:93
+msgid "At the time of isolation we bring together the generations"
+msgstr "W czasie izolacji łączymy pokolenia"
+
+#: templates/landing.jinja2:99
+msgid "About Project"
+msgstr "O projekcie"
+
+#: templates/landing.jinja2:102
+msgid ""
+"The main goal of our application is to enable communication between "
+"seniors and volunteers in a simple and intuitive\n"
+"            way for both sides."
+msgstr "Celem naszej aplikacji jest umożliwienie komunikacji między seniorami w prosty i intuicyjny dla obu stron sposób."
+
+#: templates/landing.jinja2:111
+msgid ""
+"Seniors send SMS with his shopping list. Their requests appear on "
+"announcement borad. Volunteers can pick requests from their neighbourhood"
+" and then deliver it to seniors' doors."
+msgstr "Senior wysyła SMSa z listą zakupów. Wiadomość pojawia się na tablicy ogłoszeń. Wolontariusze wybierają zgłoszenia ze swojej okolicy i dostarczają zamówienie pod drzwi seniora."
+
+#: templates/landing.jinja2:118
+msgid "How it works"
+msgstr "Jak to działa"
+
+#: templates/landing.jinja2:119
+msgid ""
+"1. Senior sends SMS to a given number with his shopping list along with "
+"the name of a district that he lives in."
+msgstr "1. Senior wysyła smsem na podany numer listę zakupów wraz z nazwą dzielnicy, w której mieszka."
+
+#: templates/landing.jinja2:126
+msgid ""
+"Hi, I need 2l of water, 3 rolls and 1 bottle of cooking oil. I live in "
+"Faringdon, London."
+msgstr "Dzień dobry, potrzebuję 2l wody, 3 bułki i litr oleju, mieszkam w Gdańsk Zaspa"
+
+#: templates/landing.jinja2:130
+msgid ""
+"Your request has been received. We are waiting for a volunteer to come "
+"forward."
+msgstr "Twoje zamówienie zostało przyjęte. Czekamy aż ktoś się zgłosi"
+
+#: templates/landing.jinja2:139
+msgid ""
+"2. Volunteer selects a shopping list with a suitable location from the "
+"announcement board."
+msgstr "2. Wolontariusz wybiera listę zakupów z tablicy ogłoszeń, dopasowanej do jego lokalizacji."
+
+#: templates/landing.jinja2:148
+msgid "3. Volunteer delivers shopping to a given address."
+msgstr "3. Wolontariusz dostarcza potrzebne produkty pod dany adres."
+
+#: templates/landing.jinja2:154
+msgid ""
+"4. Senior is asked to give feedback. He can rate the service or report a "
+"complaint."
+msgstr "4. Senior proszony jest o ocenę dostawy, może zgłosić uwagi/zażalenia."
+
+#: templates/landing.jinja2:160
+msgid "Are you a representative of a volunteer organisation?"
+msgstr "Reprezentujesz organizację charytatywną?"
+
+#: templates/landing.jinja2:165
+msgid "Everything was perfect :)"
+msgstr "Wszystko poszło sprawnie."
+
+#: templates/landing.jinja2:173
+msgid "Are you a representative of an organisation that runs volunteering?"
+msgstr "Reprezentujesz organizację charytatywną?"
+
+#: templates/landing.jinja2:179
+msgid "Contact us"
+msgstr "Skontaktuj się z nami"
+
+#: templates/landing.jinja2:190
+msgid "Surname"
+msgstr "Nazwisko"
+
+#: templates/landing.jinja2:196
+msgid "E-mail"
+msgstr "E-mail"
+
+#: templates/landing.jinja2:207
+msgid "Hello, "
+msgstr "Cześć, "
+
+#: templates/landing.jinja2:210
+msgid "Send"
+msgstr "Wyślij"
+
+#: templates/navbar.jinja2:11
+msgid "SMS Shopping for Seniors"
+msgstr "Zakupy dla seniora SMS"
+
+#: templates/navbar.jinja2:19 templates/users/show_users.jinja2:37
+#: users/forms.py:16 users/models.py:105 users/models.py:117
+#: users/models.py:133 users/routes.py:48 volunteers/forms.py:19
+#: volunteers/models.py:67
+msgid "Organisation"
+msgstr "Organizacja"
+
+#: templates/navbar.jinja2:25 templates/navbar.jinja2:59
+msgid "My organisation"
+msgstr "Moja organizacja"
+
+#: templates/navbar.jinja2:30
+#: templates/organisations/all_organisations.jinja2:4
+msgid "All organisations"
+msgstr "Wszystkie organizacje"
+
+#: templates/navbar.jinja2:33 templates/organisations/add_organisation.jinja2:4
+#: templates/organisations/add_organisation.jinja2:10
+msgid "Add organisation"
+msgstr "Dodaj organizację"
+
+#: templates/navbar.jinja2:40
+msgid "View volunteers"
+msgstr "Wyświetl wolontariuszy"
+
+#: templates/navbar.jinja2:42
+#: templates/organisations/view_organisation.jinja2:60
+#: templates/volunteers/add_volunteer.jinja2:4
+msgid "Add volunteer"
+msgstr "Dodaj wolontariusza"
+
+#: templates/navbar.jinja2:48
+msgid "View employees"
+msgstr "Wyświetl pracowników"
+
+#: templates/navbar.jinja2:49
+msgid "Add employee"
+msgstr "Dodaj pracownika"
+
+#: templates/navbar.jinja2:71 templates/users/view_user_profile.jinja2:4
+msgid "Profile"
+msgstr "Profil"
+
+#: templates/navbar.jinja2:78
+msgid "Errors"
+msgstr "Błędy"
+
+#: templates/messages/add_message.jinja2:4
+#: templates/messages/add_message.jinja2:9 templates/navbar.jinja2:86
+msgid "Add message"
+msgstr "Dodaj wiadomość"
+
+#: templates/navbar.jinja2:102
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: templates/navbar.jinja2:111
+msgid "Log in"
+msgstr "Zaloguj"
+
+#: templates/errors/page_not_found.jinja2:4
+msgid "Page not found"
+msgstr "Strona nie została znaleziona"
+
+#: templates/errors/page_not_found.jinja2:9
+msgid "The requested site could not be found. (Code 404)"
+msgstr "Podana strona nie została znaleziona. (kod 404)"
+
+#: templates/errors/page_not_found.jinja2:11
+msgid ""
+"The site you were looking for could not be found. If you think this "
+"resource should be\n"
+"            available, please contact us at"
+msgstr "Podana strona nie została znaleziona. Jeśli uważasz, że powinna być dostępna, skontaktuj się z nami pod adresem"
+
+#: templates/errors/page_not_found.jinja2:13
+#: templates/errors/server_internal.jinja2:13
+#: templates/errors/unauthorized.jinja2:13
+msgid "In any other case, please consider going somewhere nice, like "
+msgstr "W każdym innym przypadku, spróbuj przejść w inne miejsce, np."
+
+#: templates/errors/server_internal.jinja2:4
+msgid "Server Error"
+msgstr "Błąd serwera"
+
+#: templates/errors/server_internal.jinja2:9
+msgid "An unexpected server error has occured. (Code 500)"
+msgstr "Nieoczekiwany błąd serwera. (Code 500)"
+
+#: templates/errors/server_internal.jinja2:11
+msgid ""
+"The server could not complete your request. Please try again later, and "
+"if this keeps happening\n"
+"            feel free to contact us at"
+msgstr "Serwer nie mógł przetrworzyć Twojego zaoytania. Spróbuj ponownie później, a jeśli ta sytuacja będzie się powtarzać skontaktuj się z nami pod adresem"
+
+#: templates/errors/unauthorized.jinja2:4
+msgid "Access denied"
+msgstr "Odmowa dostępu"
+
+#: templates/errors/unauthorized.jinja2:9
+msgid "The request for this resource is unauthorized. (Code 401)"
+msgstr "Nieautoryzowane zapytanie. (Kod 404)"
+
+#: templates/errors/unauthorized.jinja2:11
+msgid ""
+"We couldn't authorize your request. If you are sure you are not working "
+"out\n"
+"            of bounds, please feel free to contact us at"
+msgstr "Nie udało się przetworzyć zapytania, jeśli masz pewność, że nie próbujesz poza swoje uprawnienia, skontaktuj się z nami."
+
+#: templates/messages/error_messages.jinja2:4
+msgid "Error messages"
+msgstr "Wiadomości z błędami"
+
+#: templates/messages/error_messages.jinja2:48
+msgid "There are currently no messages with errors."
+msgstr "Aktualnie nie ma wiadomości z błędami."
+
+#: templates/organisations/all_organisations.jinja2:28
+#: templates/organisations/all_organisations.jinja2:56
+#: templates/users/show_users.jinja2:28 templates/users/show_users.jinja2:59
+#: templates/volunteers/show_volunteers.jinja2:26
+#: templates/volunteers/show_volunteers.jinja2:49
+msgid "Delete"
+msgstr "Usuń"
+
+#: templates/organisations/all_organisations.jinja2:29
+#: templates/organisations/all_organisations.jinja2:65
+#: templates/volunteers/show_volunteers.jinja2:27
+#: templates/volunteers/show_volunteers.jinja2:56
+msgid "Edit"
+msgstr "Edytuj"
+
+#: templates/organisations/all_organisations.jinja2:45
+#: templates/users/show_users.jinja2:48
+#: templates/volunteers/show_volunteers.jinja2:38
+msgid "Are you sure?"
+msgstr "Jesteś pewien?"
+
+#: templates/organisations/all_organisations.jinja2:47
+#: templates/users/show_users.jinja2:50
+#: templates/volunteers/show_volunteers.jinja2:40
+msgid "Are you sure you want to delete"
+msgstr "Czy na pewno chcesz to usunąć"
+
+#: templates/organisations/all_organisations.jinja2:48
+#: templates/users/show_users.jinja2:51
+#: templates/volunteers/show_volunteers.jinja2:41
+msgid "This action cannot be undone."
+msgstr "Nie można odtworzyć tej czynności."
+
+#: templates/organisations/all_organisations.jinja2:52
+#: templates/users/show_users.jinja2:55
+#: templates/volunteers/show_volunteers.jinja2:45
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: templates/organisations/edit_organisation.jinja2:4
+msgid "Edit organisation"
+msgstr "Edytuj organizację"
+
+#: templates/organisations/edit_organisation.jinja2:10
+#: templates/users/edit_user_profile.jinja2:10
+#: templates/volunteers/edit_volunteer.jinja2:10
+msgid "Editing"
+msgstr "Edytowanie"
+
+#: templates/organisations/view_organisation.jinja2:4
+msgid "View organisation"
+msgstr "Wyświetl organizację"
+
+#: templates/organisations/view_organisation.jinja2:12
+msgid "edit"
+msgstr "edytuj"
+
+#: templates/organisations/view_organisation.jinja2:39
+msgid ""
+"Currently there are no registered users for this organisation. If someone"
+" from your organisation wants to join, you can add them in"
+msgstr "Aktualnie nie ma użytkowników przypisanych do tej organizacji. Jeśli ktoś z Twojej organizacji chciałby dołączyć, to go dodaj."
+
+#: templates/organisations/view_organisation.jinja2:40
+msgid "Add users"
+msgstr "Dodaj użytkowników"
+
+#: templates/organisations/view_organisation.jinja2:59
+msgid ""
+"Sadly there are no volunteers registered. If someone wishes to help you "
+"can add them in"
+msgstr "Niestety brak zarejetrowanych wolontariuszy. Jeśli ktoś zaoferuje pomoc, możesz go dodać w zakładce"
+
+#: templates/users/add_user.jinja2:4 templates/users/register-account.jinja2:4
+msgid "Add user"
+msgstr "Dodaj użytkownika"
+
+#: templates/users/add_user.jinja2:10
+msgid "Add Employee"
+msgstr "Dodaj pracownika"
+
+#: templates/users/edit_user_profile.jinja2:4
+msgid "Edit user"
+msgstr "Edytuj użytkownika"
+
+#: templates/users/show_users.jinja2:4
+msgid "Users"
+msgstr "Użytkownicy"
+
+#: templates/users/view_user_profile.jinja2:11
+msgid "User information"
+msgstr "Informacje o użytkowniku"
+
+#: templates/users/view_user_profile.jinja2:27
+msgid "Orders processed by you"
+msgstr "Zgłoszenia realizowane przez Ciebie"
+
+#: templates/users/view_user_profile.jinja2:59
+#: templates/users/view_user_profile.jinja2:111
+msgid "End"
+msgstr "Koniec"
+
+#: templates/users/view_user_profile.jinja2:73
+#: templates/users/view_user_profile.jinja2:125
+msgid "Status : Waiting for approval and exact location from senior"
+msgstr "Status: Oczekiwanie na potwierdzenie i podanie lokalizacji przez seniora"
+
+#: templates/users/view_user_profile.jinja2:79
+#: templates/users/view_user_profile.jinja2:131
+msgid "Status : Waiting for senior approval of delivery"
+msgstr "Status: Oczekiwanie na potwierdzenie otzymania dostawy przez seniora"
+
+#: templates/users/view_user_profile.jinja2:91
+msgid "Completed orders"
+msgstr "Zrealizowane zamówienia"
+
+#: templates/volunteers/add_volunteer.jinja2:10
+msgid "Add Volunteer"
+msgstr "Dodaj wolontariusza"
+
+#: templates/volunteers/edit_volunteer.jinja2:4
+msgid "Edit volunteer"
+msgstr "Edytuj wolontariusza"
+
+#: users/forms.py:10 users/forms.py:55 users/models.py:100 users/models.py:111
+#: volunteers/forms.py:11 volunteers/forms.py:43 volunteers/models.py:62
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: users/forms.py:12 users/forms.py:57 users/models.py:101 users/models.py:112
+#: users/models.py:128 volunteers/forms.py:12 volunteers/forms.py:44
+#: volunteers/models.py:63
+msgid "First name"
+msgstr "Imię"
+
+#: users/forms.py:13 users/forms.py:58 users/models.py:102 users/models.py:113
+#: users/models.py:129 volunteers/forms.py:14 volunteers/forms.py:45
+#: volunteers/models.py:64
+msgid "Last name"
+msgstr "Nazwisko"
+
+#: users/forms.py:19 volunteers/forms.py:20
+msgid "Register"
+msgstr "Zarejestruj"
+
+#: users/forms.py:25
+msgid "This phone number is already taken. Please choose another one."
+msgstr "Ten numer telefonu jest już zajęty. Musisz podać inny."
+
+#: users/forms.py:33 users/forms.py:68
+msgid "This user name is already taken. Please choose another one."
+msgstr "Ta nazwa użytkownika jest już zajęta. Musisz podać inną."
+
+#: users/forms.py:38 users/forms.py:73
+msgid "This email is already taken. Please choose another one."
+msgstr "Ten adres email jest już zajęty. Musisz podać inny."
+
+#: users/forms.py:63
+msgid "Save changes"
+msgstr "Zapisz zmiany"
+
+#: users/models.py:106 volunteers/models.py:68
+msgid "Town"
+msgstr "Miasto"
+
+#: users/models.py:118 users/models.py:134
+msgid "Position"
+msgstr "Stanowisko"
+
+#: users/models.py:119 users/models.py:135
+msgid "Special privileges"
+msgstr "Uprawnienia administratora"
+
+#: users/models.py:120
+msgid "Created by"
+msgstr "Utworzone przez"
+
+#: users/models.py:122 users/models.py:136
+msgid "Is active"
+msgstr "Aktywny"
+
+#: users/routes.py:105
+msgid "All changes were successfully saved."
+msgstr "Zmiany zostały zapisane."
+
+#: volunteers/forms.py:18 volunteers/forms.py:49
+msgid "District"
+msgstr "Dzielnica"
+
+#: volunteers/forms.py:25 volunteers/forms.py:56
+msgid "This email is already used."
+msgstr "Ten adres email jest już zajęty."
+
+#: volunteers/forms.py:50
+msgid "Active"
+msgstr "Aktywny"
+
+#: volunteers/routes.py:48
+msgid "The volunteer was successfully created."
+msgstr "Udało się dodać wolontariusza."
+
+#: volunteers/routes.py:115
+msgid "All changes saved."
+msgstr "Zmiany zostały zapisane."
+

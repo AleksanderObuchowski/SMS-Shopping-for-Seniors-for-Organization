@@ -1,0 +1,95 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Users') }}</title>
+{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>
+{% endblock head %}
+
+
+{% block content %}
+    <div class="uk-card uk-card-body uk-card-default uk-margin-auto uk-margin-top">
+        {% if msg %}
+            <div class="uk-alert-primary" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p>{{ msg }}</p>
+            </div>
+        {% endif %}
+
+        <table id="sortableTable" class="display cell-border row-border text-center table-light">
+            <thead class="uk-background-muted">
+            {% for column in columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
+            <th>{{ _('Delete') }}</th>
+            </thead>
+            {% for user in data %}
+                <tr>
+                    {% for key, value in user.items() %}
+                        {% if key == _('Name') %}
+                            <td><a href="{{ url_for('users.edit_user', user_id=user[_('ID')]) }}">{{ value }}</a></td>
+                        {% elif key == _('ID') %}
+                            <td><a href="{{ url_for('users.profile', user_id=user[_('ID')]) }}">{{ value }}</a></td>
+                        {% elif key == _('Organisation') %}
+                            <td><a href="{{ url_for('organisations.organisation') }}">{{ value }}</a></td>
+                        {% else %}
+                            <td>{{ value }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% if user[_('Name')] != 'Artifai' %}
+                        <td>
+                            <a uk-toggle="target: #delete-confirmation-modal-{{ user[_('ID')] }}">&#128465;</a>
+                            <div id="delete-confirmation-modal-{{ user[_('ID')] }}" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <h2 class="uk-modal-title">{{ _('Are you sure?') }}</h2>
+                                    <p class="uk-text-large">
+                                        {{ _('Are you sure you want to delete') }} {{ user[_('Name')] }}?
+                                        {{ _('This action cannot be undone.') }}
+                                    </p>
+                                    <p class="uk-text-right">
+                                        <button class="uk-button uk-button-default uk-modal-close"
+                                                type="button">{{ _('Cancel') }}</button>
+
+                                        <a href="{{ url_for('users.delete_user', user_id=user[_('ID')]) }}">
+                                            <button class="uk-button uk-button-danger"
+                                                    type="button">{{ _('Delete') }}</button>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <style>
+        .dataTables_length {
+            margin-bottom: 1rem;
+            white-space: nowrap;
+        }
+
+    </style>
+    <script>
+        $.extend($.fn.dataTable.defaults, {
+            responsive: true,
+        });
+        $('#sortableTable').DataTable({
+            "order": [[0, 'asc']]
+        });
+        $(document).ready(function () {
+            let select = document.getElementsByName("sortableTable_length");
+            console.log(select);
+            select[0].classList.add("uk-width-auto");
+            select[0].classList.add("uk-select");
+        });
+    </script>
+
+{% endblock content %}

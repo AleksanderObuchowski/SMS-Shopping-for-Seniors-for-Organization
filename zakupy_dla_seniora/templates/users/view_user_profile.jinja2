@@ -1,0 +1,142 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Profile') }}</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-margin-auto uk-width-5-6 uk-child-width-expand uk-margin-top" uk-grid>
+
+        <div class="uk-card uk-card-default uk-card-body uk-margin-right">
+            <h3>{{ _('User information') }}</h3>
+            <hr>
+            <table class="uk-table uk-table-divider">
+                    <tbody>
+                    {% for key, value in user.items() %}
+                        <tr>
+                            <td class="uk-text-bold">{{ key }}</td>
+                            <td class="uk-text-right">{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+
+
+        <div class="uk-card uk-card-default uk-card-body uk-margin-right">
+            <h3 class="uk-text-center">{{ _('Orders processed by you') }}</h3>
+            <hr>
+
+            {% for message in messages %}
+                {% if message['status'] == 'error' %}
+                    <div class="uk-margin uk-card uk-card-hover uk-card-default uk-card-body uk-margin-auto"
+                         style="background-color: #f8f8f8;">
+                        <h3 class="uk-card-title">{{ d['message_location'] }}</h3>
+                        <p> <span class="uk-text-bold"
+                                style="padding: 5px;">{{ _('Location') }} {{ message['error'] }}</span></p>
+
+
+                        <p>{{ message['content'] }}</p>
+
+
+                    </div>
+                {% elif not message['status'] == 'ended' %}
+                    <button class="uk-button uk-display-block uk-button-default uk-margin-auto uk-margin-top uk-width-5-6"
+                            type="button"
+                            uk-toggle="target: #modal-{{ message.id }}">{{ message['location'] }} - {{ message.status }}
+                    </button>
+
+                    <div id="modal-{{ message.id }}" uk-modal>
+                        <div class="uk-modal-dialog ">
+                            <div class="uk-modal-header">
+                                <h3 class="uk-card-title">{{ message['location'] }}</h3>
+                            </div>
+                            <div class="uk-modal-body">
+                                {% if message['status'] == 'waiting for end' %}
+                                    <a href="{{ url_for('messages.end_message', message_id=message['id']) }}"
+                                       style="float: right;"
+                                       align="right"
+                                       class="uk-button uk-button-primary uk-margin-left">{{ _('End') }}
+                                    </a>
+                                {% endif %}
+
+                                <p>{{ message['content'] }}</p>
+                                {% if  message['location'] %}
+                                    <p> <span class="uk-text-bold"
+                                            style="padding: 5px;">{{ _('Location') }} {{ message['location'] }}</span>
+                                    </p>
+                                {% endif %}
+
+                                {% if message['status'] == 'taken' %}
+                                    <p><span
+                                            class="uk-label-warning"
+                                            style="padding: 5px;"> {{ _('Status : Waiting for approval and exact location from senior') }}</span>
+                                    </p>
+                                {% endif %}
+                                {% if message['status'] == 'waiting for feedback' %}
+                                    <p><span
+                                            class="uk-label-warning"
+                                            style="padding: 5px;"> {{ _('Status : Waiting for senior approval of delivery') }}</span>
+                                    </p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="uk-card uk-card-default uk-card-body uk-margin-right">
+
+            <h3>{{ _('Completed orders') }}</h3>
+            <hr>
+
+            {% for message in messages %}
+                {% if message['status'] == 'ended' %}
+                    <button class="uk-button uk-display-block uk-button-default uk-margin-auto uk-margin-top uk-width-5-6"
+                            type="button"
+                            uk-toggle="target: #modal-{{ message.id }}">{{ message['location'] }} - {{ message.status }}
+                    </button>
+
+                    <div id="modal-{{ message.id }}" uk-modal>
+                        <div class="uk-modal-dialog ">
+                            <div class="uk-modal-header">
+                                <h3 class="uk-card-title">{{ message['location'] }}</h3>
+                            </div>
+                            <div class="uk-modal-body">
+                                {% if message['status'] == 'waiting for end' %}
+                                    <a href="{{ url_for('messages.end_message', message_id=message['id']) }}"
+                                       style="float: right;"
+                                       align="right"
+                                       class="uk-button uk-button-primary uk-margin-left">{{ _('End') }}
+                                    </a>
+                                {% endif %}
+
+                                <p>{{ message['content'] }}</p>
+                                {% if  message['location'] %}
+                                    <p> <span class="uk-text-bold"
+                                            style="padding: 5px;">{{ _('Location') }} {{ message['location'] }}</span>
+                                    </p>
+                                {% endif %}
+
+                                {% if message['status'] == 'taken' %}
+                                    <p><span
+                                            class="uk-label-warning"
+                                            style="padding: 5px;"> {{ _('Status : Waiting for approval and exact location from senior') }}</span>
+                                    </p>
+                                {% endif %}
+                                {% if message['status'] == 'waiting for feedback' %}
+                                    <p><span
+                                            class="uk-label-warning"
+                                            style="padding: 5px;"> {{ _('Status : Waiting for senior approval of delivery') }}</span>
+                                    </p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

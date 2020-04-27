@@ -1,0 +1,17 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>{{ _('Access denied') }} - {{ _('SMS shopping for senior') }}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="uk-card uk-card-body uk-card-default uk-width-3-4 uk-margin-auto uk-margin-top">
+        <h3 class="uk-card-title">{{ _('The request for this resource is unauthorized. (Code 401)') }}</h3>
+        <p>
+            {{ _("We couldn't authorize your request. If you are sure you are not working out
+            of bounds, please feel free to contact us at") }} contact@artifai.pl
+            {{ _("In any other case, please consider going somewhere nice, like ") }} <a
+                href="{{ url_for('board.view') }}">messages page</a>.
+        </p>
+    </div>
+{% endblock %}

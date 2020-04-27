@@ -1,0 +1,65 @@
+{% extends 'base.jinja2' %}
+
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('View organisation') }}</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="uk-margin-auto uk-width-5-6 uk-child-width-expand uk-margin-top" uk-grid>
+        <div class="uk-card uk-card-default uk-card-body uk-margin-right">
+            <h3 class="uk-card-title uk-text-center">{{ name }}
+                {% if current_user.is_employee or current_user.is_super_user %}
+                    <a href="{{ url_for('organisations.edit_organisation') }}">{{ _('edit') }}</a>
+                {% endif %}
+            </h3>
+            <table class="uk-table">
+                <tbody>
+                {% for key, value in org.items() %}
+                    <tr>
+                        <td class="uk-text-bold">{{ key }}</td>
+                        <td class="uk-text-right">{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left uk-margin-right">
+            <h3 class="uk-card-title">{{ _('Employees') }}</h3>
+            {% if employees|length != 0 %}
+                <list class="uk-list">
+                    {% for employee in employees %}
+                        <li><span class="uk-text-bold"><a
+                                href="{{ url_for('users.profile', user_id=employee.id) }}">{{ employee.first_name }} {{ employee.last_name }}</a></span>
+                            ({{ employee.position }})
+                        </li>
+                    {% endfor %}
+                </list>
+            {% else %}
+                <p>
+                    {{ _('Currently there are no registered users for this organisation. If someone from your organisation wants to join, you can add them in') }}
+                    <a href="{{ url_for('users.add_user') }}">{{ _('Add users') }}</a>.
+                </p>
+            {% endif %}
+        </div>
+        <div class="uk-card uk-card-default uk-card-body uk-text-center uk-margin-left">
+            <h3 class="uk-card-title">{{ _('Volunteers') }}</h3>
+            {% if volunteers %}
+                <list class="uk-list">
+                    {% for volunteer in volunteers %}
+                        <li><span class="uk-text-bold">
+                            <a href="{{ url_for('volunteers.show', volunteer_id=volunteer.id) }}">
+                                {{ volunteer.first_name }} {{ volunteer.last_name }}
+                            </a></span>
+                            ({{ volunteer.district }})
+                        </li>
+                    {% endfor %}
+                </list>
+            {% else %}
+                <p>
+                    {{ _('Sadly there are no volunteers registered. If someone wishes to help you can add them in') }}
+                    <a href="{{ url_for('volunteers.add_volunteer') }}"> {{ _('Add volunteer') }}</a>.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
