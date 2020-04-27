@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-04-25 18:48+0200\n"
-"PO-Revision-Date: 2020-04-25 18:48+0200\n"
+"POT-Creation-Date: 2020-04-27 01:56+0200\n"
+"PO-Revision-Date: 2020-04-27 01:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -18,369 +18,615 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: auth/forms.py:7
+#: auth/forms.py:9
 msgid "Login or Email"
 msgstr ""
 
-#: auth/forms.py:8 users/forms.py:13
+#: auth/forms.py:10
 msgid "Password"
 msgstr ""
 
-#: auth/forms.py:9 organisations/forms.py:19
+#: auth/forms.py:11 messages/forms.py:27 organisations/forms.py:43
+#: volunteers/forms.py:51
 msgid "Save"
 msgstr ""
 
-#: auth/routes.py:32
+#: auth/routes.py:35
 msgid "Wrong username or password."
 msgstr ""
 
-#: messages/forms.py:8 messages/forms.py:16 templates/landing.jinja2:209
+#: messages/forms.py:9 messages/forms.py:21 templates/landing.jinja2:203
 msgid "Message"
 msgstr ""
 
-#: messages/forms.py:9 messages/forms.py:17 organisations/forms.py:13
-#: templates/show_volunteers.jinja2:9 volunteers/forms.py:14
-msgid "Phone number"
-msgstr ""
-
-#: messages/forms.py:10 messages/forms.py:18
+#: messages/forms.py:11 messages/forms.py:23
+#: templates/messages/error_messages.jinja2:41
+#: templates/users/view_user_profile.jinja2:36
+#: templates/users/view_user_profile.jinja2:66
+#: templates/users/view_user_profile.jinja2:118
 msgid "Location"
 msgstr ""
 
-#: messages/forms.py:11 messages/forms.py:21
-msgid "Status"
-msgstr ""
-
-#: messages/forms.py:12 messages/forms.py:22
-msgid "Submit"
-msgstr ""
-
-#: messages/forms.py:19
-msgid "Longitude"
-msgstr ""
-
-#: messages/forms.py:20
-msgid "Latitude"
-msgstr ""
-
-#: organisations/forms.py:8
-msgid "Organisation name"
-msgstr ""
-
-#: organisations/forms.py:9
+#: messages/forms.py:12 organisations/forms.py:17
 msgid "Add"
 msgstr ""
 
-#: organisations/forms.py:14 templates/landing.jinja2:202
-#: templates/show_volunteers.jinja2:10 users/forms.py:11
+#: messages/forms.py:17 messages/forms.py:32 organisations/forms.py:22
+#: organisations/forms.py:48 users/forms.py:28 volunteers/forms.py:30
+#: volunteers/forms.py:62
+msgid "Given phone number is invalid."
+msgstr ""
+
+#: messages/forms.py:26
+msgid "Taken"
+msgstr ""
+
+#: messages/forms.py:26
+msgid "Waiting for approval"
+msgstr ""
+
+#: messages/forms.py:26
+msgid "Approved"
+msgstr ""
+
+#: messages/routes.py:26
+msgid "Message created successfully."
+msgstr ""
+
+#: organisations/forms.py:9
+msgid "Organisation name"
+msgstr ""
+
+#: organisations/forms.py:10 organisations/forms.py:37 users/forms.py:14
+#: users/forms.py:59 users/models.py:103 volunteers/forms.py:15
+#: volunteers/forms.py:46 volunteers/models.py:65
+msgid "Phone number"
+msgstr ""
+
+#: organisations/forms.py:12 organisations/forms.py:38 users/forms.py:11
+#: users/forms.py:56 users/models.py:104 users/models.py:114
+#: users/models.py:130 volunteers/forms.py:16 volunteers/forms.py:47
+#: volunteers/models.py:66
 msgid "Email"
 msgstr ""
 
-#: organisations/forms.py:15 volunteers/forms.py:18
+#: organisations/forms.py:13 organisations/forms.py:39
+#: organisations/models.py:50 users/forms.py:15 users/forms.py:60
+#: users/models.py:116 users/models.py:132 volunteers/forms.py:17
+#: volunteers/forms.py:48
 msgid "City"
 msgstr ""
 
-#: organisations/forms.py:16
-msgid "ZIP code"
+#: organisations/forms.py:14 organisations/forms.py:40
+#: organisations/models.py:52
+msgid "Postal code"
 msgstr ""
 
-#: organisations/forms.py:17
-msgid "Street and number"
+#: organisations/forms.py:15 organisations/models.py:51
+msgid "Address"
 msgstr ""
 
-#: organisations/forms.py:18
+#: organisations/forms.py:16 organisations/forms.py:42
+#: organisations/models.py:53 organisations/models.py:63
 msgid "Website"
 msgstr ""
 
-#: organisations/routes.py:26
-msgid "New organisation has been added successfully."
+#: organisations/forms.py:41
+msgid "Street and number"
 msgstr ""
 
-#: organisations/routes.py:53
-msgid "Organisation data has been updated successfully"
+#: organisations/models.py:49 users/models.py:115 users/models.py:131
+msgid "Phone"
 msgstr ""
 
-#: templates/all_organisations.jinja2:4 users/forms.py:12
-msgid "Organisations"
+#: organisations/models.py:54 users/models.py:121
+msgid "Created at"
 msgstr ""
 
-#: templates/board.jinja2:4 templates/navbar.jinja2:6
-#: templates/navbar.jinja2:11 templates/view_organisation.jinja2:4
-msgid "SMS Shopping for Seniors"
+#: organisations/models.py:61
+#: templates/organisations/all_organisations.jinja2:35
+#: templates/organisations/all_organisations.jinja2:42
+#: templates/organisations/all_organisations.jinja2:43
+#: templates/organisations/all_organisations.jinja2:54
+#: templates/users/show_users.jinja2:34 templates/users/show_users.jinja2:35
+#: templates/users/show_users.jinja2:36 templates/users/show_users.jinja2:45
+#: templates/users/show_users.jinja2:46 templates/users/show_users.jinja2:57
+#: templates/volunteers/show_volunteers.jinja2:35
+#: templates/volunteers/show_volunteers.jinja2:36
+#: templates/volunteers/show_volunteers.jinja2:47 users/models.py:99
+#: users/models.py:127 volunteers/models.py:61
+msgid "ID"
 msgstr ""
 
-#: templates/board.jinja2:63
-msgid "OpenStreetMap"
+#: organisations/models.py:62 templates/landing.jinja2:184
+#: templates/organisations/all_organisations.jinja2:34
+#: templates/organisations/all_organisations.jinja2:40
+#: templates/organisations/all_organisations.jinja2:47
+#: templates/users/show_users.jinja2:33 templates/users/show_users.jinja2:43
+#: templates/users/show_users.jinja2:50
+#: templates/volunteers/show_volunteers.jinja2:40
+msgid "Name"
 msgstr ""
 
-#: templates/board.jinja2:63
-msgid "contirbutors"
+#: organisations/models.py:64
+msgid "Created"
 msgstr ""
 
-#: templates/board.jinja2:91
-msgid "Take order"
+#: organisations/models.py:65
+#: templates/organisations/view_organisation.jinja2:27
+msgid "Employees"
 msgstr ""
 
-#: templates/landing.jinja2:94
+#: organisations/models.py:66
+#: templates/organisations/view_organisation.jinja2:45
+#: templates/volunteers/show_volunteers.jinja2:4
+msgid "Volunteers"
+msgstr ""
+
+#: organisations/routes.py:78
+msgid "Changes were successfully saved."
+msgstr ""
+
+#: templates/auth.jinja2:4 templates/board.jinja2:4 templates/landing.jinja2:4
+#: templates/messages/add_message.jinja2:4
+#: templates/messages/error_messages.jinja2:4
+#: templates/organisations/add_organisation.jinja2:4
+#: templates/organisations/all_organisations.jinja2:4
+#: templates/organisations/edit_organisation.jinja2:4
+#: templates/organisations/view_organisation.jinja2:4
+#: templates/users/add_user.jinja2:4 templates/users/edit_user_profile.jinja2:4
+#: templates/users/register-account.jinja2:4
+#: templates/users/show_users.jinja2:4
+#: templates/users/view_user_profile.jinja2:4
+#: templates/volunteers/add_volunteer.jinja2:4
+#: templates/volunteers/edit_volunteer.jinja2:4
+#: templates/volunteers/show_volunteers.jinja2:4
+msgid "SMS Shopping for senior"
+msgstr ""
+
+#: templates/auth.jinja2:4
+msgid "Login"
+msgstr ""
+
+#: templates/auth.jinja2:10
+msgid "Log in to application"
+msgstr ""
+
+#: templates/board.jinja2:4 templates/navbar.jinja2:65
+msgid "Messages"
+msgstr ""
+
+#: templates/board.jinja2:51 templates/board.jinja2:118
+msgid "No messages were found in selected area."
+msgstr ""
+
+#: templates/board.jinja2:52 templates/board.jinja2:118
+msgid "Please try expanding the search area or wait for new messages to come."
+msgstr ""
+
+#: templates/errors/page_not_found.jinja2:4
+#: templates/errors/server_internal.jinja2:4
+#: templates/errors/unauthorized.jinja2:4 templates/landing.jinja2:92
 msgid "SMS shopping for senior"
 msgstr ""
 
-#: templates/landing.jinja2:95
-msgid "We connect generations during isolation"
+#: templates/landing.jinja2:93
+msgid "At the time of isolation we bring together the generations"
 msgstr ""
 
-#: templates/landing.jinja2:101
+#: templates/landing.jinja2:99
 msgid "About Project"
 msgstr ""
 
-#: templates/landing.jinja2:104
+#: templates/landing.jinja2:102
 msgid ""
-"The main goal of our application is to connect and enable communication "
-"between seniors and volunteers in simple and intuitive\n"
+"The main goal of our application is to enable communication between "
+"seniors and volunteers in a simple and intuitive\n"
 "            way for both sides."
 msgstr ""
 
-#: templates/landing.jinja2:113
+#: templates/landing.jinja2:111
 msgid ""
-"Communication is establiszed via annnouncment board where senior is able "
-"to request for shopping via SMS and volunteer, after\n"
-"            contacting with senior, will bring them just to senior's door."
+"Seniors send SMS with his shopping list. Their requests appear on "
+"announcement borad. Volunteers can pick requests from their neighbourhood"
+" and then deliver it to seniors' doors."
 msgstr ""
 
-#: templates/landing.jinja2:121
+#: templates/landing.jinja2:118
 msgid "How it works"
 msgstr ""
 
-#: templates/landing.jinja2:122
+#: templates/landing.jinja2:119
 msgid ""
-"1. Senior send SMS with a list of needed grocery on provided\n"
-"    telephone number."
+"1. Senior sends SMS to a given number with his shopping list along with "
+"the name of a district that he lives in."
+msgstr ""
+
+#: templates/landing.jinja2:126
+msgid ""
+"Hi, I need 2l of water, 3 rolls and 1 bottle of cooking oil. I live in "
+"Faringdon, London."
 msgstr ""
 
 #: templates/landing.jinja2:130
 msgid ""
-"Hi, I need 2l of water, 3 rolls,\n"
-"                and 1 l of oil, i live in Gansk Zaspa"
+"Your request has been received. We are waiting for a volunteer to come "
+"forward."
 msgstr ""
 
-#: templates/landing.jinja2:135
+#: templates/landing.jinja2:139
 msgid ""
-"Your request has been collected. We\n"
-"                are waiting for someone to take care of it."
+"2. Volunteer selects a shopping list with a suitable location from the "
+"announcement board."
 msgstr ""
 
-#: templates/landing.jinja2:145
-msgid ""
-"2. The volunteer finds the\n"
-"        advertisement on the map and accepts the request."
+#: templates/landing.jinja2:148
+msgid "3. Volunteer delivers shopping to a given address."
 msgstr ""
 
 #: templates/landing.jinja2:154
 msgid ""
-"3. Volunteer provides the\n"
-"        needed products"
+"4. Senior is asked to give feedback. He can rate the service or report a "
+"complaint."
 msgstr ""
 
 #: templates/landing.jinja2:160
-msgid "4. Delivery message has been sent to the senior"
+msgid "Are you a representative of a volunteer organisation?"
 msgstr ""
 
-#: templates/landing.jinja2:166
-msgid ""
-"Your products should already be\n"
-"                delivered, do you have any comments ?"
-msgstr ""
-
-#: templates/landing.jinja2:171
+#: templates/landing.jinja2:165
 msgid "Everything was perfect :)"
 msgstr ""
 
-#: templates/landing.jinja2:179
+#: templates/landing.jinja2:173
 msgid "Are you a representative of an organisation that runs volunteering?"
 msgstr ""
 
-#: templates/landing.jinja2:185
-msgid "Contact with us"
+#: templates/landing.jinja2:179
+msgid "Contact us"
 msgstr ""
 
-#: templates/landing.jinja2:190 templates/show_volunteers.jinja2:7
-#: volunteers/forms.py:11
-msgid "Name"
-msgstr ""
-
-#: templates/landing.jinja2:196 templates/show_volunteers.jinja2:8
-#: volunteers/forms.py:12
+#: templates/landing.jinja2:190
 msgid "Surname"
 msgstr ""
 
-#: templates/landing.jinja2:213
+#: templates/landing.jinja2:196
+msgid "E-mail"
+msgstr ""
+
+#: templates/landing.jinja2:207
 msgid "Hello, "
 msgstr ""
 
-#: templates/landing.jinja2:216
+#: templates/landing.jinja2:210
 msgid "Send"
 msgstr ""
 
-#: templates/navbar.jinja2:20
-msgid "Announcement"
+#: templates/navbar.jinja2:11
+msgid "SMS Shopping for Seniors"
 msgstr ""
 
-#: templates/navbar.jinja2:26
-msgid "Profile"
-msgstr ""
-
-#: templates/navbar.jinja2:33 templates/show_volunteers.jinja2:15
-#: volunteers/forms.py:20
+#: templates/navbar.jinja2:19 templates/users/show_users.jinja2:37
+#: users/forms.py:16 users/models.py:105 users/models.py:117
+#: users/models.py:133 users/routes.py:48 volunteers/forms.py:19
+#: volunteers/models.py:67
 msgid "Organisation"
 msgstr ""
 
-#: templates/navbar.jinja2:41
-msgid "Add organisation"
+#: templates/navbar.jinja2:25 templates/navbar.jinja2:59
+msgid "My organisation"
 msgstr ""
 
-#: templates/navbar.jinja2:49
+#: templates/navbar.jinja2:30
+#: templates/organisations/all_organisations.jinja2:4
 msgid "All organisations"
 msgstr ""
 
-#: templates/navbar.jinja2:55
+#: templates/navbar.jinja2:33 templates/organisations/add_organisation.jinja2:4
+#: templates/organisations/add_organisation.jinja2:10
+msgid "Add organisation"
+msgstr ""
+
+#: templates/navbar.jinja2:40
+msgid "View volunteers"
+msgstr ""
+
+#: templates/navbar.jinja2:42
+#: templates/organisations/view_organisation.jinja2:60
+#: templates/volunteers/add_volunteer.jinja2:4
 msgid "Add volunteer"
 msgstr ""
 
-#: templates/navbar.jinja2:73
-msgid "Log out"
+#: templates/navbar.jinja2:48
+msgid "View employees"
 msgstr ""
 
-#: templates/navbar.jinja2:83
+#: templates/navbar.jinja2:49
+msgid "Add employee"
+msgstr ""
+
+#: templates/navbar.jinja2:71 templates/users/view_user_profile.jinja2:4
+msgid "Profile"
+msgstr ""
+
+#: templates/navbar.jinja2:78
+msgid "Errors"
+msgstr ""
+
+#: templates/messages/add_message.jinja2:4
+#: templates/messages/add_message.jinja2:9 templates/navbar.jinja2:86
+msgid "Add message"
+msgstr ""
+
+#: templates/navbar.jinja2:102
+msgid "Logout"
+msgstr ""
+
+#: templates/navbar.jinja2:111
 msgid "Log in"
 msgstr ""
 
-#: templates/show_volunteers.jinja2:6 users/forms.py:10
-msgid "Username"
+#: templates/errors/page_not_found.jinja2:4
+msgid "Page not found"
 msgstr ""
 
-#: templates/show_volunteers.jinja2:11
-msgid "Town"
+#: templates/errors/page_not_found.jinja2:9
+msgid "The requested site could not be found. (Code 404)"
 msgstr ""
 
-#: templates/show_volunteers.jinja2:12 volunteers/forms.py:19
-msgid "District"
-msgstr ""
-
-#: templates/show_volunteers.jinja2:13
-msgid "Created by"
-msgstr ""
-
-#: templates/show_volunteers.jinja2:14
-msgid "Created at"
-msgstr ""
-
-#: templates/show_volunteers.jinja2:16
-msgid "Is phone verified"
-msgstr ""
-
-#: templates/show_volunteers.jinja2:17
-msgid "Is active"
-msgstr ""
-
-#: templates/view_organisation.jinja2:23
-msgid "Workers"
-msgstr ""
-
-#: templates/view_organisation.jinja2:31
-msgid "Volunteers"
-msgstr ""
-
-#: templates/view_organisation.jinja2:40
+#: templates/errors/page_not_found.jinja2:11
 msgid ""
-"Unfortunatelly no volunteers has been registered. If you would like to "
-"add someone you can do this here"
+"The site you were looking for could not be found. If you think this "
+"resource should be\n"
+"            available, please contact us at"
 msgstr ""
 
-#: templates/forms/add_volunteer.jinja2:6 templates/view_organisation.jinja2:42
+#: templates/errors/page_not_found.jinja2:13
+#: templates/errors/server_internal.jinja2:13
+#: templates/errors/unauthorized.jinja2:13
+msgid "In any other case, please consider going somewhere nice, like "
+msgstr ""
+
+#: templates/errors/server_internal.jinja2:4
+msgid "Server Error"
+msgstr ""
+
+#: templates/errors/server_internal.jinja2:9
+msgid "An unexpected server error has occured. (Code 500)"
+msgstr ""
+
+#: templates/errors/server_internal.jinja2:11
+msgid ""
+"The server could not complete your request. Please try again later, and "
+"if this keeps happening\n"
+"            feel free to contact us at"
+msgstr ""
+
+#: templates/errors/unauthorized.jinja2:4
+msgid "Access denied"
+msgstr ""
+
+#: templates/errors/unauthorized.jinja2:9
+msgid "The request for this resource is unauthorized. (Code 401)"
+msgstr ""
+
+#: templates/errors/unauthorized.jinja2:11
+msgid ""
+"We couldn't authorize your request. If you are sure you are not working "
+"out\n"
+"            of bounds, please feel free to contact us at"
+msgstr ""
+
+#: templates/messages/error_messages.jinja2:4
+msgid "Error messages"
+msgstr ""
+
+#: templates/messages/error_messages.jinja2:48
+msgid "There are currently no messages with errors."
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:28
+#: templates/organisations/all_organisations.jinja2:56
+#: templates/users/show_users.jinja2:28 templates/users/show_users.jinja2:59
+#: templates/volunteers/show_volunteers.jinja2:26
+#: templates/volunteers/show_volunteers.jinja2:49
+msgid "Delete"
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:29
+#: templates/organisations/all_organisations.jinja2:65
+#: templates/volunteers/show_volunteers.jinja2:27
+#: templates/volunteers/show_volunteers.jinja2:56
+msgid "Edit"
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:45
+#: templates/users/show_users.jinja2:48
+#: templates/volunteers/show_volunteers.jinja2:38
+msgid "Are you sure?"
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:47
+#: templates/users/show_users.jinja2:50
+#: templates/volunteers/show_volunteers.jinja2:40
+msgid "Are you sure you want to delete"
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:48
+#: templates/users/show_users.jinja2:51
+#: templates/volunteers/show_volunteers.jinja2:41
+msgid "This action cannot be undone."
+msgstr ""
+
+#: templates/organisations/all_organisations.jinja2:52
+#: templates/users/show_users.jinja2:55
+#: templates/volunteers/show_volunteers.jinja2:45
+msgid "Cancel"
+msgstr ""
+
+#: templates/organisations/edit_organisation.jinja2:4
+msgid "Edit organisation"
+msgstr ""
+
+#: templates/organisations/edit_organisation.jinja2:10
+#: templates/users/edit_user_profile.jinja2:10
+#: templates/volunteers/edit_volunteer.jinja2:10
+msgid "Editing"
+msgstr ""
+
+#: templates/organisations/view_organisation.jinja2:4
+msgid "View organisation"
+msgstr ""
+
+#: templates/organisations/view_organisation.jinja2:12
+msgid "edit"
+msgstr ""
+
+#: templates/organisations/view_organisation.jinja2:39
+msgid ""
+"Currently there are no registered users for this organisation. If someone"
+" from your organisation wants to join, you can add them in"
+msgstr ""
+
+#: templates/organisations/view_organisation.jinja2:40
+msgid "Add users"
+msgstr ""
+
+#: templates/organisations/view_organisation.jinja2:59
+msgid ""
+"Sadly there are no volunteers registered. If someone wishes to help you "
+"can add them in"
+msgstr ""
+
+#: templates/users/add_user.jinja2:4 templates/users/register-account.jinja2:4
+msgid "Add user"
+msgstr ""
+
+#: templates/users/add_user.jinja2:10
+msgid "Add Employee"
+msgstr ""
+
+#: templates/users/edit_user_profile.jinja2:4
+msgid "Edit user"
+msgstr ""
+
+#: templates/users/show_users.jinja2:4
+msgid "Users"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:11
+msgid "User information"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:27
+msgid "Orders processed by you"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:59
+#: templates/users/view_user_profile.jinja2:111
+msgid "End"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:73
+#: templates/users/view_user_profile.jinja2:125
+msgid "Status : Waiting for approval and exact location from senior"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:79
+#: templates/users/view_user_profile.jinja2:131
+msgid "Status : Waiting for senior approval of delivery"
+msgstr ""
+
+#: templates/users/view_user_profile.jinja2:91
+msgid "Completed orders"
+msgstr ""
+
+#: templates/volunteers/add_volunteer.jinja2:10
 msgid "Add Volunteer"
 msgstr ""
 
-#: templates/view_user_profile.jinja2:4 templates/view_user_profile.jinja2:8
-msgid "Profile view"
+#: templates/volunteers/edit_volunteer.jinja2:4
+msgid "Edit volunteer"
 msgstr ""
 
-#: templates/forms/login.jinja2:8
-msgid "Log in to application"
+#: users/forms.py:10 users/forms.py:55 users/models.py:100 users/models.py:111
+#: volunteers/forms.py:11 volunteers/forms.py:43 volunteers/models.py:62
+msgid "Username"
 msgstr ""
 
-#: users/forms.py:14
-msgid "Repeat password"
+#: users/forms.py:12 users/forms.py:57 users/models.py:101 users/models.py:112
+#: users/models.py:128 volunteers/forms.py:12 volunteers/forms.py:44
+#: volunteers/models.py:63
+msgid "First name"
 msgstr ""
 
-#: users/forms.py:15
-msgid "Superuser"
+#: users/forms.py:13 users/forms.py:58 users/models.py:102 users/models.py:113
+#: users/models.py:129 volunteers/forms.py:14 volunteers/forms.py:45
+#: volunteers/models.py:64
+msgid "Last name"
 msgstr ""
 
-#: users/forms.py:16 volunteers/forms.py:21
+#: users/forms.py:19 volunteers/forms.py:20
 msgid "Register"
 msgstr ""
 
-#: users/forms.py:21
-msgid "This user name is already taken. Please choose other one."
+#: users/forms.py:25
+msgid "This phone number is already taken. Please choose another one."
 msgstr ""
 
-#: users/forms.py:26
-msgid "This email is already taken. Please choose other one."
+#: users/forms.py:33 users/forms.py:68
+msgid "This user name is already taken. Please choose another one."
 msgstr ""
 
-#: users/routes.py:28
-msgid "Account has been created successfully."
+#: users/forms.py:38 users/forms.py:73
+msgid "This email is already taken. Please choose another one."
 msgstr ""
 
-#: volunteers/forms.py:11
-msgid "Please, give name"
+#: users/forms.py:63
+msgid "Save changes"
 msgstr ""
 
-#: volunteers/forms.py:12
-msgid "Please, give surname"
+#: users/models.py:106 volunteers/models.py:68
+msgid "Town"
 msgstr ""
 
-#: volunteers/forms.py:14
-msgid "Please, give phone number"
+#: users/models.py:118 users/models.py:134
+msgid "Position"
 msgstr ""
 
-#: volunteers/forms.py:16
-msgid "Email address"
+#: users/models.py:119 users/models.py:135
+msgid "Special privileges"
 msgstr ""
 
-#: volunteers/forms.py:16
-msgid "Please, give email"
+#: users/models.py:120
+msgid "Created by"
 msgstr ""
 
-#: volunteers/forms.py:17
-msgid "Email is incorrect"
+#: users/models.py:122 users/models.py:136
+msgid "Is active"
 msgstr ""
 
-#: volunteers/forms.py:18
-msgid "Please, give city"
+#: users/routes.py:105
+msgid "All changes were successfully saved."
 msgstr ""
 
-#: volunteers/forms.py:19
-msgid "Please, give district"
+#: volunteers/forms.py:18 volunteers/forms.py:49
+msgid "District"
 msgstr ""
 
-#: volunteers/forms.py:20
-msgid "Please, give name of organisation"
+#: volunteers/forms.py:25 volunteers/forms.py:56
+msgid "This email is already used."
 msgstr ""
 
-#: volunteers/forms.py:27
-msgid "This email address is taken"
+#: volunteers/forms.py:50
+msgid "Active"
 msgstr ""
 
-#: volunteers/routes.py:25
-msgid "There is no such organisation"
+#: volunteers/routes.py:48
+msgid "The volunteer was successfully created."
 msgstr ""
 
-#: volunteers/routes.py:37
-msgid "Added volutneer: "
-msgstr ""
-
-#: volunteers/routes.py:66
-msgid "There is no such volunteer in your organisation."
+#: volunteers/routes.py:115
+msgid "All changes saved."
 msgstr ""
 

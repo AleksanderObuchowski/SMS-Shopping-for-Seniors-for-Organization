@@ -122,15 +122,12 @@
                 <div uk-dropdown>
                     <ul class="uk-nav uk-dropdown-nav">
                         <li>
-                            <a href="{{ url_for(request.endpoint, lang_code='en') }}">English</a>
+                            <a href="{{ url_for('landing.landing_view', lang_code='en') }}">English</a>
                         </li>
-                        <li>
-                            <a href="{{ url_for(request.endpoint, lang_code='de') }}">German</a>
-                        </li>
+
                         <li>
                             <a href="{{ url_for(request.endpoint, lang_code='pl') }}">Polish</a>
                         </li>
-                    </ul>
                     </ul>
                 </div>
             </div>
