@@ -9,6 +9,7 @@ config.py
 
 # ignore programming environments
 .vscode/
+
 .idea/
 
 # ignore babel
