@@ -8,13 +8,10 @@
     <div class="uk-card uk-card-body uk-card-default uk-width-3-4 uk-margin-auto uk-margin-top">
         <h3 class="uk-card-title">{{ _('An unexpected server error has occured. (Code 500)') }}</h3>
         <p>
-        {{
-            _("The server could not complete your request. Please try again later, and if this keeps happening
-            feel free to contact us at")
-        }} contact@artifai.pl
-        {{
-            _("In any other case, please consider going somewhere nice, like ")
-        }} <a href="{{ url_for('board.view') }}">messages page</a>.
+            {{ _("The server could not complete your request. Please try again later, and if this keeps happening
+            feel free to contact us at") }} contact@artifai.pl
+            {{ _("In any other case, please consider going somewhere nice, like ") }} <a
+                href="{{ url_for('board.view') }}">messages page</a>.
         </p>
     </div>
 {% endblock %}

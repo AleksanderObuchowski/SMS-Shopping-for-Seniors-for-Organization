@@ -1,9 +1,13 @@
 {% extends 'base.jinja2' %}
 
+{% block title %}
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Add user') }}</title>
+{% endblock title %}
+
 {% block content %}
     <div class="uk-flex uk-flex-center uk-flex-middle uk-margin-large ">
         <div class="uk-card-body uk-card-default">
-            <h3 class="uk-card-title uk-text-center">{{ _('Add User')}}</h3>
+            <h3 class="uk-card-title uk-text-center">{{ _('Add Employee') }}</h3>
             {% if message %}
                 {% if success %}
                     <div class="uk-alert uk-alert-success">
@@ -30,9 +34,9 @@
 
                                 {{ f(class="uk-input uk-form-width-small") }}
                             </div>
-                        {% elif f.id == 'organization' %}
+                        {% elif f.id == 'organisation' %}
                             {# display only if superuser#}
-                            {% if current_user.is_superuser%}
+                            {% if current_user.is_superuser %}
                                 <div class="uk-margin">
                                     <div class="uk-form-label">
                                         {{ f.label(class="form-control-label") }}
@@ -57,9 +61,9 @@
                                     {% endif %}
                                 </div>
                             {% endif %}
-                            {% elif f.id == 'is_superuser' %}
+                        {% elif f.id == 'is_superuser' %}
                             {# display only if superuser#}
-                            {% if current_user.is_superuser%}
+                            {% if current_user.is_superuser %}
                                 <div class="uk-margin">
                                     <div class="uk-form-label">
                                         {{ f.label(class="form-control-label") }}
@@ -112,8 +116,6 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-
-
                 </form>
             </div>
         </div>

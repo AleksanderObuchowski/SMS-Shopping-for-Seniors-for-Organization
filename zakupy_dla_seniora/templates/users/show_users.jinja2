@@ -1,11 +1,12 @@
 {% extends 'base.jinja2' %}
 
 {% block title %}
-    <title>{{ _('View employees')}}</title>
+    <title>{{ _('SMS Shopping for senior') }} - {{ _('Users') }}</title>
 {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.20/datatables.min.js"></script>
 {% endblock head %}
 
@@ -21,10 +22,10 @@
 
         <table id="sortableTable" class="display cell-border row-border text-center table-light">
             <thead class="uk-background-muted">
-                {% for column in columns %}
-                    <th>{{ column }}</th>
-                {% endfor %}
-                <th>{{ _('Delete') }}</th>
+            {% for column in columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
+            <th>{{ _('Delete') }}</th>
             </thead>
             {% for user in data %}
                 <tr>
@@ -46,14 +47,16 @@
                                 <div class="uk-modal-dialog uk-modal-body">
                                     <h2 class="uk-modal-title">{{ _('Are you sure?') }}</h2>
                                     <p class="uk-text-large">
-                                        {{ _('Are you sure you want to delete')}} {{ user[_('Name')] }}?
+                                        {{ _('Are you sure you want to delete') }} {{ user[_('Name')] }}?
                                         {{ _('This action cannot be undone.') }}
                                     </p>
                                     <p class="uk-text-right">
-                                        <button class="uk-button uk-button-default uk-modal-close" type="button">{{ _('Cancel') }}</button>
+                                        <button class="uk-button uk-button-default uk-modal-close"
+                                                type="button">{{ _('Cancel') }}</button>
 
                                         <a href="{{ url_for('users.delete_user', user_id=user[_('ID')]) }}">
-                                            <button class="uk-button uk-button-danger" type="button">{{ _('Delete') }}</button>
+                                            <button class="uk-button uk-button-danger"
+                                                    type="button">{{ _('Delete') }}</button>
                                         </a>
                                     </p>
                                 </div>
@@ -68,20 +71,20 @@
     </div>
 
     <style>
-    .dataTables_length {
-        margin-bottom: 1rem;
-        white-space: nowrap;
-    }
+        .dataTables_length {
+            margin-bottom: 1rem;
+            white-space: nowrap;
+        }
 
     </style>
     <script>
-        $.extend( $.fn.dataTable.defaults, {
+        $.extend($.fn.dataTable.defaults, {
             responsive: true,
-        } );
-        $('#sortableTable').DataTable({
-            "order": [[ 0, 'asc' ]]
         });
-        $(document).ready(function() {
+        $('#sortableTable').DataTable({
+            "order": [[0, 'asc']]
+        });
+        $(document).ready(function () {
             let select = document.getElementsByName("sortableTable_length");
             console.log(select);
             select[0].classList.add("uk-width-auto");

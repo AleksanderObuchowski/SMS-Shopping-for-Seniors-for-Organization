@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
+from flask_login import current_user, login_required
+from flask_babel import _
+
 from zakupy_dla_seniora import bcrypt
 from zakupy_dla_seniora.auth.functions import employee_role_required
-from flask_login import current_user, login_required
-from zakupy_dla_seniora.organisations.models import Organisations
+from zakupy_dla_seniora.organisations.models import Organisation
 from zakupy_dla_seniora.users.functions import random_password
 from zakupy_dla_seniora.volunteers.forms import AddVolunteerForm, EditVolunteerForm
-from zakupy_dla_seniora.volunteers.models import Volunteers
+from zakupy_dla_seniora.users.models import User
 
 volunteers = Blueprint('volunteers', __name__, url_prefix='/<lang_code>')
 
@@ -25,26 +27,28 @@ def add_volunteer():
     """
     if current_user.is_superuser:
         organisations = [
-            (org_id, name) for org_id, name in Organisations.query.with_entities(
-                Organisations.id, Organisations.name
+            (org_id, name) for org_id, name in Organisation.query.with_entities(
+                Organisation.id, Organisation.name
             ).all()
         ]
     else:
-        organisations = (current_user.organisation_id, Organisations.get_name_by_id(current_user.id))
+        organisations = [(current_user.organisation_id, Organisation.get_name_by_id(current_user.organisation_id))]
 
     form = AddVolunteerForm()
     form.organisation.choices = organisations
-    print(form.organisation.data)
+
     if request.method == 'POST' and form.validate_on_submit():
         passwd = random_password()
         ph = bcrypt.generate_password_hash(passwd).decode('utf-8')
-        vol = Volunteers(first_name=form.first_name.data, last_name=form.last_name.data,
-                         phone=form.phone_number.data, email=form.email.data, org_id=form.organisation.data,
-                         town=form.town.data, distr=form.district.data, pass_hash=ph,
-                         created_by=current_user.id)
+        vol = User(username=form.username.data, email=form.email.data, organisation_id=form.organisation.data,
+                   password_hash=ph)
+        vol.edit_volunteer(**form.to_dict_edit())
         vol.save()
         print("Dodano wolontariusza: ", form.first_name, " ", form.last_name, " Hasło: ", passwd)
-        return redirect(url_for('volunteers.show_all'))
+        msg = _('The volunteer was successfully created.')
+        return redirect(url_for('volunteers.show_all', msg=msg))
+    if 'msg' in request.args:
+        return render_template('volunteers/add_volunteer.jinja2', form=form, msg=request.args['msg'], success=True)
     return render_template('volunteers/add_volunteer.jinja2', form=form)
 
 
@@ -57,27 +61,30 @@ def show_all():
 
     :returns All Volunteers for superuser and Organisation specific Volunteers for organisation employee.
     """
-    if current_user.is_employee:
-        data = Volunteers.get_all_as_dict(current_user.organisation_id)
-    else:
-        data = Volunteers.get_all_as_dict()
-    columns = Volunteers.get_columns()
-    return render_template('volunteers/show_volunteers.jinja2', volunteers=data, columns=columns)
+    data = User.get_all_volunteers_as_dict()
+    if 'msg' in request.args:
+        return render_template('volunteers/show_volunteers.jinja2', volunteers=data, columns=data[0].keys(),
+                               msg=request.args['msg'])
+    return render_template('volunteers/show_volunteers.jinja2', volunteers=data, columns=data[0].keys())
 
 
+@volunteers.route('/volunteer')
 @volunteers.route('/volunteer/<volunteer_id>')
 @login_required
-def show(volunteer_id):
+def show(volunteer_id=None):
     """
     Show specific volunteer.
     :param volunteer_id:
     :return volunteer profile template or access denied template:
     """
-    v = Volunteers.get_by_id(volunteer_id)
-    return render_template('volunteers/view_volunteer_profile.jinja2', volunteer=v)
+    volunteer = User.get_by_id(volunteer_id)
+    if not volunteer:
+        abort(404)
+    return render_template('volunteers/view_volunteer_profile.jinja2', volunteer=volunteer)
 
 
-@volunteers.route('/volunteer/<volunteer_id>/edit', methods=["GET", "POST"])
+@volunteers.route('/volunteer/edit')
+@volunteers.route('/volunteer/edit/<volunteer_id>', methods=["GET", "POST"])
 @login_required
 def edit(volunteer_id):
     """
@@ -88,47 +95,32 @@ def edit(volunteer_id):
     :param volunteer_id:
     :return Volunteer profile edit page or board view on success or 401 on access denied:
     """
-    if not current_user.is_superuser or not current_user.is_employee:
-        if volunteer_id != current_user.id:
-            return redirect(url_for('volunteers.edit', volunteer_id=current_user.id))
+    volunteer_id = volunteer_id if volunteer_id else current_user.id
+    if not current_user.is_superuser and not current_user.is_employee:
+        return redirect(url_for('volunteers.edit', volunteer_id=current_user.id))
     elif current_user.is_employee:
-        v = Volunteers.get_by_id(volunteer_id)
-        if v.organisation_id != current_user.organisation_id:
+        volunteer = User.get_by_id(volunteer_id)
+        if volunteer.organisation_id != current_user.organisation_id or volunteer.is_superuser:
             abort(401)
 
     # Initially fill form
-    v = Volunteers.get_by_id(volunteer_id)
-    form = EditVolunteerForm()
+    volunteer = User.get_by_id(volunteer_id)
+    if not volunteer:
+        abort(404)
 
+    form = EditVolunteerForm(obj=volunteer)
     if request.method == "POST" and form.validate_on_submit():
-        v.username = form.username.data
-        v.first_name = form.first_name.data
-        v.last_name = form.last_name.data
-        v.phone_number = form.phone_number.data
-        v.email = form.email.data
-        v.town = form.town.data
-        v.district = form.district.data
-        v.organisation_id = form.organisation.data
-        v.is_active = form.is_active.data
-        v.save()
-        flash('Użytkownik został dodany!', 'success')
-        return redirect(url_for('board.view'))
-
-    elif request.method == "GET":
-        form.username.data = v.username
-        form.first_name.data = v.first_name
-        form.last_name.data = v.last_name
-        form.phone_number.data = v.phone_number
-        form.email.data = v.email
-        form.town.data = v.town
-        form.district.data = v.district
-        form.organisation.data = v.organisation_id
-        form.is_active.data = v.is_active
-
-    return render_template('volunteers/edit_volunteer.jinja2', form=form)
+        volunteer.edit_volunteer(**form.to_dict())
+        volunteer.save()
+        msg = _('All changes saved.')
+        return redirect(url_for('volunteers.edit', volunteer_id=volunteer.id, msg=msg))
+    if 'msg' in request.args:
+        return render_template('volunteers/edit_volunteer.jinja2', form=form, volunteer=volunteer,
+                               msg=request.args['msg'], success=True)
+    return render_template('volunteers/edit_volunteer.jinja2', form=form, volunteer=volunteer)
 
 
-@volunteers.route('/volunteer/<volunteer_id>/delete')
+@volunteers.route('/volunteer/delete/<volunteer_id>')
 @employee_role_required
 def delete(volunteer_id):
     """
@@ -136,11 +128,11 @@ def delete(volunteer_id):
     :param volunteer_id:
     :return redirect to board.view:
     """
-    v = Volunteers.get_by_id(volunteer_id)
+    volunteer = User.get_by_id(volunteer_id)
     if current_user.is_employee:
-        if v.organisation_id != current_user.organisation_id:
+        if volunteer.organisation_id != current_user.organisation_id:
             abort(401)
 
-    v.delete()
-    flash('Wolontariusz został usunięty z bazy', 'success')
-    return redirect(url_for('board.view'))
+    volunteer.delete()
+    msg = f"{_('Volunteer')} {volunteer.username} {_('was successfully deleted')}."
+    return redirect(url_for('volunteers.show_all', msg=msg))

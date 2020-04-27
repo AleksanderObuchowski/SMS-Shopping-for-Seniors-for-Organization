@@ -4,7 +4,7 @@ from flask_babel import _
 
 from zakupy_dla_seniora.auth.functions import superuser_role_required, employee_role_required
 from zakupy_dla_seniora.organisations.forms import AddOrganisationForm, EditOrganisationForm
-from zakupy_dla_seniora.organisations.models import Organisations
+from zakupy_dla_seniora.organisations.models import Organisation
 
 
 organisations = Blueprint('organisations', __name__, url_prefix='/<lang_code>')
@@ -13,7 +13,7 @@ organisations = Blueprint('organisations', __name__, url_prefix='/<lang_code>')
 @organisations.route('/organisation')
 @organisations.route('/organisation/<org_id>')
 def organisation(org_id=None):
-    org = Organisations.get_by_id(org_id).to_dict_view_organisation()
+    org = Organisation.get_by_id(org_id).to_dict_view_organisation()
     if not org:
         abort(404)
     name = org.pop('Name')
@@ -26,7 +26,7 @@ def organisation(org_id=None):
 @organisations.route('/organisations', methods=['GET'])
 @superuser_role_required
 def get_all_organisations():
-    orgs = Organisations.query.all()
+    orgs = Organisation.query.all()
     orgs = [org.to_dict_view_all_organisations() for org in orgs]
     if 'msg' in request.args:
         return render_template('organisations/all_organisations.jinja2', organisations=orgs, columns=orgs[0].keys(),
@@ -37,7 +37,7 @@ def get_all_organisations():
 @organisations.route('/organisation/delete/<org_id>')
 @superuser_role_required
 def delete_organisation(org_id):
-    org = Organisations.get_by_id(org_id)
+    org = Organisation.get_by_id(org_id)
     msg = f"{_('Organisation')} {org.name} {_('has been deleted')}."
     org.delete()
     return redirect(url_for('organisations.get_all_organisations', msg=msg))
@@ -48,8 +48,8 @@ def delete_organisation(org_id):
 def add_organisation():
     form = AddOrganisationForm()
     if request.method == 'POST' and form.validate_on_submit():
-        if not Organisations.get_by_name(form.name.data):
-            org = Organisations(**form.to_dict(), added_by=current_user.id)
+        if not Organisation.get_by_name(form.name.data):
+            org = Organisation(**form.to_dict(), added_by=current_user.id)
             org.save()
             msg = f"{_('Organisation')} {org.name} {_('has been successfully added')}."
             return redirect(url_for('organisations.add_organisation', msg=msg))
@@ -67,7 +67,7 @@ def add_organisation():
 @organisations.route('/organisation/edit/<org_id>', methods=['GET', 'POST'])
 @employee_role_required
 def edit_organisation(org_id=None):
-    org = Organisations.get_by_id(org_id)
+    org = Organisation.get_by_id(org_id)
     if not org:
         abort(404)
     form = EditOrganisationForm(obj=org)

@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from zakupy_dla_seniora.config import Config
 from flask_babel import Babel
-
+from flask import session
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
@@ -55,6 +55,12 @@ def create_app(config_class=Config):
             return lang
         else:
             return 'en'
+
+    # @babel.localeselector
+    # def get_locale():
+    #     if request.args.get('lang_code'):
+    #         session['lang_code'] = request.args.get('lang_code')
+    #     return session.get('lang_code', 'en')
 
     @app.url_defaults
     def set_language_code(endpoint, values):

@@ -8,13 +8,10 @@
     <div class="uk-card uk-card-body uk-card-default uk-width-3-4 uk-margin-auto uk-margin-top">
         <h3 class="uk-card-title">{{ _('The requested site could not be found. (Code 404)') }}</h3>
         <p>
-        {{
-            _("The site you were looking for could not be found. If you think this resource should be
-            available, please contact us at")
-        }} contact@artifai.pl
-        {{
-            _("In any other case, please consider going somewhere nice, like ")
-        }} <a href="{{ url_for('board.view') }}">messages page</a>.
+            {{ _("The site you were looking for could not be found. If you think this resource should be
+            available, please contact us at") }} contact@artifai.pl
+            {{ _("In any other case, please consider going somewhere nice, like ") }} <a
+                href="{{ url_for('board.view') }}">messages page</a>.
         </p>
     </div>
 {% endblock %}

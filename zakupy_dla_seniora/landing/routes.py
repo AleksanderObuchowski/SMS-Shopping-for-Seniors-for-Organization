@@ -1,4 +1,5 @@
 from flask import Blueprint, g, redirect, render_template, request, url_for
+from flask_login import current_user
 
 from zakupy_dla_seniora import config
 
@@ -6,7 +7,9 @@ landing = Blueprint('landing', __name__)
 
 
 @landing.route('/<lang_code>/', methods=['GET'])
-def landing_view():
+def landing_view(lang_code=None):
+    if current_user.is_authenticated:
+        return redirect(url_for('board.view', lang_code=lang_code))
     return render_template('landing.jinja2')
 
 
