@@ -6,7 +6,7 @@ Flask-Bcrypt==0.7.1
 Flask-WTF==0.14.3
 requests==2.23.0
 Flask-Babel==1.0.0
-numpy==1.18.3
+numpy==1.22.0
 pycld2==0.41
 polyglot==16.7.4
 twilio==6.38.1
